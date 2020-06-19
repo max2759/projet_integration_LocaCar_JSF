@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Importation_DB:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Importation_DB_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Importation_DB/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Importation_DB" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
