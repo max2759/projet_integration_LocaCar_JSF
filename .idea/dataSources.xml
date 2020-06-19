@@ -7,5 +7,25 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/projet_bac_info2</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="projet_bac_info2/EclipseLink" uuid="d3a7d478-3f97-4787-b44c-e52a1f9271c9">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>EclipseLink
+
+D:/ProjetSGBD/Importation_DB/src/META-INF/persistence.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/projet_bac_info2</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="jdbc/jpa" uuid="2285b623-ca32-4365-a468-e182e25d7af0">
+      <driver-ref>mysql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Tomcat.Resource
+
+D:/ProjetSGBD/Importation_DB/web/META-INF/context.xml</remarks>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/projet_bac_info2?autoReconnect=true</jdbc-url>
+    </data-source>
   </component>
 </project>
