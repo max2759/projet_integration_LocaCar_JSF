@@ -9,6 +9,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ads", schema = "projet_bac_info2")
+@NamedQueries({
+        @NamedQuery(name="findAds",
+                query = "SELECT a from AdsEntity a where a.carsByIdCars.id = :id")
+})
+
 public class AdsEntity {
     private int id;
     private double price;
