@@ -1,19 +1,23 @@
 package entities;
 
+import enumeration.EnumFuel;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cars", schema = "projet_bac_info2", catalog = "")
+@Table(name = "cars", schema = "projet_bac_info2")
 public class CarsEntity {
     private int id;
     private String color;
     private Date releaseYear;
     private int kilometer;
     private int horsePower;
-    private Object fuel;
+
+
+    private EnumFuel enumFuel;
     private String picture;
     private boolean isActive;
     private Collection<AdsEntity> adsById;
@@ -72,14 +76,15 @@ public class CarsEntity {
         this.horsePower = horsePower;
     }
 
+    @Enumerated(EnumType.STRING)
     @Basic
     @Column(name = "Fuel", nullable = false)
-    public Object getFuel() {
-        return fuel;
+    public EnumFuel getEnumFuel() {
+        return enumFuel;
     }
 
-    public void setFuel(Object fuel) {
-        this.fuel = fuel;
+    public void setEnumFuel(EnumFuel enumFuel) {
+        this.enumFuel = enumFuel;
     }
 
     @Basic
@@ -113,13 +118,13 @@ public class CarsEntity {
                 isActive == that.isActive &&
                 Objects.equals(color, that.color) &&
                 Objects.equals(releaseYear, that.releaseYear) &&
-                Objects.equals(fuel, that.fuel) &&
+                Objects.equals(enumFuel, that.enumFuel) &&
                 Objects.equals(picture, that.picture);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, color, releaseYear, kilometer, horsePower, fuel, picture, isActive);
+        return Objects.hash(id, color, releaseYear, kilometer, horsePower, enumFuel, picture, isActive);
     }
 
     @OneToMany(mappedBy = "carsByIdCars")

@@ -1,17 +1,20 @@
 package entities;
 
+import enumeration.EnumFuel;
+import enumeration.EnumTypesAds;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "ads", schema = "projet_bac_info2", catalog = "")
+@Table(name = "ads", schema = "projet_bac_info2")
 public class AdsEntity {
     private int id;
     private double price;
     private Date dateStart;
     private Date dateEnd;
-    private Object typesAds;
+    private EnumTypesAds typesAds;
     private String label;
     private boolean isActive;
     private CarsEntity carsByIdCars;
@@ -57,13 +60,17 @@ public class AdsEntity {
         this.dateEnd = dateEnd;
     }
 
+
+    @Enumerated(EnumType.STRING)
     @Basic
     @Column(name = "Types_Ads", nullable = false)
-    public Object getTypesAds() {
+    public EnumTypesAds getTypesAds() {
         return typesAds;
     }
 
-    public void setTypesAds(Object typesAds) {
+
+
+    public void setTypesAds(EnumTypesAds typesAds) {
         this.typesAds = typesAds;
     }
 

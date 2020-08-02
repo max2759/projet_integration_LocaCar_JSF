@@ -1,16 +1,18 @@
 package entities;
 
+import enumeration.EnumOrderStatut;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "orders", schema = "projet_bac_info2", catalog = "")
+@Table(name = "orders", schema = "projet_bac_info2")
 public class OrdersEntity {
     private int id;
     private Date orderDate;
-    private Object orderStatut;
+    private EnumOrderStatut orderStatut;
     private Collection<ContractsEntity> contractsById;
     private Collection<InvoicesEntity> invoicesById;
     private UsersEntity usersByIdUsers;
@@ -36,13 +38,15 @@ public class OrdersEntity {
         this.orderDate = orderDate;
     }
 
+
+    @Enumerated(EnumType.STRING)
     @Basic
     @Column(name = "Order_Statut", nullable = false)
-    public Object getOrderStatut() {
+    public EnumOrderStatut getOrderStatut() {
         return orderStatut;
     }
 
-    public void setOrderStatut(Object orderStatut) {
+    public void setOrderStatut(EnumOrderStatut orderStatut) {
         this.orderStatut = orderStatut;
     }
 

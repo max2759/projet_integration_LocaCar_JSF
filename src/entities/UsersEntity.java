@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "users", schema = "projet_bac_info2", catalog = "")
+@Table(name = "users", schema = "projet_bac_info2")
 public class UsersEntity {
     private int id;
     private String surname;

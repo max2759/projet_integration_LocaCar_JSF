@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "roles_permissions", schema = "projet_bac_info2", catalog = "")
+@Table(name = "roles_permissions", schema = "projet_bac_info2")
 public class RolesPermissionsEntity {
     private int id;
     private boolean isActive;
