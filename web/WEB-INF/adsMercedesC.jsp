@@ -1,9 +1,9 @@
 <%@ page pageEncoding="UTF-8" %>
-<jsp:include page="header.jsp" />
+<jsp:include page="header.jsp"/>
 
 <!----->
 <h2>Annonce</h2>
-<table class = 'table table-hover'>
+<table class='table table-hover'>
     <thead>
     <tr>
         <th>Model</th>
@@ -18,19 +18,27 @@
     </thead>
 
     <tbody>
-        <tr>
-            <td> ${cars.modelsByIdModels.label} </td>
-            <td> ${cars.carTypesByIdCarTypes.label} </td>
-            <td> ${cars.color} </td>
-            <td> <fmt:formatDate pattern="dd-MM-yyyy" value="${cars.releaseYear}" /></td>
-            <td> ${cars.kilometer} </td>
-            <td> ${cars.horsePower} </td>
-            <td> ${cars.enumFuel} </td>
-            <td><fmt:formatNumber type = "number" maxFractionDigits = "2" value = "${ads.price}" />€</td>
-        </tr>
+    <tr>
+        <td> ${cars.modelsByIdModels.label} </td>
+        <td> ${cars.carTypesByIdCarTypes.label} </td>
+        <td> ${cars.color} </td>
+        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${cars.releaseYear}"/></td>
+        <td> ${cars.kilometer} </td>
+        <td> ${cars.horsePower} </td>
+        <td> ${cars.enumFuel} </td>
+        <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${ads.price}"/>€</td>
+    </tr>
 
     </tbody>
 </table>
+
+<a href="addBasket">Ajouter au panier.</a>
+<form name="formCar" id="formCar" action="addBasket" method="post" class="">
+    <input name="idCars" id="${cars.id}" type="hidden" value="${cars.id}"/>
+    <input name="idAds" id="${ads.id}" type="hidden" value="${ads.id}"/>
+    <br \><br \>
+    <input name="send" id="boutonSubmit" type="submit" value="Ajouter au panier" class="btn btn-info"/>
+</form>
 </div>
 
 </body>

@@ -27,15 +27,15 @@ public class Ads extends HttpServlet {
         AdsService adsService = new AdsService();
         ads = adsService.listerTous();
 
-        request.setAttribute( "ads", ads );
+        request.setAttribute("ads", ads);
 
 
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 }

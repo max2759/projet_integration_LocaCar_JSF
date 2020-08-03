@@ -35,12 +35,11 @@ public class AdsMercedesC extends HttpServlet {
         try {
             tx = em.getTransaction();
             tx.begin();
-            cars = carsService.consulter(em,4);
+            cars = carsService.consulter(em, 4);
             tx.commit();
         } catch (Exception ex) {
-            if (tx !=null && tx.isActive()) tx.rollback();
-        }
-        finally {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
             em.close();
         }
 
@@ -53,25 +52,24 @@ public class AdsMercedesC extends HttpServlet {
         try {
             tx = em.getTransaction();
             tx.begin();
-            ads = carsService.searchAds(em,4);
+            ads = carsService.searchAds(em, 4);
             tx.commit();
         } catch (Exception ex) {
-            if (tx !=null && tx.isActive()) tx.rollback();
-        }
-        finally {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
             em.close();
         }
 
-        request.setAttribute( "cars", cars );
-        request.setAttribute( "ads", ads );
+        request.setAttribute("cars", cars);
+        request.setAttribute("ads", ads);
 
 
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 }

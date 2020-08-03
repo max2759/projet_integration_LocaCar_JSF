@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>Ajout de véhicule</title>
-    <link type="text/css" rel="stylesheet" href="<c:url value=""/>" />
+    <link type="text/css" rel="stylesheet" href="<c:url value=""/>"/>
 </head>
 <body>
 <!----->
 <h2>Annonce</h2>
-<table class = 'table table-hover'>
+<table class='table table-hover'>
     <thead>
     <tr>
         <th>Label Cars</th>
@@ -27,13 +27,13 @@
 
     <c:forEach var='listeAds' items='${ads}'>
         <tr>
-                        <td> ${listeAds.carsByIdCars.modelsByIdModels.label} </td>
-                        <td> ${listeAds.price} </td>
-                        <td> ${listeAds.dateStart} </td>
-                        <td> ${listeAds.dateEnd} </td>
-                        <td> ${listeAds.typesAds} </td>
-                        <td> ${listeAds.label} </td>
-                     </tr>
+            <td> ${listeAds.carsByIdCars.modelsByIdModels.label} </td>
+            <td> ${listeAds.price} </td>
+            <td> ${listeAds.dateStart} </td>
+            <td> ${listeAds.dateEnd} </td>
+            <td> ${listeAds.typesAds} </td>
+            <td> ${listeAds.label} </td>
+        </tr>
 
     </c:forEach>
     </tbody>

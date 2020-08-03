@@ -16,18 +16,19 @@ public class CarsService {
 
     /**
      * méthode Consulter d'une entité à  partir de la bd
+     *
      * @param em
      * @param id
      * @return
      */
-    public  CarsEntity consulter(EntityManager em, int id)
-    {
+    public CarsEntity consulter(EntityManager em, int id) {
         return em.find(CarsEntity.class, id);
     }
 
 
     /**
      * Méthode pour connaître l'annonce de la voiture
+     *
      * @param em
      * @param ID
      * @return

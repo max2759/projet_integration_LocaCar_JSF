@@ -7,4 +7,4 @@ public enum EnumTypesAds {
     LOCATIONCD,
     LEASING;
 
-    }
+}
