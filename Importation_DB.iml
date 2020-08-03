@@ -15,7 +15,7 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
-          <factory-entry name="projet_bac_info2" value="bfe00e94-f802-40ee-bd23-f2ec6010f11c" />
+          <factory-entry name="projet_bac_info2" value="d3a7d478-3f97-4787-b44c-e52a1f9271c9" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
