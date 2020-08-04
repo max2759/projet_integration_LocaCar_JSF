@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="projet_bac_info2" uuid="bfe00e94-f802-40ee-bd23-f2ec6010f11c">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/projet_bac_info2</jdbc-url>
-    </data-source>
     <data-source source="LOCAL" name="projet_bac_info2/EclipseLink" uuid="d3a7d478-3f97-4787-b44c-e52a1f9271c9">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
@@ -16,6 +10,9 @@
 D:/ProjetSGBD/Importation_DB/src/META-INF/persistence.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/projet_bac_info2</jdbc-url>
+      <driver-properties>
+        <property name="serverTimezone" value="UTC" />
+      </driver-properties>
     </data-source>
   </component>
 </project>
