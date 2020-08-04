@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/ads")
+@WebServlet("/annonces")
 
 public class Ads extends HttpServlet {
     public static final String VUE = "/WEB-INF/ads.jsp";

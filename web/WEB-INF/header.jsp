@@ -31,8 +31,16 @@
                     Annonces
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/ads"/>">Voir annonces</a>
+                    <a class="dropdown-item" href="<c:url value="/annonces"/>">Voir annonces</a>
                     <a class="dropdown-item" href="#">Ajouter annonce</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Catégorie
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="<c:url value="/categorie"/>">Ajouter catégorie</a>
                 </div>
             </li>
         </ul>
