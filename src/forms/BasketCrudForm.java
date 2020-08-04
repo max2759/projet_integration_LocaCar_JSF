@@ -15,7 +15,7 @@ public class BasketCrudForm {
     /**
      * Méthode d'ajout au panier
      * @param request
-     * @return
+     * @return AdsForm
      */
 
     public AdsForm addBasket(HttpServletRequest request) {
@@ -30,8 +30,9 @@ public class BasketCrudForm {
 //            HttpSession session = request.getSession();
             if (this.basketForm == null) {
                 basketForm = new BasketForm(request);
-                adsForm = null;
             }
+
+            adsForm = null;
             basketForm.add(idAds, ads);
         }
         return adsForm;
@@ -40,7 +41,7 @@ public class BasketCrudForm {
     /**
      * Méthode pour supprimer un produit du panier
      * @param request
-     * @return
+     * @return AdsForm
      */
     public AdsForm delBasket(HttpServletRequest request){
         String idAds = request.getParameter("idAds");
@@ -51,8 +52,9 @@ public class BasketCrudForm {
 
             if (this.basketForm == null) {
                 basketForm = new BasketForm(request);
-                adsForm = null;
             }
+
+            adsForm = null;
             basketForm.remove(idAds);
         }
         return adsForm;

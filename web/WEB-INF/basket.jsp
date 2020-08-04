@@ -3,10 +3,10 @@
 
 <!----->
 <h2>Annonce</h2>
-<p>${adsForm.errors.idAds}</p>
+<%--<p>${adsForm.errors.idAds}</p>--%>
 <%--<p>${adsForm.result}</p>--%>
 <%--Il faut supprimer le message d'erreur--%>
-<c:remove var="adsForm" scope="request" />
+<%--<c:remove var="adsForm" scope="request"/>--%>
 <%--<p>${carsForm.result}</p>--%>
 
 <%--<p>${carsForm.errors}</p>--%>
@@ -14,17 +14,49 @@
 <%--<p>${sessionScope.basket}</p>--%>
 
 
-<c:forEach var="entry" items="${sessionScope.basket}">
-    Key: <c:out value="${entry.key}"/>
-    Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
+<table class='table table-hover'>
+    <thead>
+    <tr>
+        <th>Model</th>
+        <th>Car Type</th>
+        <th>Color</th>
+        <th>Year</th>
+        <th>Km</th>
+        <th>HorsePower</th>
+        <th>Fuel</th>
+        <th>Price</th>
+        <th>Supprimer</th>
+    </tr>
+    </thead>
 
-    <form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
-        <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>
-        <br \><br \>
-        <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier" class="btn btn-info"/>
-    </form>
-</c:forEach>
+    <tbody>
+    <c:forEach var="entry" items="${sessionScope.basket}">
 
+        <tr>
+            <td> ${entry.value.carsByIdCars.modelsByIdModels.label} </td>
+            <td> ${entry.value.carsByIdCars.carTypesByIdCarTypes.label} </td>
+            <td> ${entry.value.carsByIdCars.color} </td>
+            <td><fmt:formatDate pattern="dd-MM-yyyy" value="${entry.value.carsByIdCars.releaseYear}"/></td>
+            <td> ${entry.value.carsByIdCars.kilometer} </td>
+            <td> ${entry.value.carsByIdCars.horsePower} </td>
+            <td> ${entry.value.carsByIdCars.enumFuel} </td>
+            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.value.price}"/>€</td>
+
+
+        <%--
+            Key: <c:out value="${entry.key}"/>
+            Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
+        --%>
+
+            <td><form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
+            <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>
+            <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier" class="btn btn-info"/>
+        </form></td>
+        </tr>
+    </c:forEach>
+
+    </tbody>
+</table>
 
 <%--
 

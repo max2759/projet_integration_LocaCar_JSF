@@ -32,7 +32,7 @@
     </tbody>
 </table>
 
-<form name="formCar" id="formCar" action="addBasket" method="post" class="">
+<form name="formCar" id="formCar" action="basket" method="post" class="">
     <input name="idCars" id="${cars.id}" type="hidden" value="${cars.id}"/>
     <input name="idAds" id="${ads.id}" type="hidden" value="${ads.id}"/>
     <br \><br \>
