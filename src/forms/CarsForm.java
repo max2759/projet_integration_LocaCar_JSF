@@ -36,38 +36,43 @@ public class CarsForm {
 
     public CarsEntity checkCars(HttpServletRequest request) {
 
-        CarsEntity cars = new CarsEntity();
+        CarsEntity cars = null;
 
         if (request.getParameter(FIELD_ID) != null) {
-            int idCars = Integer.parseInt(request.getParameter(FIELD_ID));
-
-            EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
-            // Recherche de l'Cars
-
-            CarsService carsService = new CarsService();
-
-            EntityTransaction tx = null;
+            // On vérifie que c'est bien un nbr
             try {
-                tx = em.getTransaction();
-                tx.begin();
-                cars = carsService.consulter(em, idCars);
-                tx.commit();
-            } catch (Exception ex) {
-                if (tx != null && tx.isActive()) tx.rollback();
-            } finally {
-                em.close();
-            }
+                int idCars = Integer.parseInt(request.getParameter(FIELD_ID));
 
-            CarsException carsException = new CarsException();
+                EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-            try {
-                carsException.validationID(cars);
-            } catch (Exception e) {
-                setError(FIELD_ID, e.getMessage());
+                // Recherche de l'Cars
+
+                CarsService carsService = new CarsService();
+
+                EntityTransaction tx = null;
+                try {
+                    tx = em.getTransaction();
+                    tx.begin();
+                    cars = carsService.consulter(em, idCars);
+                    tx.commit();
+                } catch (Exception ex) {
+                    if (tx != null && tx.isActive()) tx.rollback();
+                } finally {
+                    em.close();
+                }
+
+                CarsException carsException = new CarsException();
+
+                try {
+                    carsException.validationEntity(cars);
+                } catch (Exception e) {
+                    setError(FIELD_ID, e.getMessage());
+                }
+            } catch (NumberFormatException e) {
+                setError(FIELD_ID, "Cette valeur n'est pas un chiffre, essaie encore !");
+
             }
-        }
-        else{
+        } else {
             setError(FIELD_ID, "Vide");
         }
 

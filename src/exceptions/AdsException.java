@@ -10,7 +10,13 @@ import javax.persistence.EntityTransaction;
 public class AdsException {
     //public AdsEntity ads;
 
-    public void validationID(AdsEntity ads) throws Exception {
+
+    /**
+     * Vérification de l'existence de l'entité
+     * @param ads
+     * @throws Exception
+     */
+    public void validationEntity(AdsEntity ads) throws Exception {
         if (ads == null) {
             throw new Exception("L'annonce est incorrecte");
 

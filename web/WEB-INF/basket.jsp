@@ -17,6 +17,12 @@
 <c:forEach var="entry" items="${sessionScope.basket}">
     Key: <c:out value="${entry.key}"/>
     Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
+
+    <form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
+        <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>
+        <br \><br \>
+        <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier" class="btn btn-info"/>
+    </form>
 </c:forEach>
 
 

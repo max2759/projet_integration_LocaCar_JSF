@@ -36,38 +36,44 @@ public class AdsForm {
 
     public AdsEntity checkAds(HttpServletRequest request) {
 
-        AdsEntity ads = new AdsEntity();
+        AdsEntity ads = null;
 
         if (request.getParameter(FIELD_ID) != null) {
-            int idAds = Integer.parseInt(request.getParameter(FIELD_ID));
-
-            EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
-            // Recherche de l'ads
-
-            AdsService adsService = new AdsService();
-
-            EntityTransaction tx = null;
+            // On vérifie que c'est bien un nbr
             try {
-                tx = em.getTransaction();
-                tx.begin();
-                ads = adsService.consulter(em, idAds);
-                tx.commit();
-            } catch (Exception ex) {
-                if (tx != null && tx.isActive()) tx.rollback();
-            } finally {
-                em.close();
-            }
 
-            AdsException adsException = new AdsException();
+                int idAds = Integer.parseInt(request.getParameter(FIELD_ID));
 
-            try {
-                adsException.validationID(ads);
-            } catch (Exception e) {
-                setError(FIELD_ID, e.getMessage());
+                EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+                // Recherche de l'ads
+
+                AdsService adsService = new AdsService();
+
+                EntityTransaction tx = null;
+                try {
+                    tx = em.getTransaction();
+                    tx.begin();
+                    ads = adsService.consulter(em, idAds);
+                    tx.commit();
+                } catch (Exception ex) {
+                    if (tx != null && tx.isActive()) tx.rollback();
+                } finally {
+                    em.close();
+                }
+
+                AdsException adsException = new AdsException();
+
+                try {
+                    adsException.validationEntity(ads);
+                } catch (Exception e) {
+                    setError(FIELD_ID, e.getMessage());
+                }
+            } catch (NumberFormatException e) {
+                setError(FIELD_ID, "Cette valeur n'est pas un chiffre, essaie encore !");
+
             }
-        }
-        else{
+        } else {
             setError(FIELD_ID, "Vide");
         }
 
@@ -76,7 +82,6 @@ public class AdsForm {
         } else {
             result = "Échec";
         }
-
         return ads;
     }
 

@@ -32,7 +32,6 @@
     </tbody>
 </table>
 
-<a href="addBasket">Ajouter au panier.</a>
 <form name="formCar" id="formCar" action="addBasket" method="post" class="">
     <input name="idCars" id="${cars.id}" type="hidden" value="${cars.id}"/>
     <input name="idAds" id="${ads.id}" type="hidden" value="${ads.id}"/>
