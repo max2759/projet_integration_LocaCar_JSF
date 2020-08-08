@@ -10,6 +10,10 @@ import java.util.Map;
 public class CarTypesForm {
 
     private static final String CATEGORY_FIELD = "category";
+    private static final String UPDATECATEGORY_FIELD = "updateCat";
+
+    /*private static final String DELETE_FIELD = "categoryDelete";*/
+    CarTypesEntity carTypes = new CarTypesEntity();
     private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
 
@@ -25,7 +29,6 @@ public class CarTypesForm {
 
         String category = getValeurChamp(request, CATEGORY_FIELD);
 
-        CarTypesEntity carTypes = new CarTypesEntity();
         CarTypesException ctE = new CarTypesException();
 
         try{
@@ -43,10 +46,27 @@ public class CarTypesForm {
         return carTypes;
     }
 
+    public CarTypesEntity updateCategory(HttpServletRequest request){
 
-    /*
-    * Ajout d'un message d'erreur
-    * */
+        String updateCat = getValeurChamp(request, UPDATECATEGORY_FIELD);
+
+        carTypes.setLabel(updateCat);
+
+        return carTypes;
+
+    }
+
+    /*public CarTypesEntity deleteCategory(HttpServletRequest request){
+        String deleteCategory = getValeurChamp(request, DELETE_FIELD);
+
+        return carTypes;
+    }*/
+
+    /**
+     * Ajout message d'erreur
+     * @param field
+     * @param message
+     */
     private void setErreur(String field, String message){
         erreurs.put(field, message);
     }

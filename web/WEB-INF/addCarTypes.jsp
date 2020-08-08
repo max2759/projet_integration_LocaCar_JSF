@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Ajouter une catégorie</h1>
 
-    <form method="post" action="categorie">
+    <form method="post" action="ajouter-categorie">
         <div class="form-group">
             <label>Catégorie</label>
             <input type="text" class="form-control" id="category" name="category" placeholder="Ajouter une catégorie">
