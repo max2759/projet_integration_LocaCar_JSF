@@ -47,7 +47,7 @@ public class CarTypesService {
 
     public CarTypesEntity updateCarTypes(String id, String label){
         CarTypesEntity carTypesEntity = em.find(CarTypesEntity.class, id);
-        carTypesEntity.setLabel(label);
+        /*carTypesEntity*/
         return carTypesEntity;
     }
 

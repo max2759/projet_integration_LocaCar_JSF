@@ -29,11 +29,10 @@ public class CarTypes extends HttpServlet {
         /* Objet formulaire*/
         CarTypesForm carTypesForm = new CarTypesForm();
 
-        String IdfromForm = request.getParameter("idCategory");
-        String updateCat = request.getParameter("updateCat");
+        carTypesForm.deleteCategory(request);
 
 
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+        /*EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
 
         EntityTransaction tx = null;
@@ -49,8 +48,7 @@ public class CarTypes extends HttpServlet {
             }
         }finally {
             em.close();
-        }
-
+        }*/
 
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
