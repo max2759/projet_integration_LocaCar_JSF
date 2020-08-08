@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "orders", schema = "projet_bac_info2")
+@NamedQueries({
+        @NamedQuery(name="Orders.findOrderByIdUser",
+                query = "SELECT o from OrdersEntity o where o.usersByIdUsers.id = :id")
+})
 public class OrdersEntity {
     private int id;
     private Date orderDate;

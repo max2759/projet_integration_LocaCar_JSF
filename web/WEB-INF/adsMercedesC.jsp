@@ -2,7 +2,7 @@
 <jsp:include page="header.jsp"/>
 
 <!----->
-<h2>Annonce</h2>
+<h2>Annonce Mercedes :</h2>
 <table class='table table-hover'>
     <thead>
     <tr>
@@ -33,7 +33,7 @@
 </table>
 
 <form name="formCar" id="formCar" action="basket" method="post" class="">
-    <input name="idCars" id="${cars.id}" type="hidden" value="${cars.id}"/>
+    <input name="idUsers" id="2" type="hidden" value="2"/>
     <input name="idAds" id="${ads.id}" type="hidden" value="${ads.id}"/>
     <br \><br \>
     <input name="send" id="boutonSubmit" type="submit" value="Ajouter au panier" class="btn btn-info"/>

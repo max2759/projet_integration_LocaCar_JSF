@@ -1,6 +1,7 @@
 package forms;
 
 import entities.AdsEntity;
+import enumeration.EnumOrderStatut;
 
 import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpSession;
@@ -19,11 +20,12 @@ public class BasketCrudForm {
      */
 
     public AdsForm addBasket(HttpServletRequest request) {
-
+        EnumOrderStatut enumOrderStatut = EnumOrderStatut.values()[0];
         String idAds = request.getParameter("idAds");
         // Recherche de l'ads
         adsForm = new AdsForm();
         ads = adsForm.checkAds(request);
+
 
         // Si aucune voiture n'est trouvé on renvoit une erreur.
         if (adsForm.getErrors().isEmpty()) {
@@ -33,7 +35,7 @@ public class BasketCrudForm {
             }
 
             adsForm = null;
-            basketForm.add(idAds, ads);
+            basketForm.add(idAds, ads, request, enumOrderStatut);
         }
         return adsForm;
     }

@@ -55,5 +55,6 @@ public class Basket extends HttpServlet {
         request.setAttribute("adsForm", adsForm);
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 
+
     }
 }

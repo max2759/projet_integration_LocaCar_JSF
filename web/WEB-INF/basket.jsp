@@ -2,7 +2,7 @@
 <jsp:include page="header.jsp"/>
 
 <!----->
-<h2>Annonce</h2>
+<h2>Panier :</h2>
 <%--<p>${adsForm.errors.idAds}</p>--%>
 <%--<p>${adsForm.result}</p>--%>
 <%--Il faut supprimer le message d'erreur--%>
