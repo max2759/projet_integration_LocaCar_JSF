@@ -33,6 +33,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<c:url value="/annonces"/>">Voir annonces</a>
                     <a class="dropdown-item" href="#">Ajouter annonce</a>
+                    <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les test)</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -42,6 +43,14 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
                     <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Panier
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="<c:url value="/basket"/>">Voir le panier</a>
                 </div>
             </li>
         </ul>

@@ -3,12 +3,24 @@
 
 <!----->
 <h2>Annonce</h2>
-<p>${adsForm.result}</p>
-<p>${carsForm.result}</p>
+<p>${adsForm.errors.idAds}</p>
+<%--<p>${adsForm.result}</p>--%>
+<%--Il faut supprimer le message d'erreur--%>
+<c:remove var="adsForm" scope="request" />
+<%--<p>${carsForm.result}</p>--%>
 
-<p>${carsForm.errors}</p>
+<%--<p>${carsForm.errors}</p>--%>
+<%--<p>${cars}</p>--%>
+<%--<p>${sessionScope.basket}</p>--%>
 
 
+<c:forEach var="entry" items="${sessionScope.basket}">
+    Key: <c:out value="${entry.key}"/>
+    Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
+</c:forEach>
+
+
+<%--
 
 <c:if test="${(not empty ads) && (not empty cars)}">
 
@@ -41,6 +53,7 @@
         </tbody>
     </table>
 </c:if>
+--%>
 
 </div>
 

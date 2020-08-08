@@ -5,6 +5,7 @@ import entities.CarsEntity;
 import forms.AdsForm;
 import forms.BasketCrudForm;
 import forms.CarsForm;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,10 +15,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebServlet("/addBasket")
+@WebServlet("/basket")
 
-public class AddBasket extends HttpServlet {
-    public static final String VUE = "/WEB-INF/addBasket.jsp";
+public class Basket extends HttpServlet {
+    public static final String VUE = "/WEB-INF/basket.jsp";
 
     public AdsEntity ads;
     public CarsEntity cars;
@@ -45,12 +46,11 @@ public class AddBasket extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (this.basketCrudForm == null)
-        {
+        if (this.basketCrudForm == null) {
             basketCrudForm = new BasketCrudForm();
         }
-
         adsForm = basketCrudForm.addBasket(request);
+
 
         request.setAttribute("adsForm", adsForm);
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
