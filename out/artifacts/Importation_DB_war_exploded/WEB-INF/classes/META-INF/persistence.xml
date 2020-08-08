@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="projet_bac_info2"  transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<jta-data-source>java:comp/env/jdbc/projet_bac_info2</jta-data-source>
+		<class>entities.AdressesEntity</class>
+		<class>entities.AdsEntity</class>
+		<class>entities.BrandsEntity</class>
+		<class>entities.CarTypesEntity</class>
+		<class>entities.CarsEntity</class>
+		<class>entities.CitiesEntity</class>
+		<class>entities.ContractInsurancesEntity</class>
+		<class>entities.ContractTypesEntity</class>
+		<class>entities.ContractsEntity</class>
+		<class>entities.CountriesEntity</class>
+		<class>entities.InsurancesEntity</class>
+		<class>entities.InvoicesEntity</class>
+		<class>entities.ModelsEntity</class>
+		<class>entities.OrdersEntity</class>
+		<class>entities.PermissionsEntity</class>
+		<class>entities.RolesEntity</class>
+		<class>entities.RolesPermissionsEntity</class>
+		<class>entities.SubscriptionsEntity</class>
+		<class>entities.UsersEntity</class>
+		<class>entities.UsersAdsEntity</class>
+		<class>entities.UsersSubscriptionsEntity</class>
+		<properties>
+			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/projet_bac_info2"/>
+			<property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+		</properties>
+
+	</persistence-unit>
+</persistence>
