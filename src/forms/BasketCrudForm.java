@@ -4,6 +4,7 @@ import entities.AdsEntity;
 import enumeration.EnumOrderStatut;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 //import javax.servlet.http.HttpSession;
 //import java.util.Map;
 
@@ -19,7 +20,7 @@ public class BasketCrudForm {
      * @return AdsForm
      */
 
-    public AdsForm addBasket(HttpServletRequest request) {
+    public AdsForm addBasket(HttpServletRequest request) throws ParseException {
         EnumOrderStatut enumOrderStatut = EnumOrderStatut.values()[0];
         String idAds = request.getParameter("idAds");
         // Recherche de l'ads
@@ -35,7 +36,7 @@ public class BasketCrudForm {
             }
 
             adsForm = null;
-            basketForm.add(idAds, ads, request, enumOrderStatut);
+            basketForm.add(idAds, ads, request, enumOrderStatut, 1);
         }
         return adsForm;
     }

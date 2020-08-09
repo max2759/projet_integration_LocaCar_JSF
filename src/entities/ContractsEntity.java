@@ -6,6 +6,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "contracts", schema = "projet_bac_info2")
+@NamedQueries({
+        @NamedQuery(name="Contracts.findContractByIdOrder",
+                query = "SELECT c from ContractsEntity c where c.ordersByIdOrders.id = :id")
+})
 public class ContractsEntity {
     private int id;
     private Date dateStart;

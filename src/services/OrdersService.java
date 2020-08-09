@@ -25,6 +25,16 @@ public class OrdersService {
     }
 
     /**
+     * Update de l'entité
+     * @param em
+     * @param orders
+     */
+    public void mergeOrder(EntityManager em, OrdersEntity orders) {
+        em.merge(orders);
+
+    }
+
+    /**
      * méthode Consulter d'une entité à  partir de la bd
      *
      * @param em
@@ -36,9 +46,15 @@ public class OrdersService {
     }
 
     public OrdersEntity findOrderByIdUser(EntityManager em, int id) {
-        return em.createNamedQuery("Orders.findOrderByIdUser",
-                OrdersEntity.class)
-                .setParameter("id", id)
-                .getSingleResult();
+        try {
+
+            return em.createNamedQuery("Orders.findOrderByIdUser",
+                    OrdersEntity.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+
     }
 }
