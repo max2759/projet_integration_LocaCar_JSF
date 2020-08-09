@@ -22,15 +22,27 @@ public class ContractsService {
     }
 
     /**
-     *
      * Update de l'entité
+     *
      * @param em
      * @param contract
      */
-
     public void mergeContract(EntityManager em, ContractsEntity contract) {
         em.merge(contract);
 
+    }
+
+    /**
+     * Delete de l'entité
+     *
+     * @param em
+     * @param contractsEntity
+     */
+    public void removeContract(EntityManager em, ContractsEntity contractsEntity) {
+
+        em.remove(em.merge(contractsEntity));
+
+//        em.remove(contractsEntity);
     }
 
     /**
@@ -44,6 +56,13 @@ public class ContractsService {
         return em.find(ContractsEntity.class, id);
     }
 
+    /**
+     * recherche de contract par id order
+     *
+     * @param em
+     * @param id
+     * @return
+     */
     public ContractsEntity findContractByIdOrder(EntityManager em, int id) {
         try {
 
@@ -56,5 +75,19 @@ public class ContractsService {
         }
 
     }
+
+    public ContractsEntity findContractByIdOrderAndByIdCar(EntityManager em, int idOrder, int idCar) {
+        try {
+
+            return em.createNamedQuery("Contracts.findContractByIdOrderAndByIdCar",
+                    ContractsEntity.class)
+                    .setParameter("idOrder", idOrder)
+                    .setParameter("idCar", idCar)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
 }
+
 

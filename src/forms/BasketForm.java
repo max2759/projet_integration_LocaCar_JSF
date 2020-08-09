@@ -1,10 +1,12 @@
 package forms;
 
 import entities.AdsEntity;
+import entities.CarsEntity;
 import entities.ContractsEntity;
 import entities.OrdersEntity;
 import enumeration.EnumOrderStatut;
 import services.AdsService;
+import services.CarsService;
 import services.ContractsService;
 import services.OrdersService;
 import util.JPAutil;
@@ -26,8 +28,6 @@ public class BasketForm {
     public static Map<String, AdsEntity> basket;
     public HttpSession session;
     private static final String FIELD_ID_USERS = "idUsers";
-    private static final String FIELD_DATE_START = "dateStart";
-    private static final String FIELD_DATE_END = "dateEnd";
 
     /**
      * Constructeur qui crée la session si elle n'existe pas.
@@ -41,28 +41,52 @@ public class BasketForm {
     }
 
     /**
+     * Recherche de contract sur base de order et de car
+     * @param ordersEntity
+     * @param carsEntity
+     * @return
+     */
+    public ContractsEntity searchContract(OrdersEntity ordersEntity, CarsEntity carsEntity) {
+
+        ContractsService contractsService = new ContractsService();
+        ContractsEntity contractsEntity = new ContractsEntity();
+        int idOrder = ordersEntity.getId();
+        int idCar = carsEntity.getId();
+        //création de l'em
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        // Recherche de l'order :
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+            contractsEntity = contractsService.findContractByIdOrderAndByIdCar(em, idOrder, idCar);
+
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+        return contractsEntity;
+    }
+
+    /**
      * Méthode d'ajout au panier
      *
      * @param idAds
      * @param adsEntity
      */
-    public void add(String idAds, AdsEntity adsEntity, HttpServletRequest request, EnumOrderStatut enumOrderStatut, int idContractType) throws ParseException {
+
+    public void add(String idAds, AdsEntity adsEntity, HttpServletRequest request, EnumOrderStatut enumOrderStatut, int idContractType, Date dateStart, Date dateEnd) throws ParseException {
         int idUsers = Integer.parseInt(request.getParameter(FIELD_ID_USERS));
-
-        //Création d'un format date
-        String dateStartStr = request.getParameter(FIELD_DATE_START);
-        String dateEndStr = request.getParameter(FIELD_DATE_END);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //On crée les variables de date
-        Date dateStart = sdf.parse(dateStartStr);
-        Date dateEnd = sdf.parse(dateEndStr);
-
 
         OrdersEntity ordersEntity;
         ContractsEntity contractsEntity;
 
         OrdersEntity oldOrder;
-        ContractsEntity oldContract;
+        ContractsEntity oldContract = null;
 
         OrdersForm ordersForm = new OrdersForm();
         ContractsForm contractsForm = new ContractsForm();
@@ -80,13 +104,10 @@ public class BasketForm {
 
 
         // Recherche d'un ancien contract sauvegardé
-        if (oldOrder == null) {
-            oldContract = contractsService.findContractByIdOrder(em, ordersEntity.getId());
+        if (oldOrder != null) {
+            oldContract = searchContract(oldOrder, adsEntity.getCarsByIdCars());
         }
-        else{
-            oldContract = contractsService.findContractByIdOrder(em, oldOrder.getId());
-        }
-        contractsEntity = contractsForm.saveContract(ordersEntity.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
+//        contractsEntity = contractsForm.saveContract(ordersEntity.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
 
         setBasket(idAds, adsEntity);
         session.setAttribute("basket", this.basket);
@@ -98,13 +119,42 @@ public class BasketForm {
             tx.begin();
             if (oldOrder == null) {
                 ordersService.add(em, ordersEntity);
-            }
-            else{
+                oldOrder = ordersService.findOrderByIdUser(em, idUsers);
+                contractsEntity = contractsForm.saveContract(oldOrder.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
+
+                contractsService.add(em, contractsEntity);
+            } else {
                 // MAJ de l'order
                 oldOrder.setOrderDate(ordersEntity.getOrderDate());
                 oldOrder.setOrderStatut(ordersEntity.getOrderStatut());
 
+                // update de l'order et du contract
                 ordersService.mergeOrder(em, oldOrder);
+                oldOrder = ordersService.findOrderByIdUser(em, idUsers);
+
+                contractsEntity = contractsForm.saveContract(oldOrder.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
+                oldContract = searchContract(oldOrder, adsEntity.getCarsByIdCars());
+                if (oldContract == null) {
+                    contractsService.add(em, contractsEntity);
+                } else {
+
+                    // MAJ du contract
+                    oldContract.setDateStart(contractsEntity.getDateStart());
+                    oldContract.setDateEnd(contractsEntity.getDateEnd());
+                    oldContract.setFinalPrice(contractsEntity.getFinalPrice());
+                    contractsService.mergeContract(em, oldContract);
+                }
+                /*
+                if (oldContract.getId() != contractsEntity.getId()) {
+                    contractsService.add(em, contractsEntity);
+                } else {
+
+                    // MAJ du contract
+                    oldContract.setDateStart(contractsEntity.getDateStart());
+                    oldContract.setDateEnd(contractsEntity.getDateEnd());
+                    oldContract.setFinalPrice(contractsEntity.getFinalPrice());
+                    contractsService.mergeContract(em, oldContract);
+                }*/
             }
             tx.commit();
         } catch (Exception ex) {
@@ -121,7 +171,74 @@ public class BasketForm {
      *
      * @param idAds
      */
-    public void remove(String idAds) {
+    public void remove(String idAds, int idUsers) {
+
+        OrdersEntity oldOrder = null;
+        AdsEntity adsEntity = null;
+        CarsEntity carsEntity = null;
+        int idCar = 0;
+        //création de l'em
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        // Recherche de l'order :
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+            OrdersService ordersService = new OrdersService();
+            oldOrder = ordersService.findOrderByIdUser(em, idUsers);
+
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        // Recherche de la car :
+        em = JPAutil.createEntityManager("projet_bac_info2");
+
+        tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+
+            // On recherche l'annonce pour trouver la voiture
+            AdsService adsService = new AdsService();
+            adsEntity = adsService.consulter(em, Integer.parseInt(idAds));
+
+            // On a l'annonce, maintenant on cherche l'id de la voiture
+            carsEntity = adsEntity.getCarsByIdCars();
+            idCar = carsEntity.getId();
+
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+
+        ContractsService contractsService = new ContractsService();
+
+        ContractsEntity contractsEntity = searchContract(oldOrder, carsEntity);
+        // On efface le contract trouvé !!
+        em = JPAutil.createEntityManager("projet_bac_info2");
+        tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            contractsService.removeContract(em, contractsEntity);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        // On réinitialise les sessions
         unsetBasket(idAds);
         session.setAttribute("basket", this.basket);
 

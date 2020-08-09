@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 
 
 @WebServlet("/basket")
@@ -49,7 +51,13 @@ public class Basket extends HttpServlet {
         if (this.basketCrudForm == null) {
             basketCrudForm = new BasketCrudForm();
         }
-        adsForm = basketCrudForm.addBasket(request);
+        try {
+            Date dateStart = new Date();
+            Date dateEnd = new Date();
+            adsForm = basketCrudForm.addBasket(request, dateStart, dateEnd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         request.setAttribute("adsForm", adsForm);

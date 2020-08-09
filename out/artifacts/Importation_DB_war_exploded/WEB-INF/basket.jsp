@@ -43,15 +43,19 @@
             <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.value.price}"/>€</td>
 
 
-        <%--
-            Key: <c:out value="${entry.key}"/>
-            Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
-        --%>
+                <%--
+                    Key: <c:out value="${entry.key}"/>
+                    Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
+                --%>
 
-            <td><form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
-            <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>
-            <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier" class="btn btn-info"/>
-        </form></td>
+            <td>
+                <form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
+                    <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>
+                    <input name="idUser" id="1" type="hidden" value="1"/>
+                    <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier"
+                           class="btn btn-info"/>
+                </form>
+            </td>
         </tr>
     </c:forEach>
 
