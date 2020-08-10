@@ -40,5 +40,4 @@ public class AdsService {
         return em.find(AdsEntity.class, id);
     }
 
-
 }

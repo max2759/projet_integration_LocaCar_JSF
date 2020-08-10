@@ -25,11 +25,12 @@
         <th>HorsePower</th>
         <th>Fuel</th>
         <th>Price</th>
+        <th>ID Car</th>
         <th>Supprimer</th>
     </tr>
     </thead>
 
-    <tbody>
+    <tbody><%--
     <c:forEach var="entry" items="${sessionScope.basket}">
 
         <tr>
@@ -41,17 +42,29 @@
             <td> ${entry.value.carsByIdCars.horsePower} </td>
             <td> ${entry.value.carsByIdCars.enumFuel} </td>
             <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.value.price}"/>€</td>
+--%>
+    <c:forEach var="entry" items="${basket}">
 
+        <tr>
+            <td> ${entry.carsByIdCars.modelsByIdModels.label} </td>
+            <td> ${entry.carsByIdCars.carTypesByIdCarTypes.label} </td>
+            <td> ${entry.carsByIdCars.color} </td>
+            <td><fmt:formatDate pattern="dd-MM-yyyy" value="${entry.carsByIdCars.releaseYear}"/></td>
+            <td> ${entry.carsByIdCars.kilometer} </td>
+            <td> ${entry.carsByIdCars.horsePower} </td>
+            <td> ${entry.carsByIdCars.enumFuel} </td>
+            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.finalPrice}"/>€</td>
+            <td> ${entry.carsByIdCars.id} </td>
 
-                <%--
+        <%--
                     Key: <c:out value="${entry.key}"/>
                     Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
                 --%>
 
             <td>
                 <form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
-                    <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>
-                    <input name="idUser" id="1" type="hidden" value="1"/>
+<%--                    <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>--%>
+                    <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
                     <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier"
                            class="btn btn-info"/>
                 </form>

@@ -1,11 +1,13 @@
 package forms;
 
 import entities.AdsEntity;
+import entities.ContractsEntity;
 import enumeration.EnumOrderStatut;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 //import javax.servlet.http.HttpSession;
 //import java.util.Map;
 
@@ -64,4 +66,13 @@ public class BasketCrudForm {
         }
         return adsForm;
     }
+
+    public List<ContractsEntity> listContracts(HttpServletRequest request, int idUser){
+        if (this.basketForm == null) {
+            basketForm = new BasketForm(request);
+        }
+        List<ContractsEntity> contractsEntities = basketForm.listContracts(idUser);
+        return contractsEntities;
+    }
+
 }

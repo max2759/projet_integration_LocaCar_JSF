@@ -1,8 +1,12 @@
 package services;
 
+import entities.AdsEntity;
 import entities.ContractsEntity;
+import entities.OrdersEntity;
+import entities.UsersEntity;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * Méthode pour lister toutes les annonces
@@ -76,6 +80,13 @@ public class ContractsService {
 
     }
 
+    /**
+     * recherche de contrat par id commande et par id voiture
+     * @param em
+     * @param idOrder
+     * @param idCar
+     * @return
+     */
     public ContractsEntity findContractByIdOrderAndByIdCar(EntityManager em, int idOrder, int idCar) {
         try {
 
@@ -88,6 +99,29 @@ public class ContractsService {
             return null;
         }
     }
+
+
+    /**
+     * Lister tous les contrats d'un utilisateurs
+     * @param em
+     * @param idUser
+     * @return
+     */
+    public List<ContractsEntity> findAllContractsByIdUser(EntityManager em, int idUser) {
+
+        UsersService usersService = new UsersService();
+        UsersEntity usersEntity = usersService.consult(em, idUser);
+        List<ContractsEntity> contractsEntities = em.createNamedQuery("Contracts.findAllContractsByIdUser",
+                ContractsEntity.class)
+                .setParameter("user", usersEntity)
+                .getResultList();
+
+        return contractsEntities;
+
+    }
+
+
+
 }
 
 

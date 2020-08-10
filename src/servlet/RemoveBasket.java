@@ -39,7 +39,9 @@ public static final String URL_REDIRECTION = "basket";         // Cas d'une redi
         if (this.basketCrudForm == null) {
             basketCrudForm = new BasketCrudForm();
         }
+
         adsForm = basketCrudForm.delBasket(request);
+
 
 
         request.setAttribute("adsForm", adsForm);

@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,8 +41,34 @@ public class BasketForm {
         session = request.getSession();
     }
 
+    public List<ContractsEntity> listContracts(int idUser) {
+        ContractsService contractsService = new ContractsService();
+        List<ContractsEntity> contractsEntities = null;
+        //création de l'em
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+           contractsEntities = contractsService.findAllContractsByIdUser(em, idUser);
+
+            tx.commit();
+        } catch (
+                Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        return contractsEntities;
+    }
+
     /**
      * Recherche de contract sur base de order et de car
+     *
      * @param ordersEntity
      * @param carsEntity
      * @return
@@ -78,7 +105,6 @@ public class BasketForm {
      * @param idAds
      * @param adsEntity
      */
-
     public void add(String idAds, AdsEntity adsEntity, HttpServletRequest request, EnumOrderStatut enumOrderStatut, int idContractType, Date dateStart, Date dateEnd) throws ParseException {
         int idUsers = Integer.parseInt(request.getParameter(FIELD_ID_USERS));
 
@@ -253,6 +279,27 @@ public class BasketForm {
     public void setBasket(String idAds, AdsEntity adsEntity) {
         if (this.basket == null) {
             this.basket = new HashMap<>();
+
+/*
+            ContractsService contractsService = new ContractsService();
+            List<ContractsEntity> contractsEntities;
+            //création de l'em
+            EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+            EntityTransaction tx = null;
+            try {
+                tx = em.getTransaction();
+                tx.begin();
+
+                contractsEntities = contractsService.listAll(em, idUser);
+
+                tx.commit();
+            } catch (Exception ex) {
+                if (tx != null && tx.isActive()) tx.rollback();
+            } finally {
+                em.close();
+            }
+*/
+
         }
         this.basket.put(idAds, adsEntity);
     }
