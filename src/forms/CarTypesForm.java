@@ -31,6 +31,21 @@ public class CarTypesForm {
         return erreurs;
     }
 
+    public void deleteCarTypes(HttpServletRequest request){
+
+        int idDelCat = Integer.parseInt(request.getParameter(DELETE_FIELD));
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        CarTypesService cts = null;
+
+        //recherche de la catégorie
+
+        carTypes = cts.findCarTypesById(em, idDelCat);
+
+        cts.deleteCarTypes(em, carTypes);
+
+    }
+
     public CarTypesEntity addCategory(HttpServletRequest request) {
 
         String category = getValeurChamp(request, CATEGORY_FIELD);
@@ -60,46 +75,33 @@ public class CarTypesForm {
     public CarTypesEntity updateCategory(HttpServletRequest request) {
 
         String updateCat = getValeurChamp(request, UPDATECATEGORY_FIELD);
-        String idUpdateCat = getValeurChamp(request, IDUPDATECATEGORY_FIELD);
+        int idUpdateCat = Integer.parseInt(getValeurChamp(request, IDUPDATECATEGORY_FIELD));
+
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-        CarTypesService cs = new CarTypesService();
+
+        CarTypesEntity carTypesEntity = new CarTypesEntity();
+        CarTypesService carTypesService = new CarTypesService();
+
         EntityTransaction tx = null;
-        try {
+        try{
             tx = em.getTransaction();
             tx.begin();
-            cs.updateCarTypes( idUpdateCat ,updateCat);
+            carTypesEntity = carTypesService.findCarTypesById(em, idUpdateCat);
             tx.commit();
         } catch (Exception ex) {
             if (tx != null && tx.isActive()) tx.rollback();
         } finally {
             em.close();
         }
+
+
 
         return carTypes;
 
     }
 
-    /**
-     * Supprimer catégorie en fonction de l'id
-     * @param request
-     */
-    public void deleteCategory(HttpServletRequest request) {
 
-        int deleteCategory = Integer.parseInt(request.getParameter(DELETE_FIELD));
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-        CarTypesService cs = new CarTypesService();
-        EntityTransaction tx = null;
-        try {
-            tx = em.getTransaction();
-            tx.begin();
-            cs.deleteCarTypes(deleteCategory);
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && tx.isActive()) tx.rollback();
-        } finally {
-            em.close();
-        }
-    }
+
 
     /**
      * Ajout message d'erreur

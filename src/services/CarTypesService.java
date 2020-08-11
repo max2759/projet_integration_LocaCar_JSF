@@ -13,11 +13,11 @@ public class CarTypesService {
 
     /**
      * Méthode pour ajouter une catégorie
+     *
      * @param em
      * @param carTypesEntity
-     *
      */
-    public void addCategory(EntityManager em, CarTypesEntity carTypesEntity){
+    public void addCategory(EntityManager em, CarTypesEntity carTypesEntity) {
         em.persist(carTypesEntity);
     }
 
@@ -26,7 +26,7 @@ public class CarTypesService {
      *
      * @return carTypesEntities
      */
-    public List<CarTypesEntity> displayCategory () {
+    public List<CarTypesEntity> displayCategory() {
         List<CarTypesEntity> carTypesEntities =
                 em.createQuery(
                         "select c from CarTypesEntity c").getResultList();
@@ -35,25 +35,34 @@ public class CarTypesService {
     }
 
     /**
-     * Supprime une catégorie dans la DB en fonction de l'id
+     * Suppression de l'entité carTypes
+     *
+     * @param em
+     * @param carTypesEntity
+     */
+    public void deleteCarTypes(EntityManager em, CarTypesEntity carTypesEntity) {
+        em.remove(em.merge(carTypesEntity));
+    }
+
+    /**
+     * Recherche la catégorie en fonction de l'id passé
+     * @param em
      * @param id
      * @return
      */
-    public void deleteCarTypes(int id){
-        CarTypesEntity carTypesEntity = em.find(CarTypesEntity.class, id);
-        em.remove(carTypesEntity);
+    public CarTypesEntity findCarTypesById(EntityManager em, int id) {
+        return em.createNamedQuery("car_types.findCarTypesById", CarTypesEntity.class).setParameter("id", id).getSingleResult();
     }
 
     /**
      * Modification de la table catégorie en fonction de l'id passé
-     * @param id
-     * @param label
+     *
+     * @param carTypesEntity
+     * @param em
      * @return
      */
-    public CarTypesEntity updateCarTypes(String id, String label){
-        CarTypesEntity carTypesEntity = em.find(CarTypesEntity.class, id);
-        carTypesEntity.setLabel(label);
-        return carTypesEntity;
+    public void updateCarTypes(EntityManager em, CarTypesEntity carTypesEntity) {
+        em.merge(carTypesEntity);
     }
 
 

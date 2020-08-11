@@ -26,7 +26,6 @@ public class CarTypes extends HttpServlet {
         /* Objet formulaire*/
         CarTypesForm carTypesForm = new CarTypesForm();
 
-        carTypesForm.deleteCategory(request);
 
 
         /*EntityManager em = JPAutil.createEntityManager("projet_bac_info2");

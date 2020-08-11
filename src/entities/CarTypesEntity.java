@@ -6,6 +6,11 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "car_types", schema = "projet_bac_info2")
+@NamedQueries({
+        @NamedQuery(name="car_types.findCarTypesById",
+        query = "SELECT ct FROM CarTypesEntity ct WHERE ct.id = :id"
+        )
+})
 public class CarTypesEntity {
     private int id;
     private String label;
