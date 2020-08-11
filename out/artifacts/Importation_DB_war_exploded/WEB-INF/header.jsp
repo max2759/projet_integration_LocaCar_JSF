@@ -42,7 +42,8 @@
                     Catégorie
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/categorie"/>">Ajouter catégorie</a>
+                    <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
+                    <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
