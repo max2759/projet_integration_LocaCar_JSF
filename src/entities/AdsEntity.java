@@ -11,7 +11,7 @@ import java.util.Objects;
 @Table(name = "ads", schema = "projet_bac_info2")
 @NamedQueries({
         @NamedQuery(name="findAds",
-                query = "SELECT a from AdsEntity a where a.carsByIdCars.id = :id and a.active = true")
+                query = "SELECT a from AdsEntity a where a.carsByIdCars.id = :idCar and a.active = true")
 })
 
 public class AdsEntity {

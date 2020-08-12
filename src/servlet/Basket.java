@@ -38,7 +38,7 @@ public class Basket extends HttpServlet {
         HttpSession session = request.getSession();
         Integer idUser;
         if (session.getAttribute("User") != null) {
-            idUser = Integer.parseInt(session.getAttribute("User").toString());
+µ            idUser = Integer.parseInt(session.getAttribute("User").toString());
         }
         else { idUser = 0; }
 

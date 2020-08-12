@@ -40,7 +40,7 @@ public class CarsService {
 
             return em.createNamedQuery("findAds",
                     AdsEntity.class)
-                    .setParameter("id", ID)
+                    .setParameter("idCar", ID)
                     .getSingleResult();
         } catch (Exception ex) {
             return null;

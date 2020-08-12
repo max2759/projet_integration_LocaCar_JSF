@@ -63,7 +63,7 @@
 
             <td>
                 <form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
-<%--                    <input name="idAds" id="${entry.key}" type="hidden" value="${entry.key}"/>--%>
+                    <input name="idCar" id="${entry.carsByIdCars.id}" type="hidden" value="${entry.carsByIdCars.id}"/>
                     <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
                     <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier"
                            class="btn btn-info"/>
