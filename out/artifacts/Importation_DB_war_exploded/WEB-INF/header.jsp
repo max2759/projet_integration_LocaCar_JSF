@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Locacar</title>
+    <link rel="icon" href="<c:url value="/resources/img/locacar.png"/>" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet"
           href="<c:url value="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>"/>
@@ -14,12 +15,12 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-    <link type="text/css" rel="stylesheet" href="<c:url value="../resources/css/style.css"/>"/>
+    <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="<c:url value="/index.jsp"/>"><img src="<c:url value="../resources/img/logoLocacar.jpg"/>" alt="locacar"></a>
+    <a class="navbar-brand" href="<c:url value="/index.jsp"/>"><img src="<c:url value="/resources/img/logoLocacar.png"/>" alt="locacar"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,7 +42,8 @@
                     Catégorie
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/categorie"/>">Ajouter catégorie</a>
+                    <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
+                    <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
