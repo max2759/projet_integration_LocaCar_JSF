@@ -33,7 +33,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<c:url value="/annonces"/>">Voir annonces</a>
-                    <a class="dropdown-item" href="#">Ajouter annonce</a>
+                    <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
                     <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les test)</a>
                 </div>
             </li>
