@@ -14,7 +14,7 @@ import util.JPAutil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class BasketForm {
     public static Map<String, AdsEntity> basket;
-    public HttpSession session;
+//    public HttpSession session;
     private static final String FIELD_ID_USERS = "idUsers";
 
     /**
@@ -38,7 +38,7 @@ public class BasketForm {
     public BasketForm(HttpServletRequest request) {
 
         /* Récupération de la session depuis la requête*/
-        session = request.getSession();
+//        session = request.getSession();
     }
 
     public List<ContractsEntity> listContracts(int idUser) {
@@ -134,9 +134,11 @@ public class BasketForm {
             oldContract = searchContract(oldOrder, adsEntity.getCarsByIdCars());
         }
 //        contractsEntity = contractsForm.saveContract(ordersEntity.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
+/*
 
         setBasket(idAds, adsEntity);
         session.setAttribute("basket", this.basket);
+*/
 
         // sauvegarde du panier en DB
         EntityTransaction tx = null;
@@ -197,7 +199,7 @@ public class BasketForm {
      *
      * @param idAds
      */
-    public void remove(String idAds, int idUsers) {
+    public void remove(int idAds, int idUsers) {
 
         OrdersEntity oldOrder = null;
         AdsEntity adsEntity = null;
@@ -233,7 +235,7 @@ public class BasketForm {
 
             // On recherche l'annonce pour trouver la voiture
             AdsService adsService = new AdsService();
-            adsEntity = adsService.consulter(em, Integer.parseInt(idAds));
+            adsEntity = adsService.consulter(em, idAds);
 
             // On a l'annonce, maintenant on cherche l'id de la voiture
             carsEntity = adsEntity.getCarsByIdCars();
@@ -265,21 +267,27 @@ public class BasketForm {
         }
 
         // On réinitialise les sessions
-        unsetBasket(idAds);
+/*
+        unsetBasket(Integer.toString(idAds));
         session.setAttribute("basket", this.basket);
+*/
 
     }
+/*
 
-    /**
+    */
+/**
      * Méthode pour setter la map de panier. Elle est appellé par add
      *
      * @param idAds
      * @param adsEntity
-     */
+     *//*
+
     public void setBasket(String idAds, AdsEntity adsEntity) {
         if (this.basket == null) {
             this.basket = new HashMap<>();
 
+*/
 /*
             ContractsService contractsService = new ContractsService();
             List<ContractsEntity> contractsEntities;
@@ -298,23 +306,29 @@ public class BasketForm {
             } finally {
                 em.close();
             }
-*/
+*//*
+
 
         }
         this.basket.put(idAds, adsEntity);
     }
 
-    /**
+    */
+/**
      * Méthode pour unsetter la map de panier. Elle est appellé par remove
      *
      * @param idAds
-     */
+     *//*
+
     public void unsetBasket(String idAds) {
-        /*if (this.basket == null) {
+        */
+/*if (this.basket == null) {
             this.basket = new HashMap<>();
-        }*/
+        }*//*
+
         this.basket.remove(idAds);
     }
+*/
 
 /*
 

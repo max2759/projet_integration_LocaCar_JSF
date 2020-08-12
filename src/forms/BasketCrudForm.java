@@ -50,11 +50,11 @@ public class BasketCrudForm {
      * @return AdsForm
      */
     public AdsForm delBasket(HttpServletRequest request){
-        String idAds = (String) request.getAttribute("idAds");
+        int idAds = (int) request.getAttribute("idAds");
         int idUser = Integer.parseInt(request.getParameter("idUser"));
         // Recherche de l'ads
         adsForm = new AdsForm();
-        ads = adsForm.checkAds(request);
+        ads = adsForm.checkAds(idAds);
         if (adsForm.getErrors().isEmpty()) {
 
             if (this.basketForm == null) {
