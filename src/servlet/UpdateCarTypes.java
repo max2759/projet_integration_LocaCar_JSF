@@ -18,7 +18,7 @@ public class UpdateCarTypes extends HttpServlet {
 
         carTypesForm.updateCategory(request);
 
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+        response.sendRedirect(VUE);
 
     }
 

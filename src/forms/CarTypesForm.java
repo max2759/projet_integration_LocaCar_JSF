@@ -31,7 +31,7 @@ public class CarTypesForm {
         return erreurs;
     }
 
-    public void deleteCarTypes(HttpServletRequest request){
+    /*public void deleteCarTypes(HttpServletRequest request){
 
         int idDelCat = Integer.parseInt(request.getParameter(DELETE_FIELD));
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
@@ -44,7 +44,7 @@ public class CarTypesForm {
 
         cts.deleteCarTypes(em, carTypes);
 
-    }
+    }*/
 
     public CarTypesEntity addCategory(HttpServletRequest request) {
 
@@ -72,31 +72,30 @@ public class CarTypesForm {
      * @param request
      * @return
      */
-    public CarTypesEntity updateCategory(HttpServletRequest request) {
+    public void updateCategory(HttpServletRequest request) {
 
         String updateCat = getValeurChamp(request, UPDATECATEGORY_FIELD);
-        int idUpdateCat = Integer.parseInt(getValeurChamp(request, IDUPDATECATEGORY_FIELD));
+        int idUpdateCat = Integer.parseInt(request.getParameter(IDUPDATECATEGORY_FIELD));
 
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-        CarTypesEntity carTypesEntity = new CarTypesEntity();
+        CarTypesEntity carTypesEntity;
         CarTypesService carTypesService = new CarTypesService();
 
+        // Recherche la catégorie en fonction de l'id et ajout de celle ci
         EntityTransaction tx = null;
         try{
             tx = em.getTransaction();
             tx.begin();
             carTypesEntity = carTypesService.findCarTypesById(em, idUpdateCat);
+            carTypesEntity.setLabel(updateCat);
+            carTypesService.updateCarTypes(em, carTypesEntity);
             tx.commit();
         } catch (Exception ex) {
             if (tx != null && tx.isActive()) tx.rollback();
         } finally {
             em.close();
         }
-
-
-
-        return carTypes;
 
     }
 
