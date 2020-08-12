@@ -87,7 +87,7 @@ public class CarTypesForm {
         try{
             tx = em.getTransaction();
             tx.begin();
-            carTypesEntity = carTypesService.findCarTypesById(em, idUpdateCat);
+            carTypesEntity = carTypesService.consult(em, idUpdateCat);
             carTypesEntity.setLabel(updateCat);
             carTypesService.updateCarTypes(em, carTypesEntity);
             tx.commit();

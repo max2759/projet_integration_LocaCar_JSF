@@ -23,12 +23,12 @@ public class DeleteCarTypes extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+        /*EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
         ctf.deleteCarTypes(request);
 
         request.setAttribute( "ctf", ctf);
-        response.sendRedirect( URL_REDIRECTION);
+        response.sendRedirect( URL_REDIRECTION);*/
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
