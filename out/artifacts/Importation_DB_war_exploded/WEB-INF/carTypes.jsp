@@ -24,7 +24,7 @@
                     </form>
                 </td>
                 <td>
-                    <form action="categories" method="post">
+                    <form action="supprimer-categorie" method="post">
                         <input type="hidden" id="categoryDelete" name="categoryDelete" value="${DisplayAllCategory.id}">
                         <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                     </form>

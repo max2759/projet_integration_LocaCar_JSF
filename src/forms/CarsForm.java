@@ -1,5 +1,6 @@
 package forms;
 
+import entities.AdsEntity;
 import entities.CarsEntity;
 import exceptions.CarsException;
 import services.CarsService;
@@ -90,6 +91,33 @@ public class CarsForm {
      */
     private void setError(String field, String message) {
         errors.put(field, message);
+    }
+
+    public AdsEntity searchAdsByIdCar(int idCar) {
+
+        AdsEntity ads = new AdsEntity();
+        // Recherche de la voiture
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        CarsService carsService = new CarsService();
+
+        EntityTransaction tx = null;
+
+
+// Recherche de l'ads
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            ads = carsService.searchAds(em, idCar);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        return ads;
     }
 
 }

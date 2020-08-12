@@ -33,7 +33,7 @@
 </table>
 
 <form name="formCar" id="formCar" action="basket" method="post" class="">
-    <input name="idUsers" id="1" type="hidden" value="1"/>
+    <input name="idUsers" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
     <input name="idAds" id="${ads.id}" type="hidden" value="${ads.id}"/>
     <br \><br \>
     <input name="send" id="boutonSubmit" type="submit" value="Ajouter au panier" class="btn btn-info"/>

@@ -27,7 +27,7 @@ public class CarsService {
 
 
     /**
-     * Méthode pour connaître l'annonce de la voiture
+     * Méthode pour connaître l'annonce de la voiture à partir de l'id Car
      *
      * @param em
      * @param ID
@@ -40,7 +40,7 @@ public class CarsService {
 
             return em.createNamedQuery("findAds",
                     AdsEntity.class)
-                    .setParameter("id", ID)
+                    .setParameter("idCar", ID)
                     .getSingleResult();
         } catch (Exception ex) {
             return null;
