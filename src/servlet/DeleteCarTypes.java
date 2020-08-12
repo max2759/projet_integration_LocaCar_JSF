@@ -17,18 +17,15 @@ import java.io.IOException;
 @WebServlet("/supprimer-categorie")
 public class DeleteCarTypes extends HttpServlet {
 
-    public static final String URL_REDIRECTION = "categories";
-    CarTypesEntity carTypesEntity = null;
-    CarTypesForm ctf = null;
+    public static final String VUE = "categories";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        /*EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+        CarTypesForm carTypesForm = new CarTypesForm();
 
-        ctf.deleteCarTypes(request);
+        carTypesForm.deleteCategory(request);
 
-        request.setAttribute( "ctf", ctf);
-        response.sendRedirect( URL_REDIRECTION);*/
+        response.sendRedirect(VUE);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

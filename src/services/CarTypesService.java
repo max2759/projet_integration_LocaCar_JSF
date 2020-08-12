@@ -31,8 +31,8 @@ public class CarTypesService {
         List<CarTypesEntity> carTypesEntities =
                 em.createQuery(
                         "select c from CarTypesEntity c").getResultList();
-        return carTypesEntities;
 
+        return carTypesEntities;
     }
 
     /**

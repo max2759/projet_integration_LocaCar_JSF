@@ -31,20 +31,30 @@ public class CarTypesForm {
         return erreurs;
     }
 
-    /*public void deleteCarTypes(HttpServletRequest request){
+    public void deleteCategory(HttpServletRequest request){
 
-        int idDelCat = Integer.parseInt(request.getParameter(DELETE_FIELD));
+        int idDeleteCat = Integer.parseInt(getValeurChamp(request, DELETE_FIELD));
+
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-        CarTypesService cts = null;
+        CarTypesEntity carTypesEntity;
+        CarTypesService carTypesService = new CarTypesService();
 
-        //recherche de la catégorie
+        EntityTransaction tx = null;
+        try{
+            tx = em.getTransaction();
+            tx.begin();
+            carTypesEntity = carTypesService.consult(em, idDeleteCat);
+            carTypesService.deleteCarTypes(em, carTypesEntity);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
 
-        carTypes = cts.findCarTypesById(em, idDelCat);
 
-        cts.deleteCarTypes(em, carTypes);
-
-    }*/
+    }
 
     public CarTypesEntity addCategory(HttpServletRequest request) {
 
