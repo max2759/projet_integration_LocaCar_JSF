@@ -4,8 +4,8 @@
 <div class="container">
     <h1>Ajouter une annonce</h1>
 
-    <form method="post" action="#">
-        <div class="form-group">
+    <form method="post" action="ajouter-annonce">
+        <!--<div class="form-group">
             <label>Titre de l'annonce</label>
             <input type="text" class="form-control" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
                    required>
@@ -13,17 +13,17 @@
         <div class="form-group">
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control" required>
-                <option value="vente">Vente</option>
-                <option value="locationLd">Location longue durée</option>
-                <option value="locationCd">Location courte durée</option>
-                <option value="Leasing">Leasing</option>
+                <option value="VENTE">Vente</option>
+                <option value="LOCATIONLD">Location longue durée</option>
+                <option value="LOCATIONCD">Location courte durée</option>
+                <option value="LEASING">Leasing</option>
             </select>
         </div>
         <div class="form-group">
             <label>Prix</label>
             <input type="number" class="form-control" min="100" step="any" name="adPrice" id="adPrice" placeholder="1000€"
                    required="required">
-        </div>
+        </div>-->
         <div class="form-group">
             <label>Couleur</label>
             <input type="text" class="form-control" id="color" name="color" placeholder="Couleur du véhicule"
@@ -47,23 +47,26 @@
         <div class="form-group">
             <label>Type de voiture</label>
             <select id="carTypes" name="carTypes" class="form-control">
-                <option value="Berline">Berline</option>
-                <option value="Break">Break</option>
-                <option value="SUV">SUV</option>
+                <option value="1">Berline</option>
+                <option value="2">Break</option>
+                <option value="3">SUV</option>
+                <option value="4">Citadine</option>
+
             </select>
         </div>
         <div class="form-group">
             <label>Marques</label>
             <select id="brands" name="brands" class="form-control">
-                <option value="Toyota">Toyota</option>
-                <option value="Mercedes">Mercedes</option>
+                <option value="1">Toyota</option>
+                <option value="2">Mercedes</option>
             </select>
         </div>
         <div class="form-group">
             <label>Modèle</label>
             <select id="models" name="models" class="form-control">
-                <option value="Rav4">Rav4</option>
-                <option value="Prius">Prius</option>
+                <option value="1">Rav4</option>
+                <option value="3">Prius</option>
+                <option value="5">Class A</option>
             </select>
         </div>
 

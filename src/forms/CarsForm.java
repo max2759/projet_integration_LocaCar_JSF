@@ -14,6 +14,14 @@ import java.util.Map;
 
 public class CarsForm {
     private static final String FIELD_ID = "idCars";
+    private static final String FIELD_COLOR_CAR = "color";
+    private static final String FIELD_RELEASEYEAR_CAR = "ReleaseYear";
+    private static final String FIELD_KM_CAR = "kilometer";
+    private static final String FIELD_HP_CAR = "horsePower";
+    private static final String FIELD_CARTYPES_CAR = "carTypes";
+    private static final String FIELD_BRANDS_CAR = "brands";
+    private static final String FIELD_MODELS_CAR = "models";
+    private static final String FIELD_FUEL_CAR = "fuel";
 
     private String result;
     private Map<String, String> errors = new HashMap<String, String>();
@@ -34,7 +42,6 @@ public class CarsForm {
      * @param request
      * @return
      */
-
     public CarsEntity checkCars(HttpServletRequest request) {
 
         CarsEntity cars = null;
@@ -119,5 +126,6 @@ public class CarsForm {
 
         return ads;
     }
+
 
 }

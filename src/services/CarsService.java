@@ -46,4 +46,13 @@ public class CarsService {
             return null;
         }
     }
+
+    /**
+     * Ajouter voiture à la db
+     * @param em
+     * @param carsEntity
+     */
+    public void addCars(EntityManager em, CarsEntity carsEntity){
+        em.persist(carsEntity);
+    }
 }
