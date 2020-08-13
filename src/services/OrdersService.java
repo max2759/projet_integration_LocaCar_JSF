@@ -42,7 +42,16 @@ public class OrdersService {
      * @return
      */
     public OrdersEntity consult(EntityManager em, int id) {
-        return em.find(OrdersEntity.class, id);
+//        return em.find(OrdersEntity.class, id);
+        try {
+
+            return em.createNamedQuery("Orders.findOrderById",
+                    OrdersEntity.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
     }
 
     public OrdersEntity findOrderByIdUser(EntityManager em, int id) {

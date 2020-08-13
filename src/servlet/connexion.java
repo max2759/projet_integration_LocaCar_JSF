@@ -1,5 +1,11 @@
 package servlet;
 
+import entities.UsersEntity;
+import services.UsersService;
+import util.JPAutil;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +25,24 @@ public class connexion extends HttpServlet {
 
         HttpSession session = request.getSession();
 
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+        UsersService usersService = new UsersService();
+        UsersEntity usersEntity = new UsersEntity();
+                // On recherche la commande par Id user
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            usersEntity = usersService.consult(em, Integer.parseInt(user));
+            tx.commit();
+        } catch (
+                Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        session.setAttribute("UserEntity", usersEntity);
         session.setAttribute("User", user);
 
 

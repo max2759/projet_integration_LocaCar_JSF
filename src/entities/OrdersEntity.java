@@ -10,8 +10,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "orders", schema = "projet_bac_info2")
 @NamedQueries({
+        @NamedQuery(name="Orders.findOrderById",
+                query = "SELECT o from OrdersEntity o where o.id = :id and  o.orderStatut = enumeration.EnumOrderStatut.PENDING"),
         @NamedQuery(name="Orders.findOrderByIdUser",
-                query = "SELECT o from OrdersEntity o where o.usersByIdUsers.id = :id")
+                query = "SELECT o from OrdersEntity o where o.usersByIdUsers.id = :id and o.orderStatut = enumeration.EnumOrderStatut.PENDING")
 })
 public class OrdersEntity {
     private int id;

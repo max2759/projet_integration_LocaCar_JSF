@@ -12,4 +12,10 @@ public class CarsException {
         }
     }
 
+    public void carNotActive(CarsEntity cars) throws Exception {
+        if (cars.isActive() == false) {
+            throw new Exception("La voiture n'est plus disponible");
+        }
+    }
+
 }

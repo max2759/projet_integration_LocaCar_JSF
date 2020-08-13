@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-//import javax.servlet.http.HttpSession;
-//import java.util.Map;
 
 public class BasketCrudForm {
 
@@ -19,6 +17,7 @@ public class BasketCrudForm {
 
     /**
      * Méthode d'ajout au panier
+     *
      * @param request
      * @return AdsForm
      */
@@ -26,6 +25,7 @@ public class BasketCrudForm {
     public AdsForm addBasket(HttpServletRequest request, Date dateStart, Date dateEnd) throws ParseException {
         EnumOrderStatut enumOrderStatut = EnumOrderStatut.values()[0];
         String idAds = request.getParameter("idAds");
+
         // Recherche de l'ads
         adsForm = new AdsForm();
         ads = adsForm.checkAds(request);
@@ -35,21 +35,22 @@ public class BasketCrudForm {
         if (adsForm.getErrors().isEmpty()) {
 //            HttpSession session = request.getSession();
             if (this.basketForm == null) {
-                basketForm = new BasketForm(request);
+                basketForm = new BasketForm();
             }
 
             adsForm = null;
-            basketForm.add(idAds, ads, request, enumOrderStatut, 1, dateStart, dateEnd);
+            basketForm.add(ads, request, enumOrderStatut, 1, dateStart, dateEnd);
         }
         return adsForm;
     }
 
     /**
      * Méthode pour supprimer un produit du panier
+     *
      * @param request
      * @return AdsForm
      */
-    public AdsForm delBasket(HttpServletRequest request){
+    public AdsForm delBasket(HttpServletRequest request) {
         int idAds = (int) request.getAttribute("idAds");
         int idUser = Integer.parseInt(request.getParameter("idUser"));
         // Recherche de l'ads
@@ -58,7 +59,7 @@ public class BasketCrudForm {
         if (adsForm.getErrors().isEmpty()) {
 
             if (this.basketForm == null) {
-                basketForm = new BasketForm(request);
+                basketForm = new BasketForm();
             }
 
             adsForm = null;
@@ -67,9 +68,9 @@ public class BasketCrudForm {
         return adsForm;
     }
 
-    public List<ContractsEntity> listContracts(HttpServletRequest request, int idUser){
+    public List<ContractsEntity> listContracts(HttpServletRequest request, int idUser) {
         if (this.basketForm == null) {
-            basketForm = new BasketForm(request);
+            basketForm = new BasketForm();
         }
         List<ContractsEntity> contractsEntities = basketForm.listContracts(idUser);
         return contractsEntities;

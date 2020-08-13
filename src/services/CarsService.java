@@ -6,6 +6,7 @@ import java.util.List;
 
 import entities.AdsEntity;
 import entities.CarsEntity;
+import entities.ContractsEntity;
 import servlet.Ads;
 import util.JPAutil;
 
@@ -23,6 +24,17 @@ public class CarsService {
      */
     public CarsEntity consulter(EntityManager em, int id) {
         return em.find(CarsEntity.class, id);
+    }
+
+    /**
+     * Update de l'entité
+     *
+     * @param em
+     * @param car
+     */
+    public void mergeCar(EntityManager em, CarsEntity car) {
+        em.merge(car);
+
     }
 
 

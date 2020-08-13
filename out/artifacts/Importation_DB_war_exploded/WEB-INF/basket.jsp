@@ -56,10 +56,10 @@
             <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.finalPrice}"/>€</td>
             <td> ${entry.carsByIdCars.id} </td>
 
-        <%--
-                    Key: <c:out value="${entry.key}"/>
-                    Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
-                --%>
+                <%--
+                            Key: <c:out value="${entry.key}"/>
+                            Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
+                        --%>
 
             <td>
                 <form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
@@ -71,10 +71,18 @@
             </td>
         </tr>
     </c:forEach>
-
     </tbody>
 </table>
 
+<p><c:out value="Total : "/><fmt:formatNumber type="number" maxFractionDigits="2" value="${totalPrice}"/>€</td></p>
+
+<p>
+<form name="forValidate" id="forValidate" action="validateOrder" method="post" class="">
+    <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
+    <input name="send" id="boutonSubmit2" type="submit" value="Valider"
+           class="btn btn-info"/>
+</form>
+</p>
 <%--
 
 <c:if test="${(not empty ads) && (not empty cars)}">

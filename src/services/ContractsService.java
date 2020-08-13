@@ -67,13 +67,13 @@ public class ContractsService {
      * @param id
      * @return
      */
-    public ContractsEntity findContractByIdOrder(EntityManager em, int id) {
+    public List<ContractsEntity> findAllContractByIdOrder(EntityManager em, int id) {
         try {
 
-            return em.createNamedQuery("Contracts.findContractByIdOrder",
+            return em.createNamedQuery("Contracts.findAllContractsByIdOrder",
                     ContractsEntity.class)
                     .setParameter("id", id)
-                    .getSingleResult();
+                    .getResultList();
         } catch (Exception ex) {
             return null;
         }

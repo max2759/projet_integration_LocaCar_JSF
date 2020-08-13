@@ -6,7 +6,6 @@ import entities.ContractsEntity;
 import entities.OrdersEntity;
 import enumeration.EnumOrderStatut;
 import services.AdsService;
-import services.CarsService;
 import services.ContractsService;
 import services.OrdersService;
 import util.JPAutil;
@@ -14,32 +13,16 @@ import util.JPAutil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpSession;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class pour créer la session du panier
  */
 public class BasketForm {
-    public static Map<String, AdsEntity> basket;
-//    public HttpSession session;
+
     private static final String FIELD_ID_USERS = "idUsers";
-
-    /**
-     * Constructeur qui crée la session si elle n'existe pas.
-     *
-     * @param request
-     */
-    public BasketForm(HttpServletRequest request) {
-
-        /* Récupération de la session depuis la requête*/
-//        session = request.getSession();
-    }
 
     public List<ContractsEntity> listContracts(int idUser) {
         ContractsService contractsService = new ContractsService();
@@ -53,7 +36,7 @@ public class BasketForm {
             tx = em.getTransaction();
             tx.begin();
 
-           contractsEntities = contractsService.findAllContractsByIdUser(em, idUser);
+            contractsEntities = contractsService.findAllContractsByIdUser(em, idUser);
 
             tx.commit();
         } catch (
@@ -68,10 +51,9 @@ public class BasketForm {
 
     /**
      * Recherche de contract sur base de order et de car
-     *
-     * @param ordersEntity
-     * @param carsEntity
-     * @return
+     * @param ordersEntity OrdersEntity
+     * @param carsEntity carsEntity
+     * @return void
      */
     public ContractsEntity searchContract(OrdersEntity ordersEntity, CarsEntity carsEntity) {
 
@@ -102,11 +84,21 @@ public class BasketForm {
     /**
      * Méthode d'ajout au panier
      *
-     * @param idAds
      * @param adsEntity
+     * @param request
+     * @param enumOrderStatut
+     * @param idContractType
+     * @param dateStart
+     * @param dateEnd
+     * @throws ParseException
      */
-    public void add(String idAds, AdsEntity adsEntity, HttpServletRequest request, EnumOrderStatut enumOrderStatut, int idContractType, Date dateStart, Date dateEnd) throws ParseException {
+    public void add(AdsEntity adsEntity, HttpServletRequest request, EnumOrderStatut enumOrderStatut, int idContractType, Date dateStart, Date dateEnd) throws ParseException {
         int idUsers = Integer.parseInt(request.getParameter(FIELD_ID_USERS));
+
+        // On récupère le prix
+        int locationDays = Integer.parseInt(request.getParameter("locationDays"));
+        Double finalPrice = adsEntity.getPrice() * locationDays;
+
 
         OrdersEntity ordersEntity;
         ContractsEntity contractsEntity;
@@ -128,18 +120,6 @@ public class BasketForm {
         oldOrder = ordersService.findOrderByIdUser(em, idUsers);
         ordersEntity = ordersForm.saveOrder(request, enumOrderStatut);
 
-
-        // Recherche d'un ancien contract sauvegardé
-        if (oldOrder != null) {
-            oldContract = searchContract(oldOrder, adsEntity.getCarsByIdCars());
-        }
-//        contractsEntity = contractsForm.saveContract(ordersEntity.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
-/*
-
-        setBasket(idAds, adsEntity);
-        session.setAttribute("basket", this.basket);
-*/
-
         // sauvegarde du panier en DB
         EntityTransaction tx = null;
         try {
@@ -148,7 +128,7 @@ public class BasketForm {
             if (oldOrder == null) {
                 ordersService.add(em, ordersEntity);
                 oldOrder = ordersService.findOrderByIdUser(em, idUsers);
-                contractsEntity = contractsForm.saveContract(oldOrder.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
+                contractsEntity = contractsForm.saveContract(oldOrder.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, finalPrice);
 
                 contractsService.add(em, contractsEntity);
             } else {
@@ -160,7 +140,7 @@ public class BasketForm {
                 ordersService.mergeOrder(em, oldOrder);
                 oldOrder = ordersService.findOrderByIdUser(em, idUsers);
 
-                contractsEntity = contractsForm.saveContract(oldOrder.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, adsEntity.getPrice());
+                contractsEntity = contractsForm.saveContract(oldOrder.getId(), adsEntity.getCarsByIdCars().getId(), idContractType, dateStart, dateEnd, finalPrice);
                 oldContract = searchContract(oldOrder, adsEntity.getCarsByIdCars());
                 if (oldContract == null) {
                     contractsService.add(em, contractsEntity);
@@ -172,17 +152,7 @@ public class BasketForm {
                     oldContract.setFinalPrice(contractsEntity.getFinalPrice());
                     contractsService.mergeContract(em, oldContract);
                 }
-                /*
-                if (oldContract.getId() != contractsEntity.getId()) {
-                    contractsService.add(em, contractsEntity);
-                } else {
 
-                    // MAJ du contract
-                    oldContract.setDateStart(contractsEntity.getDateStart());
-                    oldContract.setDateEnd(contractsEntity.getDateEnd());
-                    oldContract.setFinalPrice(contractsEntity.getFinalPrice());
-                    contractsService.mergeContract(em, oldContract);
-                }*/
             }
             tx.commit();
         } catch (Exception ex) {
@@ -202,9 +172,9 @@ public class BasketForm {
     public void remove(int idAds, int idUsers) {
 
         OrdersEntity oldOrder = null;
-        AdsEntity adsEntity = null;
+        AdsEntity adsEntity;
         CarsEntity carsEntity = null;
-        int idCar = 0;
+
         //création de l'em
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
@@ -239,7 +209,6 @@ public class BasketForm {
 
             // On a l'annonce, maintenant on cherche l'id de la voiture
             carsEntity = adsEntity.getCarsByIdCars();
-            idCar = carsEntity.getId();
 
             tx.commit();
         } catch (Exception ex) {
@@ -266,75 +235,5 @@ public class BasketForm {
             em.close();
         }
 
-        // On réinitialise les sessions
-/*
-        unsetBasket(Integer.toString(idAds));
-        session.setAttribute("basket", this.basket);
-*/
-
     }
-/*
-
-    */
-/**
-     * Méthode pour setter la map de panier. Elle est appellé par add
-     *
-     * @param idAds
-     * @param adsEntity
-     *//*
-
-    public void setBasket(String idAds, AdsEntity adsEntity) {
-        if (this.basket == null) {
-            this.basket = new HashMap<>();
-
-*/
-/*
-            ContractsService contractsService = new ContractsService();
-            List<ContractsEntity> contractsEntities;
-            //création de l'em
-            EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-            EntityTransaction tx = null;
-            try {
-                tx = em.getTransaction();
-                tx.begin();
-
-                contractsEntities = contractsService.listAll(em, idUser);
-
-                tx.commit();
-            } catch (Exception ex) {
-                if (tx != null && tx.isActive()) tx.rollback();
-            } finally {
-                em.close();
-            }
-*//*
-
-
-        }
-        this.basket.put(idAds, adsEntity);
-    }
-
-    */
-/**
-     * Méthode pour unsetter la map de panier. Elle est appellé par remove
-     *
-     * @param idAds
-     *//*
-
-    public void unsetBasket(String idAds) {
-        */
-/*if (this.basket == null) {
-            this.basket = new HashMap<>();
-        }*//*
-
-        this.basket.remove(idAds);
-    }
-*/
-
-/*
-
-
-    public Map getBasket() {
-        return basket;
-    }
-*/
 }

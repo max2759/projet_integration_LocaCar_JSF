@@ -1,19 +1,21 @@
 package forms;
 
-import entities.AdsEntity;
-import entities.OrdersEntity;
-import entities.UsersEntity;
+import com.sun.org.apache.xpath.internal.operations.Or;
+import entities.*;
 import enumeration.EnumOrderStatut;
+import enumeration.EnumTypesAds;
+import exceptions.CarsException;
 import exceptions.OrdersException;
-import services.OrdersService;
-import services.UsersService;
+import services.*;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.Order;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class OrdersForm {
@@ -94,6 +96,7 @@ public class OrdersForm {
 
     /**
      * Méthode pour sauvegarder l'entité
+     *
      * @param request
      * @return
      */
@@ -133,7 +136,6 @@ public class OrdersForm {
         errors.put(field, message);
     }
 
-
     /**
      * Changement de statut de la commande
      *
@@ -144,6 +146,142 @@ public class OrdersForm {
 
         ordersEntity.setOrderStatut(orderStatut);
         return ordersEntity;
+    }
+
+
+    public void validateOrder(int idUser) {
+        OrdersService ordersService = new OrdersService();
+        OrdersEntity ordersEntity = null;
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        // On recherche la commande par Id user
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            ordersEntity = ordersService.findOrderByIdUser(em, idUser);
+            tx.commit();
+        } catch (
+                Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        // On gère les exceptions
+        OrdersException ordersException = new OrdersException();
+
+        // On vérifie que la commande est valide.
+        try {
+            ordersException.validationEntity(ordersEntity);
+        } catch (Exception e) {
+            setError(FIELD_ID, e.getMessage());
+        }
+
+        if (errors.isEmpty()) {
+            EnumOrderStatut enumOrderStatut = EnumOrderStatut.values()[1];
+            ordersEntity = changeStatut(ordersEntity, enumOrderStatut);
+
+
+            em = JPAutil.createEntityManager("projet_bac_info2");
+
+            // On recherche la commande par Id user
+            tx = null;
+            try {
+                tx = em.getTransaction();
+                tx.begin();
+                ordersEntity.getId();
+
+
+                changeStatutCarAfterValidationOrder(ordersEntity.getId());
+
+                // On cheque si y a pas d'erreur jusqu'à maintenant
+                if (errors.isEmpty()) {
+
+                    ordersService.mergeOrder(em, ordersEntity);
+
+                    result = "Succès";
+                } else {
+                    result = "Échec";
+                }
+                tx.commit();
+            } catch (
+                    Exception ex) {
+                if (tx != null && tx.isActive()) tx.rollback();
+                result = "Échec";
+            } finally {
+                em.close();
+            }
+
+
+        } else {
+            result = "Échec";
+        }
+    }
+
+    public void changeStatutCarAfterValidationOrder(int idOrder) {
+        ContractsService contractsService = new ContractsService();
+        List<ContractsEntity> contractsEntities = null;
+        CarsService carsService = new CarsService();
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        // On recherche la commande par Id user
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            contractsEntities = contractsService.findAllContractByIdOrder(em, idOrder);
+
+            tx.commit();
+        } catch (
+                Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        // On parcourt les contracts
+        for (ContractsEntity value : contractsEntities
+        ) {
+            CarsEntity carsEntity = value.getCarsByIdCars();
+
+            // On vérifie que la voiture est disponible sinon, on retourne un message d'erreur
+            CarsException carsException = new CarsException();
+            try {
+                carsException.carNotActive(carsEntity);
+            } catch (Exception e) {
+                setError("car", e.getMessage());
+                result = "Échec";
+                return;
+            }
+            carsEntity.setActive(false);
+
+            // On fait un merge de la voiture
+            em = JPAutil.createEntityManager("projet_bac_info2");
+
+            tx = null;
+            try {
+                tx = em.getTransaction();
+                tx.begin();
+
+
+                // Le cas d'une vente, on change le isActive du véhicule en 0 car le véhicule n'est plus disponible
+
+                EnumTypesAds enumTypesAds = EnumTypesAds.values()[0];
+
+                AdsEntity adsEntity = carsService.searchAds(em, carsEntity.getId());
+                if (adsEntity.getTypesAds() == enumTypesAds) {
+                    carsService.mergeCar(em, carsEntity);
+                }
+                tx.commit();
+            } catch (
+                    Exception ex) {
+                if (tx != null && tx.isActive()) tx.rollback();
+            } finally {
+                em.close();
+            }
+        }
     }
 
     private static String getValeurChamp(HttpServletRequest request, String nomChamp) {

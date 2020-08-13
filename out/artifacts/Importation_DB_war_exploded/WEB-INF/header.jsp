@@ -35,6 +35,7 @@
                     <a class="dropdown-item" href="<c:url value="/annonces"/>">Voir annonces</a>
                     <a class="dropdown-item" href="#">Ajouter annonce</a>
                     <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les test)</a>
+                    <a class="dropdown-item" href="<c:url value="/adsLocation"/>">Location (temporaire pour les test)</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

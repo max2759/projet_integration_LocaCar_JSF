@@ -7,13 +7,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "contracts", schema = "projet_bac_info2")
 @NamedQueries({
-        @NamedQuery(name="Contracts.findContractByIdOrder",
-                query = "SELECT c from ContractsEntity c where c.ordersByIdOrders.id = :id"),
+        @NamedQuery(name="Contracts.findAllContractsByIdOrder",
+                query = "SELECT c from ContractsEntity c " +
+                        "where c.ordersByIdOrders.id = :id"),
         @NamedQuery(name="Contracts.findContractByIdOrderAndByIdCar",
                 query = "SELECT c from ContractsEntity c where c.ordersByIdOrders.id = :idOrder and c.carsByIdCars.id = :idCar"),
         @NamedQuery(name="Contracts.findAllContractsByIdUser",
                 query = "SELECT c from ContractsEntity c " +
-                        "where c.ordersByIdOrders.usersByIdUsers = :user ")
+                        "where c.ordersByIdOrders.usersByIdUsers = :user and c.ordersByIdOrders.orderStatut = enumeration.EnumOrderStatut.PENDING")
 })
 public class ContractsEntity {
     private int id;
@@ -46,7 +47,7 @@ public class ContractsEntity {
     }
 
     @Basic
-    @Column(name = "Date_End", nullable = false)
+    @Column(name = "Date_End", nullable = true)
     public Date getDateEnd() {
         return dateEnd;
     }

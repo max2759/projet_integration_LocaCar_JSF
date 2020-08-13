@@ -29,44 +29,45 @@ public class AdsForm {
 
     /**
      * Methode pour rechercher une annonce à partir de l'id
+     *
      * @param idAds
      * @return
      */
-    public AdsEntity checkAds(int idAds){
+    public AdsEntity checkAds(int idAds) {
         AdsEntity ads = null;
 
-            // On vérifie que c'est bien un nbr
+        // On vérifie que c'est bien un nbr
+        try {
+
+            EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+            // Recherche de l'ads
+
+            AdsService adsService = new AdsService();
+
+            EntityTransaction tx = null;
             try {
-
-                EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
-                // Recherche de l'ads
-
-                AdsService adsService = new AdsService();
-
-                EntityTransaction tx = null;
-                try {
-                    tx = em.getTransaction();
-                    tx.begin();
-                    ads = adsService.consulter(em, idAds);
-                    tx.commit();
-                } catch (Exception ex) {
-                    if (tx != null && tx.isActive()) tx.rollback();
-                } finally {
-                    em.close();
-                }
-
-                AdsException adsException = new AdsException();
-
-                try {
-                    adsException.validationEntity(ads);
-                } catch (Exception e) {
-                    setError(FIELD_ID, e.getMessage());
-                }
-            } catch (NumberFormatException e) {
-                setError(FIELD_ID, "Cette valeur n'est pas un chiffre, essaie encore !");
-
+                tx = em.getTransaction();
+                tx.begin();
+                ads = adsService.consulter(em, idAds);
+                tx.commit();
+            } catch (Exception ex) {
+                if (tx != null && tx.isActive()) tx.rollback();
+            } finally {
+                em.close();
             }
+
+            AdsException adsException = new AdsException();
+
+            try {
+                adsException.validationEntity(ads);
+            } catch (Exception e) {
+                setError(FIELD_ID, e.getMessage());
+            }
+        } catch (NumberFormatException e) {
+            setError(FIELD_ID, "Cette valeur n'est pas un chiffre, essaie encore !");
+
+        }
 
         if (errors.isEmpty()) {
             result = "Succès";
@@ -75,6 +76,7 @@ public class AdsForm {
         }
         return ads;
     }
+
     /**
      * Méthode de vérification de l'existence de l'ads
      *
