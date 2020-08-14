@@ -14,6 +14,7 @@
             <th>Date de début</th>
             <th>Date de fin</th>
             <th>Type d'annonce</th>
+            <th>Supprimer</th>
         </tr>
         </thead>
 
@@ -31,6 +32,12 @@
                 <td> ${listeAds.dateStart} </td>
                 <td> ${listeAds.dateEnd} </td>
                 <td> ${listeAds.typesAds} </td>
+                <td>
+                    <form action="supprimer-annonce" method="post">
+                        <input type="hidden" id="adsDelete" name="adsDelete" value="${listeAds.id}">
+                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
 
         </c:forEach>

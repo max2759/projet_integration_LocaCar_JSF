@@ -32,6 +32,7 @@ public class AdsForm {
     private static final String FIELD_BRANDS_CAR = "brands";
     private static final String FIELD_MODELS_CAR = "models";
     private static final String FIELD_FUEL_CAR = "fuel";
+    private static final String FIELD_DELETE_ADS = "adsDelete";
 
 
 
@@ -49,6 +50,11 @@ public class AdsForm {
         return errors;
     }
 
+    /**
+     * Crée une annonce via le formulaire
+     * @param request
+     * @throws ParseException
+     */
     public void addAds(HttpServletRequest request) throws ParseException {
 
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
@@ -191,6 +197,43 @@ public class AdsForm {
         return ads;
     }
 
+    public void removeAds(HttpServletRequest request){
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        //Champs
+        int idDelCar = Integer.parseInt(getValeurChamp(request, FIELD_DELETE_ADS));
+        int idCar = 0;
+
+
+        //Entité
+        AdsEntity adsEntity = new AdsEntity();
+        CarsEntity carsEntity =new CarsEntity();
+
+        //Services
+        AdsService adsService = new AdsService();
+        CarsService carsService = new CarsService();
+
+        // Transaction
+
+        EntityTransaction tx = null;
+        try{
+            tx= em.getTransaction();
+            tx.begin();
+            adsEntity = adsService.consulter(em, idDelCar);
+            carsEntity = adsEntity.getCarsByIdCars();
+
+            adsEntity.setActive(false);
+            carsEntity.setActive(false);
+
+            adsService.updateAds(em, adsEntity);
+            carsService.updateCar(em, carsEntity);
+            tx.commit();
+
+        }catch(Exception ex){
+            if (tx != null && tx.isActive()) tx.rollback();
+        }
+    }
     /*
      * Ajoute un message correspondant au champ spécifié à la map des errors.
      */

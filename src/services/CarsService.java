@@ -55,4 +55,13 @@ public class CarsService {
     public void addCars(EntityManager em, CarsEntity carsEntity){
         em.persist(carsEntity);
     }
+
+    /**
+     * Mets à jour l'entité dans la db
+     * @param em
+     * @param carsEntity
+     */
+    public void updateCar(EntityManager em, CarsEntity carsEntity){
+        em.merge(carsEntity);
+    }
 }
