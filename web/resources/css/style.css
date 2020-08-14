@@ -2,3 +2,8 @@
     display: flex;
     margin-top: 5px;
 }
+
+tr.hide{
+    display: none;
+}
+
