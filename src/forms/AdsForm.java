@@ -1,6 +1,8 @@
 package forms;
 
 import entities.*;
+import enumeration.EnumFuel;
+import enumeration.EnumTypesAds;
 import exceptions.AdsException;
 import services.*;
 import util.JPAutil;
@@ -10,6 +12,9 @@ import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,9 +60,23 @@ public class AdsForm {
         int kilometer = Integer.parseInt(getValeurChamp(request, FIELD_KM_CAR));
         int horsePower = Integer.parseInt(getValeurChamp(request, FIELD_HP_CAR));
         String fuel = getValeurChamp(request, FIELD_FUEL_CAR);
+        EnumFuel enumfuel = EnumFuel.valueOf(fuel);
         int models = Integer.parseInt(getValeurChamp(request, FIELD_MODELS_CAR));
         int brands = Integer.parseInt(getValeurChamp(request, FIELD_BRANDS_CAR));
         int carTypes = Integer.parseInt(getValeurChamp(request, FIELD_CARTYPES_CAR));
+        String labelAd = getValeurChamp(request, FIELD_LABEL_ADS);
+        Double priceAd = Double.parseDouble(getValeurChamp(request, FIELD_PRICE_ADS));
+        String typeAds = getValeurChamp(request, FIELD_TYPEADS_ADS);
+        EnumTypesAds enumTypesAds = EnumTypesAds.valueOf(typeAds);
+        int idCar = 0;
+        /*DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-DD");
+        LocalDateTime now = LocalDateTime.now();*/
+        Date todayDate = new Date();
+        LocalDateTime ldt = LocalDateTime.ofInstant(todayDate.toInstant(), ZoneId.systemDefault());
+        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        LocalDateTime dateEnd = ldt.plusMonths(1);
+        Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
+
 
         // Les entités
 
@@ -90,10 +109,24 @@ public class AdsForm {
             carsEntity.setHorsePower(horsePower);
             carsEntity.setReleaseYear(releaseYear);
             carsEntity.setKilometer(kilometer);
+            carsEntity.setEnumFuel(enumfuel);
             carsEntity.setCarTypesByIdCarTypes(carTypesEntity);
             carsEntity.setModelsByIdModels(modelsEntity);
             modelsEntity.setBrandsByIdBrands(brandsEntity);
             carsService.addCars(em, carsEntity);
+            idCar = carsEntity.getId();
+
+            carsService.consulter(em, idCar);
+            adsEntity.setCarsByIdCars(carsEntity);
+            adsEntity.setActive(true);
+            adsEntity.setLabel(labelAd);
+            adsEntity.setPrice(priceAd);
+            adsEntity.setTypesAds(enumTypesAds);
+            adsEntity.setDateStart(out);
+            adsEntity.setDateEnd(endOut);
+
+            adsService.addAds(em, adsEntity);
+
             tx.commit();
         }catch(Exception ex){
             if (tx != null && tx.isActive()) tx.rollback();

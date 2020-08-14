@@ -5,7 +5,7 @@
     <h1>Ajouter une annonce</h1>
 
     <form method="post" action="ajouter-annonce">
-        <!--<div class="form-group">
+        <div class="form-group">
             <label>Titre de l'annonce</label>
             <input type="text" class="form-control" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
                    required>
@@ -23,7 +23,7 @@
             <label>Prix</label>
             <input type="number" class="form-control" min="100" step="any" name="adPrice" id="adPrice" placeholder="1000€"
                    required="required">
-        </div>-->
+        </div>
         <div class="form-group">
             <label>Couleur</label>
             <input type="text" class="form-control" id="color" name="color" placeholder="Couleur du véhicule"
@@ -73,12 +73,12 @@
         <div class="form-group">
             <label>Carburant</label>
             <select id="fuel" name="fuel" class="form-control">
-                <option value="Essence">Essence</option>
-                <option value="Diesel">Diesel</option>
-                <option value="Hybrid">Hybrid</option>
-                <option value="Plug-in">Plug-in hybrid</option>
-                <option value="Gaz">Gaz</option>
-                <option value="Electrique">Électrique</option>
+                <option value="ESSENCE">Essence</option>
+                <option value="DIESEL">Diesel</option>
+                <option value="HYBRID">Hybrid</option>
+                <option value="PIHYBRID-in">Plug-in hybrid</option>
+                <option value="GAZ">Gaz</option>
+                <option value="ELECTRIQUE">Électrique</option>
             </select>
         </div>
 

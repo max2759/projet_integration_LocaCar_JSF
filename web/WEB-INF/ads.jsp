@@ -5,6 +5,7 @@
     <table class='table table-hover'>
         <thead>
         <tr>
+            <th>Titre de l'annonce</th>
             <th>Marque</th>
             <th>Modèle</th>
             <th>Types de voiture</th>
@@ -21,6 +22,7 @@
 
         <c:forEach var='listeAds' items='${ads}'>
             <tr>
+                <td> ${listeAds.label} </td>
                 <td> ${listeAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
                 <td> ${listeAds.carsByIdCars.modelsByIdModels.label}</td>
                 <td> ${listeAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
@@ -28,7 +30,7 @@
                 <td> ${listeAds.price} </td>
                 <td> ${listeAds.dateStart} </td>
                 <td> ${listeAds.dateEnd} </td>
-                <td> ${listeAds.label} </td>
+                <td> ${listeAds.typesAds} </td>
             </tr>
 
         </c:forEach>
