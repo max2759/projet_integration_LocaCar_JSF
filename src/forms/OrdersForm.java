@@ -23,6 +23,7 @@ public class OrdersForm {
     private static final String FIELD_ID = "idOrders";
     private static final String FIELD_ID_USERS = "idUsers";
 
+
     private String result;
     private Map<String, String> errors = new HashMap<String, String>();
 
@@ -148,7 +149,11 @@ public class OrdersForm {
         return ordersEntity;
     }
 
-
+    /**
+     * Méthode de validation d'une commande
+     *
+     * @param idUser
+     */
     public void validateOrder(int idUser) {
         OrdersService ordersService = new OrdersService();
         OrdersEntity ordersEntity = null;
@@ -220,6 +225,11 @@ public class OrdersForm {
         }
     }
 
+    /**
+     * Méthode qui change le statut du véhicule lors de la validation d'une commande vente
+     *
+     * @param idOrder
+     */
     public void changeStatutCarAfterValidationOrder(int idOrder) {
         ContractsService contractsService = new ContractsService();
         List<ContractsEntity> contractsEntities = null;
@@ -283,6 +293,83 @@ public class OrdersForm {
             }
         }
     }
+
+    public OrdersEntity findOrderValidatedById(int idOrder){
+        OrdersEntity ordersEntity = null;
+        OrdersService ordersService = new OrdersService();
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+            //Vérification le id Order
+            ordersEntity = ordersService.findOrderValidatedById(em, idOrder);
+            OrdersException ordersException = new OrdersException();
+
+            // Si aucune entité n'est trouvé on renvoit une exception
+            try {
+                ordersException.validationEntity(ordersEntity);
+            } catch (Exception e) {
+                setError(FIELD_ID, e.getMessage());
+            }
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        if (errors.isEmpty()) {
+            result = "Succès";
+        } else {
+            result = "Echec";
+        }
+        return ordersEntity;
+
+    }
+    /**
+     * Méthode pour annuler une commande
+     *
+     * @param request
+     */
+    public void deleteOrder(HttpServletRequest request) {
+
+        int idOrder = Integer.parseInt(request.getParameter(FIELD_ID));
+        OrdersEntity ordersEntity;
+        OrdersService ordersService = new OrdersService();
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+            //Vérification le id Order
+            ordersEntity = findOrderValidatedById(idOrder);
+
+            // Si aucune erreur, on change le statut en : canceled et on merge
+            if (errors.isEmpty()) {
+
+                EnumOrderStatut enumOrderStatut = EnumOrderStatut.CANCELED;
+                ordersEntity.setOrderStatut(enumOrderStatut);
+                ordersService.mergeOrder(em, ordersEntity);
+                result = "Succès";
+            } else {
+                result = "Echec";
+            }
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+    }
+
 
     private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
         String valeur = request.getParameter(nomChamp);

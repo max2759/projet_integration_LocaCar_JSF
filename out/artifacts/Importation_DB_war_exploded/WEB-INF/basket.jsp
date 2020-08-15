@@ -17,50 +17,32 @@
 <table class='table table-hover'>
     <thead>
     <tr>
-        <th>Model</th>
-        <th>Car Type</th>
-        <th>Color</th>
-        <th>Year</th>
-        <th>Km</th>
-        <th>HorsePower</th>
-        <th>Fuel</th>
-        <th>Price</th>
-        <th>ID Car</th>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>Année</th>
+        <th>Kilométrage</th>
+        <th>Couleur</th>
+        <th>Puissance</th>
+        <th>Carburant</th>
+        <th>Carrosserie</th>
+        <th>Prix</th>
         <th>Supprimer</th>
     </tr>
     </thead>
 
-    <tbody><%--
-    <c:forEach var="entry" items="${sessionScope.basket}">
-
-        <tr>
-            <td> ${entry.value.carsByIdCars.modelsByIdModels.label} </td>
-            <td> ${entry.value.carsByIdCars.carTypesByIdCarTypes.label} </td>
-            <td> ${entry.value.carsByIdCars.color} </td>
-            <td><fmt:formatDate pattern="dd-MM-yyyy" value="${entry.value.carsByIdCars.releaseYear}"/></td>
-            <td> ${entry.value.carsByIdCars.kilometer} </td>
-            <td> ${entry.value.carsByIdCars.horsePower} </td>
-            <td> ${entry.value.carsByIdCars.enumFuel} </td>
-            <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.value.price}"/>€</td>
---%>
+    <tbody>
     <c:forEach var="entry" items="${basket}">
 
         <tr>
-            <td> ${entry.carsByIdCars.modelsByIdModels.label} </td>
-            <td> ${entry.carsByIdCars.carTypesByIdCarTypes.label} </td>
-            <td> ${entry.carsByIdCars.color} </td>
-            <td><fmt:formatDate pattern="dd-MM-yyyy" value="${entry.carsByIdCars.releaseYear}"/></td>
-            <td> ${entry.carsByIdCars.kilometer} </td>
-            <td> ${entry.carsByIdCars.horsePower} </td>
-            <td> ${entry.carsByIdCars.enumFuel} </td>
+            <td> <c:out value="${entry.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}"/></td>
+            <td> <c:out value="${entry.carsByIdCars.modelsByIdModels.label}"/> </td>
+            <td><fmt:formatDate pattern="MM-yyyy" value="${entry.carsByIdCars.releaseYear}"/></td>
+            <td> <c:out value="${entry.carsByIdCars.kilometer} km"/></td>
+            <td> <c:out value="${entry.carsByIdCars.color}"/> </td>
+            <td> <c:out value="${entry.carsByIdCars.horsePower} cv"/></td>
+            <td> <c:out value="${entry.carsByIdCars.enumFuel} "/></td>
+            <td> <c:out value="${entry.carsByIdCars.carTypesByIdCarTypes.label} "/></td>
             <td><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.finalPrice}"/>€</td>
-            <td> ${entry.carsByIdCars.id} </td>
-
-                <%--
-                            Key: <c:out value="${entry.key}"/>
-                            Value: <c:out value="${entry.value.carsByIdCars.id}"/><br \>
-                        --%>
-
             <td>
                 <form name="forRemove" id="forRemove" action="removeBasket" method="post" class="">
                     <input name="idCar" id="${entry.carsByIdCars.id}" type="hidden" value="${entry.carsByIdCars.id}"/>

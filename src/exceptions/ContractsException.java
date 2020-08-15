@@ -1,6 +1,9 @@
 package exceptions;
 
 import entities.ContractsEntity;
+import entities.OrdersEntity;
+
+import java.util.List;
 
 public class ContractsException {
 
@@ -16,4 +19,10 @@ public class ContractsException {
         }
     }
 
+    public void validationEntities(List<ContractsEntity> contract) throws Exception {
+        if (contract == null || contract.isEmpty()) {
+            throw new Exception("Aucun contrat");
+
+        }
+    }
 }

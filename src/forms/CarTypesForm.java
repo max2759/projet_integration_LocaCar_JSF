@@ -31,28 +31,18 @@ public class CarTypesForm {
         return erreurs;
     }
 
-    public void deleteCategory(HttpServletRequest request){
+    public void deleteCarTypes(HttpServletRequest request){
 
-        int idDeleteCat = Integer.parseInt(getValeurChamp(request, DELETE_FIELD));
-
+        int idDelCat = Integer.parseInt(request.getParameter(DELETE_FIELD));
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-        CarTypesEntity carTypesEntity;
-        CarTypesService carTypesService = new CarTypesService();
+        CarTypesService cts = null;
 
-        EntityTransaction tx = null;
-        try{
-            tx = em.getTransaction();
-            tx.begin();
-            carTypesEntity = carTypesService.consult(em, idDeleteCat);
-            carTypesService.deleteCarTypes(em, carTypesEntity);
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && tx.isActive()) tx.rollback();
-        } finally {
-            em.close();
-        }
+        //recherche de la catégorie
 
+        carTypes = cts.findCarTypesById(em, idDelCat);
+
+        cts.deleteCarTypes(em, carTypes);
 
     }
 
@@ -82,30 +72,31 @@ public class CarTypesForm {
      * @param request
      * @return
      */
-    public void updateCategory(HttpServletRequest request) {
+    public CarTypesEntity updateCategory(HttpServletRequest request) {
 
         String updateCat = getValeurChamp(request, UPDATECATEGORY_FIELD);
-        int idUpdateCat = Integer.parseInt(request.getParameter(IDUPDATECATEGORY_FIELD));
+        int idUpdateCat = Integer.parseInt(getValeurChamp(request, IDUPDATECATEGORY_FIELD));
 
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-        CarTypesEntity carTypesEntity;
+        CarTypesEntity carTypesEntity = new CarTypesEntity();
         CarTypesService carTypesService = new CarTypesService();
 
-        // Recherche la catégorie en fonction de l'id et ajout de celle ci
         EntityTransaction tx = null;
         try{
             tx = em.getTransaction();
             tx.begin();
-            carTypesEntity = carTypesService.consult(em, idUpdateCat);
-            carTypesEntity.setLabel(updateCat);
-            carTypesService.updateCarTypes(em, carTypesEntity);
+            carTypesEntity = carTypesService.findCarTypesById(em, idUpdateCat);
             tx.commit();
         } catch (Exception ex) {
             if (tx != null && tx.isActive()) tx.rollback();
         } finally {
             em.close();
         }
+
+
+
+        return carTypes;
 
     }
 

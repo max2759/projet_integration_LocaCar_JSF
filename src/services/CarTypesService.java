@@ -2,7 +2,6 @@ package services;
 
 import entities.AdsEntity;
 import entities.CarTypesEntity;
-import entities.ContractsEntity;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -31,8 +30,8 @@ public class CarTypesService {
         List<CarTypesEntity> carTypesEntities =
                 em.createQuery(
                         "select c from CarTypesEntity c").getResultList();
-
         return carTypesEntities;
+
     }
 
     /**
@@ -64,17 +63,6 @@ public class CarTypesService {
      */
     public void updateCarTypes(EntityManager em, CarTypesEntity carTypesEntity) {
         em.merge(carTypesEntity);
-    }
-
-    /**
-     * méthode Consulter d'une entité à  partir de la bd
-     *
-     * @param em
-     * @param id
-     * @return
-     */
-    public CarTypesEntity consult(EntityManager em, int id) {
-        return em.find(CarTypesEntity.class, id);
     }
 
 

@@ -12,6 +12,7 @@ import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ContractsForm {
@@ -148,6 +149,44 @@ public class ContractsForm {
      */
     private void setError(String field, String message) {
         errors.put(field, message);
+    }
+
+
+    public List<ContractsEntity> findAllContractByIdOrder(int idOrder){
+        List<ContractsEntity> contractsEntities = null;
+        ContractsService contractsService = new ContractsService();
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+            //Vérification le id Order
+            contractsEntities = contractsService.findAllContractByIdOrder(em, idOrder);
+            ContractsException contractsException = new ContractsException();
+
+            // Si aucune entité n'est trouvé on renvoit une exception
+            try {
+                contractsException.validationEntities(contractsEntities);
+            } catch (Exception e) {
+                setError("contract", e.getMessage());
+            }
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        if (errors.isEmpty()) {
+            result = "Succès";
+        } else {
+            result = "Echec";
+        }
+        return contractsEntities;
+
     }
 
 

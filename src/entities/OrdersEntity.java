@@ -10,9 +10,20 @@ import java.util.Objects;
 @Entity
 @Table(name = "orders", schema = "projet_bac_info2")
 @NamedQueries({
-        @NamedQuery(name="Orders.findOrderById",
+        //Recherche de commande en attente : par id Order
+        @NamedQuery(name = "Orders.findOrderById",
                 query = "SELECT o from OrdersEntity o where o.id = :id and  o.orderStatut = enumeration.EnumOrderStatut.PENDING"),
-        @NamedQuery(name="Orders.findOrderByIdUser",
+
+        // Recherche de commande validé : par id Order
+        @NamedQuery(name = "Orders.findOrderValidatedById",
+                query = "SELECT o from OrdersEntity o where o.id = :id and  (o.orderStatut = enumeration.EnumOrderStatut.VALIDATED or o.orderStatut = enumeration.EnumOrderStatut.CANCELED)"),
+
+        // Recherche de commandes par id Order, par id users ou pas un username
+        @NamedQuery(name = "Orders.findOrdersValidateByIdOrderAndByIdUserAndByUsername",
+                query = "SELECT o from OrdersEntity o where (o.id = :id or o.usersByIdUsers.id = :id or o.usersByIdUsers.username = :username) and (o.orderStatut = enumeration.EnumOrderStatut.VALIDATED or o.orderStatut = enumeration.EnumOrderStatut.CANCELED)"),
+
+        //Recherche de commande en attente : par id user
+        @NamedQuery(name = "Orders.findOrderByIdUser",
                 query = "SELECT o from OrdersEntity o where o.usersByIdUsers.id = :id and o.orderStatut = enumeration.EnumOrderStatut.PENDING")
 })
 public class OrdersEntity {
@@ -24,7 +35,7 @@ public class OrdersEntity {
     private UsersEntity usersByIdUsers;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;
