@@ -1,6 +1,8 @@
 package servlet;
 
+import entities.*;
 import forms.AdsForm;
+import services.*;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 @WebServlet("/ajouter-annonce")
 public class AddAds extends HttpServlet {
@@ -35,6 +38,29 @@ public class AddAds extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        // liste d'objet
+        List<CarTypesEntity> carTypesEntities;
+        List<ModelsEntity> modelsEntities;
+        List<BrandsEntity> brandsEntities;
+
+
+
+        // Les services
+        CarTypesService carTypesService = new CarTypesService();
+        ModelsService modelsService = new ModelsService();
+        BrandsService brandsService = new BrandsService();
+
+        //Appel des méthodes qui retourne une liste d'objet
+        carTypesEntities = carTypesService.displayCategory();
+        modelsEntities = modelsService.displayModels();
+        brandsEntities = brandsService.displayBrands();
+
+
+        request.setAttribute("category", carTypesEntities);
+        request.setAttribute("models", modelsEntities);
+        request.setAttribute("brands", brandsEntities);
+
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }

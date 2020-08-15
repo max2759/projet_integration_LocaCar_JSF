@@ -5,6 +5,7 @@ import javax.persistence.EntityTransaction;
 import java.util.List;
 
 import entities.AdsEntity;
+import entities.BrandsEntity;
 import entities.CarsEntity;
 import servlet.Ads;
 import util.JPAutil;
@@ -13,6 +14,8 @@ import util.JPAutil;
  * Méthode pour lister toutes les annonces
  */
 public class CarsService {
+
+    EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
     /**
      * méthode Consulter d'une entité à  partir de la bd
@@ -63,5 +66,18 @@ public class CarsService {
      */
     public void updateCar(EntityManager em, CarsEntity carsEntity){
         em.merge(carsEntity);
+    }
+
+
+    /**
+     * Lister toutes les voitures
+     * @return carsEntities
+     */
+    public List<CarsEntity> displayCars() {
+        List<CarsEntity> carsEntities =
+                em.createQuery(
+                        "select c from CarsEntity c").getResultList();
+
+        return carsEntities;
     }
 }

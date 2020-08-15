@@ -25,15 +25,15 @@
             <%--<c:set var="ActiveOrNot" value="${listeAds.active}"/>
             <c:choose>
                 <c:when test="${ActiveOrNot == true}">--%>
-            <tr class="${listeAds.active ? 'hide' : 'show'}">
+            <tr class="${listeAds.active ? 'show' : 'hide'}">
                 <td> ${listeAds.label} </td>
                 <td> ${listeAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
                 <td> ${listeAds.carsByIdCars.modelsByIdModels.label}</td>
                 <td> ${listeAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
                 <td> ${listeAds.carsByIdCars.color}</td>
-                <td> ${listeAds.price} </td>
-                <td> ${listeAds.dateStart} </td>
-                <td> ${listeAds.dateEnd} </td>
+                <td> <fmt:formatNumber value="${listeAds.price}" type="currency"/></td>
+                <td> <fmt:formatDate pattern="dd-MM-yyyy" value="${listeAds.dateStart}" /></td>
+                <td> <fmt:formatDate pattern="dd-MM-yyyy" value="${listeAds.dateEnd}" /></td>
                 <td> ${listeAds.typesAds} </td>
                 <td>
                     <form action="supprimer-annonce" method="post">

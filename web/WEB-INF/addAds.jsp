@@ -21,7 +21,8 @@
         </div>
         <div class="form-group">
             <label>Prix</label>
-            <input type="number" class="form-control" min="100" step="any" name="adPrice" id="adPrice" placeholder="1000€"
+            <input type="number" class="form-control" min="100" step="any" name="adPrice" id="adPrice"
+                   placeholder="1000€"
                    required="required">
         </div>
         <div class="form-group">
@@ -36,37 +37,44 @@
         </div>
         <div class="form-group">
             <label>Kilométrage</label>
-            <input type="number" class="form-control" min="100" step="any" id="kilometer" name="kilometer" placeholder="230000km"
+            <input type="number" class="form-control" min="100" step="any" id="kilometer" name="kilometer"
+                   placeholder="230000km"
                    required>
         </div>
         <div class="form-group">
             <label>Chevaux</label>
-            <input type="number" class="form-control" min="10" step="any" id="horsePower" name="horsePower" placeholder="150 CV"
+            <input type="number" class="form-control" min="10" step="any" id="horsePower" name="horsePower"
+                   placeholder="150 CV"
                    required>
         </div>
+
+
         <div class="form-group">
             <label>Type de voiture</label>
-            <select id="carTypes" name="carTypes" class="form-control">
-                <option value="1">Berline</option>
-                <option value="2">Break</option>
-                <option value="3">SUV</option>
-                <option value="4">Citadine</option>
 
+            <select id="carTypes" name="carTypes" class="form-control">
+                <c:forEach var="categoryType" items="${category}">
+                    <option value="${categoryType.id}">${categoryType.label}</option>
+                </c:forEach>
             </select>
+
         </div>
+
+
         <div class="form-group">
             <label>Marques</label>
             <select id="brands" name="brands" class="form-control">
-                <option value="1">Toyota</option>
-                <option value="2">Mercedes</option>
+                <c:forEach var="brands" items="${brands}">
+                    <option value="${brands.id}">${brands.label}</option>
+                </c:forEach>
             </select>
         </div>
         <div class="form-group">
             <label>Modèle</label>
             <select id="models" name="models" class="form-control">
-                <option value="1">Rav4</option>
-                <option value="3">Prius</option>
-                <option value="5">Class A</option>
+                <c:forEach var="models" items="${models}">
+                    <option value="${models.id}">${models.label}</option>
+                </c:forEach>
             </select>
         </div>
 
@@ -83,10 +91,19 @@
         </div>
 
 
-
         <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
 </div>
 
 </body>
 </html>
+
+<!--<div class="form-group">
+<label>Type de voiture</label>
+<select id="carTypes" name="carTypes" class="form-control">
+<option value="1">Berline</option>
+<option value="2">Break</option>
+<option value="3">SUV</option>
+<option value="4">Citadine</option>
+</select>
+</div>-->
