@@ -42,7 +42,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<c:url value="/annonces"/>">Voir annonces</a>
-                    <a class="dropdown-item" href="#">Ajouter annonce</a>
+                    <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
                     <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les
                         test)</a>
                     <a class="dropdown-item" href="<c:url value="/adsLocation"/>">Location (temporaire pour les
@@ -50,16 +50,16 @@
                 </div>
             </li>
             <c:if test="${sessionScope.User eq 1}">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Catégorie
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
-                    <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
-                </div>
-            </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Catégorie
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
+                        <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
+                    </div>
+                </li>
             </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown"
@@ -90,23 +90,21 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<c:url value="/connexion"/>">Se connecter</a>
-                    <a class="dropdown-item" href="<c:url value="/deconnexion"/>">Se déconnecter</a>
                 </div>
             </li>
         </ul>
-        <form method="post" action="deconnexion">
-            <button type="submit" name="Deconnexion" class="btn-logout">
-                <i class="fa fa-sign-out"></i>
-            </button>
-        </form>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <div class="user-group">
+            <div class="user-conn">
+                <i class="fa fa-user"> Utilisateur n°<c:out value="${sessionScope.User}"/></i>
+            </div>
+            <div class="form-logout">
+                <form method="post" action="deconnexion">
+                    <button type="submit" name="Deconnexion" class="btn-logout">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
     </div>
 </nav>
-<div class="container-fluid shadow-sm p-3 mb-5 bg-white border rounded">
-    <section>
-        <article>
-            <div class='container-fluid border rounded'>
-
