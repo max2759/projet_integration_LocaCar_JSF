@@ -39,18 +39,23 @@ public class CarTypes extends HttpServlet {
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
 
-        if (!usersEntity.getRolesByIdRoles().getLabel().equals("Admin")){
+        if ( usersEntity != null){
+            if (!usersEntity.getRolesByIdRoles().getLabel().equals("Admin")){
+                response.sendRedirect(URL_REDIRECT);
+            }else {
+
+                List<CarTypesEntity> carTypesEntities;
+
+                carTypesEntities = carTypesService.displayCategory();
+
+                request.setAttribute("category", carTypesEntities);
+
+                this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+            }
+        }else{
             response.sendRedirect(URL_REDIRECT);
-        }else {
-
-            List<CarTypesEntity> carTypesEntities;
-
-            carTypesEntities = carTypesService.displayCategory();
-
-            request.setAttribute("category", carTypesEntities);
-
-            this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
         }
+
 
     }
 }
