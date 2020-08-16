@@ -37,6 +37,7 @@
                     <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les test)</a>
                 </div>
             </li>
+            <c:if test="${sessionScope.User eq 1}">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Catégorie
@@ -46,6 +47,7 @@
                     <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
                 </div>
             </li>
+            </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Panier
