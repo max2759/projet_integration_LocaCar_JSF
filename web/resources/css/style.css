@@ -7,3 +7,8 @@ tr.hide{
     display: none;
 }
 
+.btn-logout{
+    border: none;
+    background-color: transparent;
+}
+
