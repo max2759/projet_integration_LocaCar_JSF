@@ -12,3 +12,11 @@ tr.hide{
     background-color: transparent;
 }
 
+.user-group{
+    display: flex;
+}
+
+.user-conn {
+    margin-right: 10px;
+}
+

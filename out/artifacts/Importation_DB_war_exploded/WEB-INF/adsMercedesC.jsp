@@ -40,7 +40,4 @@
     <br \><br \>
     <input name="send" id="boutonSubmit" type="submit" value="Ajouter au panier" class="btn btn-info"/>
 </form>
-</div>
-
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

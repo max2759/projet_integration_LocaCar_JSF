@@ -1,6 +1,7 @@
 package servlet;
 
 import entities.CarTypesEntity;
+import entities.UsersEntity;
 import forms.CarTypesForm;
 import services.CarTypesService;
 import util.JPAutil;
@@ -31,10 +32,14 @@ public class CarTypes extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+
         // récupération de la session
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("User") == null){
+        UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
+
+        if (!usersEntity.getRolesByIdRoles().getLabel().equals("Admin")){
             response.sendRedirect(URL_REDIRECT);
         }else {
 

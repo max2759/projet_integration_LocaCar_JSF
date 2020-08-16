@@ -1,7 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp"/>
 
-<div class="container">
     <h1>Les catégories</h1>
 
     <table class='table table-hover'>
@@ -36,8 +35,4 @@
         </tbody>
     </table>
 
-</div>
-
-</body>
-</html>
-
+<jsp:include page="footer.jsp"/>
