@@ -30,9 +30,7 @@ public class CarTypesService {
      */
     public List<CarTypesEntity> displayCategory() {
         List<CarTypesEntity> carTypesEntities =
-                em.createQuery(
-                        "select c from CarTypesEntity c").getResultList();
-
+                em.createNamedQuery("car_types.listCT", CarTypesEntity.class).getResultList();
         return carTypesEntities;
     }
 

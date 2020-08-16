@@ -33,7 +33,7 @@ public class AddCarTypes extends HttpServlet {
 
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-        /*if (erreur.isEmpty()) {*/
+        if (erreur.isEmpty()) {
             CarTypesService carTypesService = new CarTypesService();
             EntityTransaction tx = null;
 
@@ -49,7 +49,7 @@ public class AddCarTypes extends HttpServlet {
             } finally {
                 em.close();
             }
-        /*}*/
+        }
 
         /* Stockage du form et de la bean dans request */
         request.setAttribute(ATT_FORM, carTypesForm);

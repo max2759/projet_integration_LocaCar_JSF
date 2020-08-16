@@ -11,15 +11,14 @@ import java.io.IOException;
 
 @WebServlet("/modification-categorie")
 public class UpdateCarTypes extends HttpServlet {
-    public static final String VUE = "/WEB-INF/carTypes.jsp";
+    public static final String VUE = "categories";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CarTypesForm carTypesForm = new CarTypesForm();
 
         carTypesForm.updateCategory(request);
 
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-
+        response.sendRedirect(VUE);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

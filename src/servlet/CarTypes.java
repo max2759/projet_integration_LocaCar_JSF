@@ -44,11 +44,12 @@ public class CarTypes extends HttpServlet {
                 response.sendRedirect(URL_REDIRECT);
             }else {
 
-                List<CarTypesEntity> carTypesEntities;
+                List<CarTypesEntity> carTypesEntities = null;
 
                 carTypesEntities = carTypesService.displayCategory();
 
                 request.setAttribute("category", carTypesEntities);
+
 
                 this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
             }

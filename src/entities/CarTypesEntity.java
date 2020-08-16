@@ -9,6 +9,9 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name="car_types.findCarTypesById",
         query = "SELECT ct FROM CarTypesEntity ct WHERE ct.id = :id"
+        ),
+        @NamedQuery(name="car_types.listCT",
+                query = "SELECT ct FROM CarTypesEntity ct"
         )
 })
 public class CarTypesEntity {
