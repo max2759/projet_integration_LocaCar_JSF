@@ -21,7 +21,6 @@ public class CarTypes extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/carTypes.jsp";
     public static final String URL_REDIRECT = "connexion";
-    /*public static final String ATT_SESSION_USER = "sessionUtilisateur";*/
 
 
     CarTypesService carTypesService = new CarTypesService();
@@ -31,8 +30,6 @@ public class CarTypes extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 
         // récupération de la session
         HttpSession session = request.getSession();
