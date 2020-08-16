@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp"/>
-<div class="container">
     <h2>Annonce</h2>
     <table class='table table-hover'>
         <thead>
@@ -66,8 +65,4 @@
         </c:forEach>
         </tbody>
     </table>
-</div>
-</div>
-</body>
-</html>
-
+<jsp:include page="footer.jsp"/>
