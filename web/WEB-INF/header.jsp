@@ -49,6 +49,7 @@
                         test)</a>
                 </div>
             </li>
+            <c:if test="${sessionScope.User eq 1}">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -59,6 +60,7 @@
                     <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
                 </div>
             </li>
+            </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -92,6 +94,11 @@
                 </div>
             </li>
         </ul>
+        <form method="post" action="deconnexion">
+            <button type="submit" name="Deconnexion" class="btn-logout">
+                <i class="fa fa-sign-out"></i>
+            </button>
+        </form>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

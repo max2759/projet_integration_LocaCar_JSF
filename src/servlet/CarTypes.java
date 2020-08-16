@@ -3,12 +3,15 @@ package servlet;
 import entities.CarTypesEntity;
 import forms.CarTypesForm;
 import services.CarTypesService;
+import util.JPAutil;
 
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,48 +19,33 @@ import java.util.List;
 public class CarTypes extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/carTypes.jsp";
-    public static final String ATT_CARTYPESENTITY = "carTypesEntity";
-    public List<CarTypesEntity> carTypesEntities;
-    public CarTypesEntity carTypesEntity;
+    public static final String URL_REDIRECT = "connexion";
+    /*public static final String ATT_SESSION_USER = "sessionUtilisateur";*/
+
 
     CarTypesService carTypesService = new CarTypesService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /* Objet formulaire*/
-        CarTypesForm carTypesForm = new CarTypesForm();
-
-
-
-        /*EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
-
-        EntityTransaction tx = null;
-
-        try{
-            tx = em.getTransaction();
-            tx.begin();
-            carTypesService.updateCarTypes(IdfromForm, updateCat);
-            tx.commit();
-        }catch(Exception e){
-            if (tx != null && tx.isActive()){
-                tx.rollback();
-            }
-        }finally {
-            em.close();
-        }*/
-
-
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        carTypesEntities = carTypesService.displayCategory();
+        // récupération de la session
+        HttpSession session = request.getSession();
 
-        request.setAttribute("category", carTypesEntities);
+        if (session.getAttribute("User") == null){
+            response.sendRedirect(URL_REDIRECT);
+        }else {
 
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+            List<CarTypesEntity> carTypesEntities;
+
+            carTypesEntities = carTypesService.displayCategory();
+
+            request.setAttribute("category", carTypesEntities);
+
+            this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+        }
 
     }
 }

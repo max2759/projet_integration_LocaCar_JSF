@@ -40,4 +40,22 @@ public class AdsService {
         return em.find(AdsEntity.class, id);
     }
 
+    /**
+     * Ajouter une annonce dans la DB
+      * @param em
+     * @param adsEntity
+     */
+    public void addAds(EntityManager em, AdsEntity adsEntity){
+        em.persist(adsEntity);
+    }
+
+    /**
+     * Mets à jour l'entité dans la db
+     * @param em
+     * @param adsEntity
+     */
+    public void updateAds(EntityManager em, AdsEntity adsEntity){
+        em.merge(adsEntity);
+    }
+
 }
