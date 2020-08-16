@@ -4,18 +4,16 @@
 <!----->
 <h2>Listes des commandes :</h2>
 
-<div class="container" style="width:350px">
-    <p>
-    <form name="listOrders" id="listOrders" action="listOrders" method="post" class="">
+<p>
+<form name="listOrders" id="listOrders" action="listOrders" method="post" class="form-inline">
 
-        <div class="form-group">
-            <label>Entrez un numéro de commande, un numéro de client ou un nom de client : </label>
-            <input class="form-control" name="idSearch" id="idSearch" type="text" value=""/>
-        </div>
-        <input class="btn btn-lg btn-primary btn-block" name="send" id="search" type="submit" value="Rechercher"/>
-    </form>
-    </p>
-</div>
+    <div class="form-group mx-sm-3 mb-2">
+        <label>Entrez un numéro de commande, un numéro ou un nom de client : &nbsp;</label>
+        <input class="form-control" name="idSearch" id="idSearch" type="text" value="">
+    </div>
+    <input class="btn btn-primary mb-2" name="send" id="search" type="submit" value="Rechercher"/>
+</form>
+</p>
 <table class='table table-hover'>
     <thead>
     <tr>
@@ -38,7 +36,7 @@
     </c:if>
     <c:forEach var='listeOrders' items='${ordersEntities}'>
         <tr>
-            <td>
+            <td class='font-weight-bold'>
                 <form name="myform${listeOrders.id}" id="myform${listeOrders.id}" action="order" method="post">
                     <input name="idOrder" id="${listeOrders.id}" type="hidden" value="${listeOrders.id}"/>
                 </form>
@@ -59,7 +57,7 @@
                     <form name="forDelete" id="forDelete" action="deleteOrders" method="post" class="">
                         <input name="idOrders" id="${listeOrders.id}" type="hidden" value="${listeOrders.id}"/>
                         <input name="send" id="boutonSubmit" type="submit" value="Annuler la commande"
-                               class="btn btn-info"/>
+                               class="btn btn-danger"/>
                     </form>
                 </c:if>
             </td>
@@ -69,7 +67,5 @@
 
     </tbody>
 </table>
-</div>
 
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

@@ -7,12 +7,23 @@ import java.util.Objects;
 @Entity
 @Table(name = "contracts", schema = "projet_bac_info2")
 @NamedQueries({
-        @NamedQuery(name="Contracts.findAllContractsByIdOrder",
+        // Recherche tous les contracts par idOrder
+        @NamedQuery(name = "Contracts.findAllContractsByIdOrder",
                 query = "SELECT c from ContractsEntity c " +
                         "where c.ordersByIdOrders.id = :id"),
-        @NamedQuery(name="Contracts.findContractByIdOrderAndByIdCar",
+
+        // Recherche de contract par Id order et par id Car
+        @NamedQuery(name = "Contracts.findContractByIdOrderAndByIdCar",
                 query = "SELECT c from ContractsEntity c where c.ordersByIdOrders.id = :idOrder and c.carsByIdCars.id = :idCar"),
-        @NamedQuery(name="Contracts.findAllContractsByIdUser",
+
+        // Vérification des dates de réservation d'un véhicule
+        @NamedQuery(name = "Contracts.findContractsByIdCarAndReservationDate",
+                query = "SELECT c from ContractsEntity c " +
+                        "where c.carsByIdCars.id = :idCar and  " +
+                        "((c.dateStart between :dateStart and :dateEnd) or (c.dateEnd between :dateStart and :dateEnd))"),
+
+        // Recherche de contracts par id User
+        @NamedQuery(name = "Contracts.findAllContractsByIdUser",
                 query = "SELECT c from ContractsEntity c " +
                         "where c.ordersByIdOrders.usersByIdUsers = :user and c.ordersByIdOrders.orderStatut = enumeration.EnumOrderStatut.PENDING")
 })
@@ -26,7 +37,7 @@ public class ContractsEntity {
     private ContractTypesEntity contractTypesByIdContractTypes;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;

@@ -11,7 +11,5 @@
 </c:if>
 
 <p><c:out value="${ordersForm.result}"/></p>
-</div>
 
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp"/>
-<div class="container">
     <h2>Connexion</h2>
 
     <c:if test="${not empty sessionScope.User}">
@@ -25,8 +24,4 @@
             <input type="submit" value="Envoyer"/>
         </p>
     </form>
-    </table>
-</div>
-</div>
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

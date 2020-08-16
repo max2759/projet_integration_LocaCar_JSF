@@ -10,14 +10,16 @@
     </div>
 </c:if>
 
-<p><c:out value="Numéro de commande : ${ordersEntity.id}"/></p>
+<p class='font-weight-bold'><c:out value="Numéro de commande : ${ordersEntity.id}"/></p>
 <p><c:out value="Numéro de client : ${ordersEntity.usersByIdUsers.id}"/></p>
-<p><c:out value="Nom d'utilisateur : ${ordersEntity.usersByIdUsers.username}"/></p>
-<p><c:out value="Date de commande : "/><fmt:formatDate pattern="dd-MM-yyyy" value="${ordersEntity.orderDate}"/></p>
+<p><c:out value="Nom d'utilisateur du client : ${ordersEntity.usersByIdUsers.username}"/></p>
+<p class='font-weight-bold'><c:out value="Nom du client : ${ordersEntity.usersByIdUsers.username}"/></p>
+<p class='font-weight-bold'><c:out value="Prénom du client: ${ordersEntity.usersByIdUsers.username}"/></p>
+<p class='font-weight-bold'><c:out value="Date de commande : "/><fmt:formatDate pattern="dd-MM-yyyy" value="${ordersEntity.orderDate}"/></p>
 
 <c:choose>
-    <c:when test="${ordersEntity.orderStatut eq 'VALIDATED'}">Validé</c:when>
-    <c:when test="${ordersEntity.orderStatut eq 'CANCELED'}">Annulé</c:when>
+    <c:when test="${ordersEntity.orderStatut eq 'VALIDATED'}"><p class='font-weight-bold'>Staut : Validé</p></c:when>
+    <c:when test="${ordersEntity.orderStatut eq 'CANCELED'}"><p class='font-weight-bold'>Statut :Annulé</p></c:when>
 </c:choose>
 <br \><br \>
 <p><c:out value="Détails de la commande : "/></p>
@@ -61,17 +63,15 @@
     </tbody>
 </table>
 
-<p><c:out value="Total : "/><fmt:formatNumber type="number" maxFractionDigits="2" value="${totalPrice}"/>€</td></p>
+<p class='font-weight-bold'><c:out value="Total : "/><fmt:formatNumber type="number" maxFractionDigits="2" value="${totalPrice}"/>€</td></p>
 
 
 <c:if test="${ordersEntity.orderStatut eq 'VALIDATED'}">
     <form name="forDelete" id="forDelete" action="deleteOrders" method="post" class="">
         <input name="idOrders" id="${ordersEntity.id}" type="hidden" value="${ordersEntity.id}"/>
         <input name="send" id="boutonSubmit" type="submit" value="Annuler la commande"
-               class="btn btn-info"/>
+               class="btn btn-danger"/>
     </form>
 </c:if>
-</div>
 
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

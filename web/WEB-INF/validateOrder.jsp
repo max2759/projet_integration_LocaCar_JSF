@@ -20,8 +20,4 @@
 <%--Il faut supprimer le message d'erreur--%>
 <c:remove var="ordersForm" scope="request"/>
 
-
-</div>
-
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

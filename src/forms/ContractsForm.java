@@ -152,6 +152,11 @@ public class ContractsForm {
     }
 
 
+    /**
+     * Recherche tous les contracts par IdOrder
+     * @param idOrder
+     * @return
+     */
     public List<ContractsEntity> findAllContractByIdOrder(int idOrder){
         List<ContractsEntity> contractsEntities = null;
         ContractsService contractsService = new ContractsService();
@@ -184,6 +189,37 @@ public class ContractsForm {
             result = "Succès";
         } else {
             result = "Echec";
+        }
+        return contractsEntities;
+
+    }
+
+
+    /**
+     * Recherche de contracts par idCar et date de reservation
+     * @param idCar
+     * @param dateStart
+     * @param dateEnd
+     * @return
+     */
+    public List<ContractsEntity> findContractsByIdCarAndReservationDate(int idCar, Date dateStart, Date dateEnd){
+        List<ContractsEntity> contractsEntities = null;
+        ContractsService contractsService = new ContractsService();
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+            //Vérification le id Order
+            contractsEntities = contractsService.findContractsByIdCarAndReservationDate(em, idCar, dateStart, dateEnd);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
         }
         return contractsEntities;
 

@@ -49,7 +49,5 @@
     <p>Vous devez vous connecter pour l'ajouter au panier.</p>
     <p><a href="connexion">Cliquez ici pour aller à la page de connexion</a> </p>
 </c:if>
-</div>
 
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

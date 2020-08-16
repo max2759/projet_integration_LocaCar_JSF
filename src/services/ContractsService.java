@@ -1,11 +1,9 @@
 package services;
 
-import entities.AdsEntity;
-import entities.ContractsEntity;
-import entities.OrdersEntity;
-import entities.UsersEntity;
+import entities.*;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -114,6 +112,28 @@ public class ContractsService {
         List<ContractsEntity> contractsEntities = em.createNamedQuery("Contracts.findAllContractsByIdUser",
                 ContractsEntity.class)
                 .setParameter("user", usersEntity)
+                .getResultList();
+
+        return contractsEntities;
+
+    }
+
+
+    /**
+     * Vérification de réservation de date pour un véhicule
+     * @param em
+     * @param idCar
+     * @param dateStart
+     * @param dateEnd
+     * @return
+     */
+    public List<ContractsEntity> findContractsByIdCarAndReservationDate(EntityManager em, int idCar, Date dateStart, Date dateEnd) {
+
+        List<ContractsEntity> contractsEntities = em.createNamedQuery("Contracts.findContractsByIdCarAndReservationDate",
+                ContractsEntity.class)
+                .setParameter("idCar", idCar)
+                .setParameter("dateStart", dateStart)
+                .setParameter("dateEnd", dateEnd)
                 .getResultList();
 
         return contractsEntities;
