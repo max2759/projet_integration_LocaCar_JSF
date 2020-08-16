@@ -7,7 +7,7 @@
     <form method="post" action="ajouter-categorie">
         <div class="form-group">
             <label>Catégorie</label>
-            <input type="text" class="form-control" id="category" name="category" placeholder="Ajouter une catégorie">
+            <input type="text" class="form-control" id="category" name="category" placeholder="Ajouter une catégorie" required>
         </div>
         <button type="submit" class="btn btn-primary">Ajouter</button>
         <div class="msg_info_field">

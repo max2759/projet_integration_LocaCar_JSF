@@ -3,7 +3,9 @@ package servlet;
 import entities.CarTypesEntity;
 import forms.CarTypesForm;
 import services.CarTypesService;
+import util.JPAutil;
 
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +18,6 @@ import java.util.List;
 public class CarTypes extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/carTypes.jsp";
-    public static final String ATT_CARTYPESENTITY = "carTypesEntity";
 
 
 
@@ -52,6 +53,7 @@ public class CarTypes extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
         List<CarTypesEntity> carTypesEntities;
 

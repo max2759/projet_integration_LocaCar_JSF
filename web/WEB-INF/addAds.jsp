@@ -51,7 +51,6 @@
 
         <div class="form-group">
             <label>Type de voiture</label>
-
             <select id="carTypes" name="carTypes" class="form-control">
                 <c:forEach var="categoryType" items="${category}">
                     <option value="${categoryType.id}">${categoryType.label}</option>

@@ -27,6 +27,7 @@ public class Ads extends HttpServlet {
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
         AdsService adsService = new AdsService();
+
         ads = adsService.listerTous();
 
         request.setAttribute("ads", ads);

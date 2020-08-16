@@ -2,6 +2,7 @@ package services;
 
 import entities.AdsEntity;
 import entities.CarTypesEntity;
+import entities.CarsEntity;
 import entities.ContractsEntity;
 import util.JPAutil;
 
