@@ -20,3 +20,7 @@ tr.hide{
     margin-right: 10px;
 }
 
+.container-fluid.border.rounded {
+    padding: 20px;
+}
+

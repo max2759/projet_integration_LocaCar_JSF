@@ -42,24 +42,28 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="<c:url value="/annonces"/>">Voir annonces</a>
-                    <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
+                    <c:if test="${not empty sessionScope.UserEntity}">
+                        <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
+                    </c:if>
                     <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les
                         test)</a>
                     <a class="dropdown-item" href="<c:url value="/adsLocation"/>">Location (temporaire pour les
                         test)</a>
                 </div>
             </li>
-            <c:if test="${sessionScope.User eq 1}">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Catégorie
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
-                        <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
-                    </div>
-                </li>
+            <c:if test="${not empty sessionScope.UserEntity}">
+                <c:if test="${sessionScope.UserEntity.rolesByIdRoles.label eq 'Admin'}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Catégorie
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
+                            <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
+                        </div>
+                    </li>
+                </c:if>
             </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown"
@@ -95,7 +99,10 @@
         </ul>
         <div class="user-group">
             <div class="user-conn">
-                <i class="fa fa-user"> Utilisateur n°<c:out value="${sessionScope.User}"/></i>
+                <c:if test="${not empty sessionScope.User}">
+                    <i class="fa fa-user"> <c:out value="${sessionScope.UserEntity.username}"/> </i>
+                </c:if>
+
             </div>
             <div class="form-logout">
                 <form method="post" action="deconnexion">
