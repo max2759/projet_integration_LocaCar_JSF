@@ -34,7 +34,6 @@ public class ContractsForm {
         return errors;
     }
 
-
     /**
      * Vérification de la commande
      *
@@ -151,7 +150,6 @@ public class ContractsForm {
         errors.put(field, message);
     }
 
-
     /**
      * Recherche tous les contracts par IdOrder
      * @param idOrder
@@ -194,7 +192,6 @@ public class ContractsForm {
 
     }
 
-
     /**
      * Recherche de contracts par idCar et date de reservation
      * @param idCar
@@ -224,7 +221,6 @@ public class ContractsForm {
         return contractsEntities;
 
     }
-
 
     /**
      * Changement de statut de la commande

@@ -16,6 +16,7 @@ import java.util.Objects;
         @NamedQuery(name = "Contracts.findContractByIdOrderAndByIdCar",
                 query = "SELECT c from ContractsEntity c where c.ordersByIdOrders.id = :idOrder and c.carsByIdCars.id = :idCar"),
 
+
         // Vérification des dates de réservation d'un véhicule
         @NamedQuery(name = "Contracts.findContractsByIdCarAndReservationDate",
                 query = "SELECT c from ContractsEntity c " +

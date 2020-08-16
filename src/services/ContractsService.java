@@ -6,9 +6,6 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Méthode pour lister toutes les annonces
- */
 public class ContractsService {
 
     /**
@@ -98,7 +95,6 @@ public class ContractsService {
         }
     }
 
-
     /**
      * Lister tous les contrats d'un utilisateurs
      * @param em
@@ -117,7 +113,6 @@ public class ContractsService {
         return contractsEntities;
 
     }
-
 
     /**
      * Vérification de réservation de date pour un véhicule

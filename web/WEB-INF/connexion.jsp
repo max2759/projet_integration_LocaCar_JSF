@@ -3,7 +3,7 @@
 <h2>Connexion</h2>
 
 <c:if test="${not empty sessionScope.User}">
-    <p>Vous êtes connecté avec <c:out value="${sessionScope.UserEntity.username}"/></p>
+    <p>Vous êtes connecté avec <strong><c:out value="${sessionScope.UserEntity.username}"/></strong></p>
 </c:if>
 
 
@@ -12,19 +12,19 @@
     <fieldset class="form-group">
         <div class="form-check">
             <input class="form-check-input" type="radio" name="User" value="1" id="Admin">
-            <label class="form-check-label">
+            <label for="Admin" class="form-check-label">
                 Admin
             </label>
         </div>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="User" value="2" id="User1">
-            <label class="form-check-label">
+            <label for="User1" class="form-check-label">
                 User 1
             </label>
         </div>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="User" value="3" id="User2">
-            <label class="form-check-label">
+            <label for="User2"  class="form-check-label">
                 User 2
             </label>
         </div>

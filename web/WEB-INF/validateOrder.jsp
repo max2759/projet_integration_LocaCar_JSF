@@ -8,9 +8,6 @@
 
     <div class="alert alert-danger" role="alert">
         <c:out value="${ordersForm.errors.idAds}"/>
-    </div>
-
-    <div class="alert alert-danger" role="alert">
         <c:out value="${ordersForm.errors.car}"/>
     </div>
 </c:if>

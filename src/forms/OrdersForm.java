@@ -201,7 +201,7 @@ public class OrdersForm {
 
                 changeStatutCarAfterValidationOrder(ordersEntity.getId());
 
-                // On cheque si y a pas d'erreur jusqu'à maintenant
+                // On check si y a pas d'erreur jusqu'à maintenant
                 if (errors.isEmpty()) {
 
                     ordersService.mergeOrder(em, ordersEntity);
@@ -369,7 +369,6 @@ public class OrdersForm {
         }
 
     }
-
 
     private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
         String valeur = request.getParameter(nomChamp);
