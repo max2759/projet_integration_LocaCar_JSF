@@ -5,15 +5,14 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "contract_types", schema = "projet_bac_info2")
+@Table(name = "contract_types", schema = "projet_bac_info2", catalog = "")
 public class ContractTypesEntity {
     private int id;
     private String label;
     private Collection<ContractsEntity> contractsById;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -23,7 +22,7 @@ public class ContractTypesEntity {
     }
 
     @Basic
-    @Column(name = "Label", nullable = false, length = 255)
+    @Column(name = "Label")
     public String getLabel() {
         return label;
     }

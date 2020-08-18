@@ -7,13 +7,12 @@ import java.util.Objects;
 @Table(name = "users_ads", schema = "projet_bac_info2")
 public class UsersAdsEntity {
     private int id;
-    private int idUsers;
-    private int idAds;
-    private Boolean isFavorite;
+    private boolean isFavorite;
+    private UsersEntity usersByIdUsers;
+    private AdsEntity adsByIdAds;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -23,33 +22,13 @@ public class UsersAdsEntity {
     }
 
     @Basic
-    @Column(name = "ID_Users", nullable = false)
-    public int getIdUsers() {
-        return idUsers;
-    }
-
-    public void setIdUsers(int idUsers) {
-        this.idUsers = idUsers;
-    }
-
-    @Basic
-    @Column(name = "ID_Ads", nullable = false)
-    public int getIdAds() {
-        return idAds;
-    }
-
-    public void setIdAds(int idAds) {
-        this.idAds = idAds;
-    }
-
-    @Basic
-    @Column(name = "IsFavorite", nullable = true)
-    public Boolean getFavorite() {
+    @Column(name = "IsFavorite")
+    public boolean isFavorite() {
         return isFavorite;
     }
 
-    public void setFavorite(Boolean favorite) {
-        isFavorite = favorite;
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
     }
 
     @Override
@@ -58,13 +37,31 @@ public class UsersAdsEntity {
         if (o == null || getClass() != o.getClass()) return false;
         UsersAdsEntity that = (UsersAdsEntity) o;
         return id == that.id &&
-                idUsers == that.idUsers &&
-                idAds == that.idAds &&
                 Objects.equals(isFavorite, that.isFavorite);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, idUsers, idAds, isFavorite);
+        return Objects.hash(id, isFavorite);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_Users", referencedColumnName = "ID", nullable = false)
+    public UsersEntity getUsersByIdUsers() {
+        return usersByIdUsers;
+    }
+
+    public void setUsersByIdUsers(UsersEntity usersByIdUsers) {
+        this.usersByIdUsers = usersByIdUsers;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_Ads", referencedColumnName = "ID", nullable = false)
+    public AdsEntity getAdsByIdAds() {
+        return adsByIdAds;
+    }
+
+    public void setAdsByIdAds(AdsEntity adsByIdAds) {
+        this.adsByIdAds = adsByIdAds;
     }
 }

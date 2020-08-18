@@ -59,11 +59,15 @@ public class CarTypesForm {
     public CarTypesEntity addCategory(HttpServletRequest request) {
 
         String category = getValeurChamp(request, CATEGORY_FIELD);
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
 
         CarTypesException ctE = new CarTypesException();
+        CarTypesService carTypesService = new CarTypesService();
 
         try {
             ctE.categoryNoNumber(category);
+            carTypesService.checkCarTypesEntity(em, category);
         } catch (Exception e) {
             setErreur(CATEGORY_FIELD, e.getMessage());
         }

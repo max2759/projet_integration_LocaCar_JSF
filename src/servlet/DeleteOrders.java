@@ -1,12 +1,6 @@
 package servlet;
 
-import entities.AdsEntity;
-import entities.OrdersEntity;
 import entities.UsersEntity;
-import enumeration.EnumOrderStatut;
-import forms.AdsForm;
-import forms.BasketCrudForm;
-import forms.CarsForm;
 import forms.OrdersForm;
 
 import javax.servlet.ServletException;

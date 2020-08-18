@@ -1,8 +1,8 @@
 package entities;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -19,11 +19,11 @@ public class UsersEntity {
     private Collection<AdressesEntity> adressesById;
     private Collection<OrdersEntity> ordersById;
     private RolesEntity rolesByIdRoles;
+    private Collection<UsersAdsEntity> usersAdsById;
     private Collection<UsersSubscriptionsEntity> usersSubscriptionsById;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     public int getId() {
         return id;
     }
@@ -33,7 +33,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "Surname", nullable = false, length = 255)
+    @Column(name = "Surname")
     public String getSurname() {
         return surname;
     }
@@ -43,7 +43,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, length = 255)
+    @Column(name = "Name")
     public String getName() {
         return name;
     }
@@ -53,7 +53,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "Username", nullable = false, length = 255)
+    @Column(name = "Username")
     public String getUsername() {
         return username;
     }
@@ -63,7 +63,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "Password", nullable = false, length = 255)
+    @Column(name = "Password")
     public String getPassword() {
         return password;
     }
@@ -73,7 +73,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "Date_Birth", nullable = false)
+    @Column(name = "Date_Birth")
     public Date getDateBirth() {
         return dateBirth;
     }
@@ -93,7 +93,7 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "VATNumber", nullable = true, length = 255)
+    @Column(name = "VATNumber")
     public String getVatNumber() {
         return vatNumber;
     }
@@ -148,6 +148,15 @@ public class UsersEntity {
 
     public void setRolesByIdRoles(RolesEntity rolesByIdRoles) {
         this.rolesByIdRoles = rolesByIdRoles;
+    }
+
+    @OneToMany(mappedBy = "usersByIdUsers")
+    public Collection<UsersAdsEntity> getUsersAdsById() {
+        return usersAdsById;
+    }
+
+    public void setUsersAdsById(Collection<UsersAdsEntity> usersAdsById) {
+        this.usersAdsById = usersAdsById;
     }
 
     @OneToMany(mappedBy = "usersByIdUsers")

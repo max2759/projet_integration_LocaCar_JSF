@@ -1,7 +1,6 @@
 package exceptions;
 
 import entities.ContractsEntity;
-import entities.OrdersEntity;
 
 import java.util.List;
 

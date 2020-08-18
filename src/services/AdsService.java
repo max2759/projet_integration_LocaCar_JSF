@@ -1,11 +1,9 @@
 package services;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.util.List;
 
 import entities.AdsEntity;
-import entities.CarsEntity;
 import util.JPAutil;
 
 /**
@@ -25,7 +23,6 @@ public class AdsService {
                 em.createQuery(
                         "select a from AdsEntity a").getResultList();
         return ads;
-
     }
 
 

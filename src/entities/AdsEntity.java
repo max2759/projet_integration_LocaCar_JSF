@@ -4,6 +4,7 @@ import enumeration.EnumFuel;
 import enumeration.EnumTypesAds;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -13,7 +14,6 @@ import java.util.Objects;
         @NamedQuery(name="findAds",
                 query = "SELECT a from AdsEntity a where a.carsByIdCars.id = :idCar and a.active = true")
 })
-
 public class AdsEntity {
     private int id;
     private double price;
@@ -23,6 +23,7 @@ public class AdsEntity {
     private String label;
     private boolean isActive;
     private CarsEntity carsByIdCars;
+    private Collection<UsersAdsEntity> usersAdsById;
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -65,15 +66,12 @@ public class AdsEntity {
         this.dateEnd = dateEnd;
     }
 
-
     @Enumerated(EnumType.STRING)
     @Basic
     @Column(name = "Types_Ads", nullable = false)
     public EnumTypesAds getTypesAds() {
         return typesAds;
     }
-
-
 
     public void setTypesAds(EnumTypesAds typesAds) {
         this.typesAds = typesAds;
@@ -105,12 +103,12 @@ public class AdsEntity {
         if (o == null || getClass() != o.getClass()) return false;
         AdsEntity adsEntity = (AdsEntity) o;
         return id == adsEntity.id &&
-                Double.compare(adsEntity.price, price) == 0 &&
-                isActive == adsEntity.isActive &&
+                Objects.equals(price, adsEntity.price) &&
                 Objects.equals(dateStart, adsEntity.dateStart) &&
                 Objects.equals(dateEnd, adsEntity.dateEnd) &&
                 Objects.equals(typesAds, adsEntity.typesAds) &&
-                Objects.equals(label, adsEntity.label);
+                Objects.equals(label, adsEntity.label) &&
+                Objects.equals(isActive, adsEntity.isActive);
     }
 
     @Override
@@ -126,5 +124,14 @@ public class AdsEntity {
 
     public void setCarsByIdCars(CarsEntity carsByIdCars) {
         this.carsByIdCars = carsByIdCars;
+    }
+
+    @OneToMany(mappedBy = "adsByIdAds")
+    public Collection<UsersAdsEntity> getUsersAdsById() {
+        return usersAdsById;
+    }
+
+    public void setUsersAdsById(Collection<UsersAdsEntity> usersAdsById) {
+        this.usersAdsById = usersAdsById;
     }
 }

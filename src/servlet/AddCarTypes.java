@@ -21,7 +21,7 @@ import java.util.Map;
 public class AddCarTypes extends HttpServlet {
 
     public static final String ATT_CARTYPESENTITY = "carTypesEntity";
-    public static final String ATT_FORM = "form";
+    public static final String ATT_FORM = "carTypesForm";
     public static final String VUE = "/WEB-INF/addCarTypes.jsp";
     public static final String URL_REDIRECT = "connexion";
     public Map<String, String> erreur;

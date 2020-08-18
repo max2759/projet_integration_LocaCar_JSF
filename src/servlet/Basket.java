@@ -1,12 +1,9 @@
 package servlet;
 
-import com.sun.deploy.net.HttpRequest;
 import entities.AdsEntity;
-import entities.CarsEntity;
 import entities.ContractsEntity;
 import forms.AdsForm;
 import forms.BasketCrudForm;
-import forms.BasketForm;
 import forms.CarsForm;
 
 import javax.servlet.ServletException;

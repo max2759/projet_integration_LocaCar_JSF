@@ -1,14 +1,10 @@
 package services;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.util.List;
 
 import entities.AdsEntity;
-import entities.BrandsEntity;
 import entities.CarsEntity;
-import entities.ContractsEntity;
-import servlet.Ads;
 import util.JPAutil;
 
 /**

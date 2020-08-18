@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Ajouter une annonce</h1>
 
-    <form method="post" action="ajouter-annonce">
+    <form method="post" action="ajouter-annonce" enctype="multipart/form-data">
         <div class="form-group">
             <label>Titre de l'annonce</label>
             <input type="text" class="form-control" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
@@ -89,6 +89,11 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <input type="file" name="adsPicture" id="adsPicture">
+        </div>
+
+        <input name="idUser" id="idUser" type="hidden" value="${sessionScope.User}"/>
 
         <button type="submit" class="btn btn-primary">Ajouter</button>
     </form>
@@ -96,13 +101,3 @@
 
 </body>
 </html>
-
-<!--<div class="form-group">
-<label>Type de voiture</label>
-<select id="carTypes" name="carTypes" class="form-control">
-<option value="1">Berline</option>
-<option value="2">Break</option>
-<option value="3">SUV</option>
-<option value="4">Citadine</option>
-</select>
-</div>-->

@@ -41,8 +41,8 @@
                     Annonces
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/annonces"/>">Voir annonces</a>
                     <c:if test="${not empty sessionScope.UserEntity}">
+                    <a class="dropdown-item" href="<c:url value="/annonces"/>">Mes annonces</a>
                         <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
                     </c:if>
                     <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les

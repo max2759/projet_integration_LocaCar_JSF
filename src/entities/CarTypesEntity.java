@@ -7,11 +7,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "car_types", schema = "projet_bac_info2")
 @NamedQueries({
+        // recherche de catégorie par ID
         @NamedQuery(name="car_types.findCarTypesById",
-        query = "SELECT ct FROM CarTypesEntity ct WHERE ct.id = :id"
+                query = "SELECT ct FROM CarTypesEntity ct WHERE ct.id = :id"
         ),
         @NamedQuery(name="car_types.listCT",
                 query = "SELECT ct FROM CarTypesEntity ct"
+        ),
+        @NamedQuery(name="car_types.checkLabel",
+                query = "SELECT ct FROM CarTypesEntity ct where ct.label = :label"
         )
 })
 public class CarTypesEntity {

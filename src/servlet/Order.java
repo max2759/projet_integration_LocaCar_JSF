@@ -1,12 +1,10 @@
 package servlet;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import entities.ContractsEntity;
 import entities.OrdersEntity;
 import entities.UsersEntity;
 import forms.ContractsForm;
 import forms.OrdersForm;
-import services.OrdersService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

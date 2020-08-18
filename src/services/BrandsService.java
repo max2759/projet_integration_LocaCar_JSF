@@ -1,7 +1,6 @@
 package services;
 
 import entities.BrandsEntity;
-import entities.ModelsEntity;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;

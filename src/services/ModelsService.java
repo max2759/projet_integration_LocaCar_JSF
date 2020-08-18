@@ -1,6 +1,5 @@
 package services;
 
-import entities.CarTypesEntity;
 import entities.ModelsEntity;
 import util.JPAutil;
 

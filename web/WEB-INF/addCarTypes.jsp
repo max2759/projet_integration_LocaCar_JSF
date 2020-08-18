@@ -16,7 +16,7 @@
             </c:if>
         </div>
         <div class="msg_info_field">
-            <span class="${empty carTypesForm.erreurs ? 'succes' : 'alert alert-danger'}">${carTypesForm.resultat}</span>
+            <span class="${empty carTypesForm.erreurs ? 'success' : 'alert alert-danger'}">${carTypesForm.resultat}</span>
         </div>
     </form>
 <jsp:include page="footer.jsp"/>
