@@ -27,7 +27,6 @@ public class AddAds extends HttpServlet {
 
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-        String test = request.getParameter("ReleaseYear");
         AdsForm adsForm = new AdsForm();
 
         try {

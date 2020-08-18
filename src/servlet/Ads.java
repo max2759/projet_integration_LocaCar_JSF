@@ -30,8 +30,6 @@ public class Ads extends HttpServlet {
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
 
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
         if (usersEntity != null){
             UsersAdsService usersAdsService = new UsersAdsService();
 
