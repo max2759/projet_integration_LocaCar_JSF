@@ -11,6 +11,7 @@ import util.JPAutil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -36,6 +37,7 @@ public class AdsForm {
     private static final String FIELD_MODELS_CAR = "models";
     private static final String FIELD_FUEL_CAR = "fuel";
     private static final String FIELD_DELETE_ADS = "adsDelete";
+    private static final String FIELD_IDUSERS_ADS = "idUser";
 
     private String result;
     private Map<String, String> errors = new HashMap<String, String>();
@@ -75,13 +77,13 @@ public class AdsForm {
         String typeAds = getValeurChamp(request, FIELD_TYPEADS_ADS);
         EnumTypesAds enumTypesAds = EnumTypesAds.valueOf(typeAds);
         int idCar = 0;
-        /*DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-DD");
-        LocalDateTime now = LocalDateTime.now();*/
         Date todayDate = new Date();
         LocalDateTime ldt = LocalDateTime.ofInstant(todayDate.toInstant(), ZoneId.systemDefault());
         Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
         LocalDateTime dateEnd = ldt.plusMonths(1);
         Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
+        int idUser = Integer.parseInt(getValeurChamp(request, FIELD_IDUSERS_ADS));
+        int idAds;
 
 
         // Les entités
@@ -91,6 +93,8 @@ public class AdsForm {
         CarTypesEntity carTypesEntity = new CarTypesEntity();
         ModelsEntity modelsEntity = new ModelsEntity();
         BrandsEntity brandsEntity = new BrandsEntity();
+        UsersAdsEntity usersAdsEntity = new UsersAdsEntity();
+        UsersEntity usersEntity = new UsersEntity();
 
         // Les services
 
@@ -99,6 +103,8 @@ public class AdsForm {
         CarTypesService carTypesService = new CarTypesService();
         ModelsService modelsService = new ModelsService();
         BrandsService brandsService = new BrandsService();
+        UsersAdsService usersAdsService = new UsersAdsService();
+        UsersService usersService = new UsersService();
 
         // Transaction
 
@@ -107,9 +113,13 @@ public class AdsForm {
         try{
             tx= em.getTransaction();
             tx.begin();
+
+            //Ajout dans table cars
             carTypesEntity = carTypesService.consult(em, carTypes);
             modelsEntity = modelsService.consultModel(em, models);
             brandsEntity = brandsService.consultBrands(em, brands);
+
+
             carsEntity.setActive(true);
             carsEntity.setColor(color);
             carsEntity.setHorsePower(horsePower);
@@ -120,8 +130,10 @@ public class AdsForm {
             carsEntity.setModelsByIdModels(modelsEntity);
             modelsEntity.setBrandsByIdBrands(brandsEntity);
             carsService.addCars(em, carsEntity);
+
             idCar = carsEntity.getId();
 
+            // ajout dans ads
             carsService.consulter(em, idCar);
             adsEntity.setCarsByIdCars(carsEntity);
             adsEntity.setActive(true);
@@ -132,6 +144,15 @@ public class AdsForm {
             adsEntity.setDateEnd(endOut);
 
             adsService.addAds(em, adsEntity);
+
+            // ajout dans users_Ads
+            usersEntity = usersService.consult(em, idUser);
+            usersAdsEntity.setFavorite(false);
+            usersAdsEntity.setAdsByIdAds(adsEntity);
+            usersAdsEntity.setUsersByIdUsers(usersEntity);
+
+            usersAdsService.addUserAds(em, usersAdsEntity);
+
 
             tx.commit();
         }catch(Exception ex){

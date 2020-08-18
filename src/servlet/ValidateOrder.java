@@ -1,9 +1,5 @@
 package servlet;
 
-import entities.AdsEntity;
-import forms.AdsForm;
-import forms.BasketCrudForm;
-import forms.CarsForm;
 import forms.OrdersForm;
 
 import javax.servlet.ServletException;

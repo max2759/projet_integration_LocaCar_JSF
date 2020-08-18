@@ -1,9 +1,6 @@
 package services;
 
-import entities.AdsEntity;
 import entities.CarTypesEntity;
-import entities.CarsEntity;
-import entities.ContractsEntity;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -75,6 +72,12 @@ public class CarTypesService {
     public CarTypesEntity consult(EntityManager em, int id) {
         return em.find(CarTypesEntity.class, id);
     }
+
+   public CarTypesEntity checkCarTypesEntity(EntityManager em, String label){
+        return em.createNamedQuery("car_types.checkLabel", CarTypesEntity.class).setParameter("label", label).getSingleResult();
+   }
+
+
 
 
 }

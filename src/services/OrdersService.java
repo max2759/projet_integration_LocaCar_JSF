@@ -1,12 +1,9 @@
 package services;
 
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.Order;
-import java.util.List;
-
-import entities.AdsEntity;
 import entities.OrdersEntity;
-import util.JPAutil;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * Méthode pour lister toutes les annonces

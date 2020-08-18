@@ -2,11 +2,8 @@ package servlet;
 
 import entities.CarTypesEntity;
 import entities.UsersEntity;
-import forms.CarTypesForm;
 import services.CarTypesService;
-import util.JPAutil;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

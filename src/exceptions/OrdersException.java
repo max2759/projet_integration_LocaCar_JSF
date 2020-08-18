@@ -1,12 +1,7 @@
 package exceptions;
 
-import entities.AdsEntity;
 import entities.OrdersEntity;
-import services.AdsService;
-import util.JPAutil;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import java.util.List;
 
 public class OrdersException {

@@ -1,7 +1,10 @@
 package servlet;
 
 import entities.AdsEntity;
+import entities.UsersAdsEntity;
+import entities.UsersEntity;
 import services.AdsService;
+import services.UsersAdsService;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -18,22 +21,29 @@ import java.util.List;
 @WebServlet("/annonces")
 
 public class Ads extends HttpServlet {
-    public static final String VUE = "/WEB-INF/ads.jsp";
-    public List<AdsEntity> ads;
+    public static final String VUE = "/WEB-INF/listAds.jsp";
+    public static final String URL_REDIRECT = "connexion";
+    public List<UsersAdsEntity> usersAdsEntities;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
 
+        UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
+
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
-        AdsService adsService = new AdsService();
+        if (usersEntity != null){
+            UsersAdsService usersAdsService = new UsersAdsService();
 
-        ads = adsService.listerTous();
+            usersAdsEntities= usersAdsService.listAllUserAds();
 
-        request.setAttribute("ads", ads);
+            request.setAttribute("usersAdsEntities", usersAdsEntities);
 
+            this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
 
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+        }else{
+            response.sendRedirect(URL_REDIRECT);
+        }
 
     }
 
