@@ -13,7 +13,7 @@
 <p class='font-weight-bold'><c:out value="Numéro de commande : ${ordersEntity.id}"/></p>
 <p><c:out value="Numéro de client : ${ordersEntity.usersByIdUsers.id}"/></p>
 <p><c:out value="Nom d'utilisateur du client : ${ordersEntity.usersByIdUsers.username}"/></p>
-<p class='font-weight-bold'><c:out value="Nom du client : ${ordersEntity.usersByIdUsers.username}"/></p>
+<p class='font-weight-bold'><c:out value="Nom du client : ${ordersEntity.usersByIdUsers.username}"/></p class='font-weight-bold'>
 <p class='font-weight-bold'><c:out value="Prénom du client: ${ordersEntity.usersByIdUsers.username}"/></p>
 <p class='font-weight-bold'><c:out value="Date de commande : "/><fmt:formatDate pattern="dd-MM-yyyy" value="${ordersEntity.orderDate}"/></p>
 
@@ -27,6 +27,7 @@
 <table class='table table-hover'>
     <thead>
     <tr>
+        <th>Type de contrat</th>
         <th>Marque</th>
         <th>Modèle</th>
         <th>Année</th>
@@ -46,6 +47,8 @@
     <c:forEach var="entry" items="${contractsEntityList}">
 
         <tr>
+
+            <td> ${fn:toUpperCase(fn:substring(entry.contractTypesByIdContractTypes.label, 0, 1))}${fn:toLowerCase(fn:substring(entry.contractTypesByIdContractTypes.label, 1,fn:length(entry.contractTypesByIdContractTypes.label)))} </td>
             <td> ${entry.carsByIdCars.modelsByIdModels.brandsByIdBrands.label} </td>
             <td> ${entry.carsByIdCars.modelsByIdModels.label} </td>
             <td><fmt:formatDate pattern="MM-yyyy" value="${entry.carsByIdCars.releaseYear}"/></td>

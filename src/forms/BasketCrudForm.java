@@ -3,6 +3,7 @@ package forms;
 import entities.AdsEntity;
 import entities.ContractsEntity;
 import enumeration.EnumOrderStatut;
+import enumeration.EnumTypesAds;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
@@ -25,7 +26,7 @@ public class BasketCrudForm {
     public AdsForm addBasket(HttpServletRequest request, Date dateStart, Date dateEnd) throws ParseException {
         EnumOrderStatut enumOrderStatut = EnumOrderStatut.values()[0];
         String idAds = request.getParameter("idAds");
-
+        int idContractType = 0;
         // Recherche de l'ads
         adsForm = new AdsForm();
         ads = adsForm.checkAds(request);
@@ -37,9 +38,15 @@ public class BasketCrudForm {
             if (this.basketForm == null) {
                 basketForm = new BasketForm();
             }
-
+        if (ads.getTypesAds() == EnumTypesAds.VENTE)
+        {
+            idContractType = 1;
+        }
+        else if (ads.getTypesAds() == EnumTypesAds.LOCATIONCD) {
+            idContractType = 2;
+        }
             adsForm = null;
-            basketForm.add(ads, request, enumOrderStatut, 1, dateStart, dateEnd);
+            basketForm.add(ads, request, enumOrderStatut, idContractType, dateStart, dateEnd);
         }
         return adsForm;
     }
