@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Ajouter une annonce</h1>
 
-    <form method="post" action="ajouter-annonce" enctype="multipart/form-data">
+    <form method="post" action="ajouter-annonce" >
         <div class="form-group">
             <label>Titre de l'annonce</label>
             <input type="text" class="form-control" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
