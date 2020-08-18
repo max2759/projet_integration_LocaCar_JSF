@@ -13,7 +13,6 @@ public class UsersService {
     EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
 
-
     /**
      * méthode Consulter d'une entité à  partir de la bd
      *

@@ -28,7 +28,7 @@ public class connexion extends HttpServlet {
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
         UsersService usersService = new UsersService();
         UsersEntity usersEntity = new UsersEntity();
-                // On recherche la commande par Id user
+        // On recherche la commande par Id user
         EntityTransaction tx = null;
         try {
             tx = em.getTransaction();

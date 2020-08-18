@@ -17,19 +17,21 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Class pour créer la session du panier
- */
 public class BasketForm {
 
     private static final String FIELD_ID_USERS = "idUsers";
+    private static final String FIELD_LOCATION_DAYS= "locationDays";
 
+    /**
+     * Méthode pour lister les contracts par id User
+     * @param idUser
+     * @return
+     */
     public List<ContractsEntity> listContracts(int idUser) {
         ContractsService contractsService = new ContractsService();
         List<ContractsEntity> contractsEntities = null;
         //création de l'em
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
 
         EntityTransaction tx = null;
         try {
@@ -96,7 +98,7 @@ public class BasketForm {
         int idUsers = Integer.parseInt(request.getParameter(FIELD_ID_USERS));
 
         // On récupère le prix
-        int locationDays = Integer.parseInt(request.getParameter("locationDays"));
+        int locationDays = Integer.parseInt(request.getParameter(FIELD_LOCATION_DAYS));
         Double finalPrice = adsEntity.getPrice() * locationDays;
 
 
@@ -104,7 +106,7 @@ public class BasketForm {
         ContractsEntity contractsEntity;
 
         OrdersEntity oldOrder;
-        ContractsEntity oldContract = null;
+        ContractsEntity oldContract;
 
         OrdersForm ordersForm = new OrdersForm();
         ContractsForm contractsForm = new ContractsForm();

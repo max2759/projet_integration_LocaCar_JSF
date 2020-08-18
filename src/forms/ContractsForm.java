@@ -1,10 +1,15 @@
 package forms;
 
-import entities.*;
+import entities.CarsEntity;
+import entities.ContractTypesEntity;
+import entities.ContractsEntity;
+import entities.OrdersEntity;
 import enumeration.EnumOrderStatut;
 import exceptions.ContractsException;
-import exceptions.OrdersException;
-import services.*;
+import services.CarsService;
+import services.ContractTypesService;
+import services.ContractsService;
+import services.OrdersService;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -91,6 +96,7 @@ public class ContractsForm {
 
     /**
      * Méthode pour sauvegarder l'entité
+     *
      * @param idOrder
      * @param idCar
      * @param idContractType
@@ -152,10 +158,11 @@ public class ContractsForm {
 
     /**
      * Recherche tous les contracts par IdOrder
+     *
      * @param idOrder
      * @return
      */
-    public List<ContractsEntity> findAllContractByIdOrder(int idOrder){
+    public List<ContractsEntity> findAllContractByIdOrder(int idOrder) {
         List<ContractsEntity> contractsEntities = null;
         ContractsService contractsService = new ContractsService();
 
@@ -192,6 +199,7 @@ public class ContractsForm {
 
     }
 
+
     /**
      * Recherche de contracts par idCar et date de reservation
      * @param idCar
@@ -199,6 +207,7 @@ public class ContractsForm {
      * @param dateEnd
      * @return
      */
+    /*
     public List<ContractsEntity> findContractsByIdCarAndReservationDate(int idCar, Date dateStart, Date dateEnd){
         List<ContractsEntity> contractsEntities = null;
         ContractsService contractsService = new ContractsService();
@@ -221,6 +230,7 @@ public class ContractsForm {
         return contractsEntities;
 
     }
+*/
 
     /**
      * Changement de statut de la commande

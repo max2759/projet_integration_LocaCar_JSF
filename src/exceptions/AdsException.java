@@ -8,8 +8,8 @@ public class AdsException {
 
     /**
      * Vérification de l'existence de l'entité
-     * @param ads
-     * @throws Exception
+     * @param ads Entité ads
+     * @throws Exception incorrecte
      */
     public void validationEntity(AdsEntity ads) throws Exception {
         if (ads == null) {

@@ -4,6 +4,11 @@ import entities.CarsEntity;
 
 public class CarsException {
 
+    /**
+     * Vérification si l'entité est vide
+     * @param cars
+     * @throws Exception
+     */
     public void validationEntity(CarsEntity cars) throws Exception {
 
         if (cars == null) {
@@ -12,8 +17,13 @@ public class CarsException {
         }
     }
 
+    /**
+     * Vérication si cars (entité) est active
+     * @param cars
+     * @throws Exception
+     */
     public void carNotActive(CarsEntity cars) throws Exception {
-        if (cars.isActive() == false) {
+        if (!cars.isActive()) {
             throw new Exception("La voiture n'est plus disponible");
         }
     }

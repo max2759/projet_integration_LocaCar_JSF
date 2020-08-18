@@ -21,6 +21,7 @@ public class ModelsService {
 
         return modelsEntities;
     }
+
     /**
      * méthode Consulter d'une entité à  partir de la bd
      *

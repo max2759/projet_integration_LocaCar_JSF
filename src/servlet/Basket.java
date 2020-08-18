@@ -52,7 +52,7 @@ public class Basket extends HttpServlet {
         if (this.basketCrudForm == null) {
             basketCrudForm = new BasketCrudForm();
         }
-        contractsEntity = basketCrudForm.listContracts(request, idUser);
+        contractsEntity = basketCrudForm.listContracts(idUser);
 
         // Calcul du prix total du panier
         generateTotalPrice();
@@ -100,7 +100,7 @@ public class Basket extends HttpServlet {
             e.printStackTrace();
         }
 
-        contractsEntity = basketCrudForm.listContracts(request, idUser);
+        contractsEntity = basketCrudForm.listContracts(idUser);
 
         // Calcul du prix total du panier
         generateTotalPrice();

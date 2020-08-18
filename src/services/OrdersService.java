@@ -52,6 +52,7 @@ public class OrdersService {
             return null;
         }
     }
+
     /**
      * méthode Consulter une commande validé : par id
      *
@@ -93,12 +94,13 @@ public class OrdersService {
 
     /**
      * Recherche de commande valide ou annulé par Id order ou Id User ou un username
+     *
      * @param em
      * @param id
      * @param username
      * @return
      */
-    public List<OrdersEntity> findOrdersValidateByIdOrderAndByIdUserAndByUsername(EntityManager em, int id, String username){
+    public List<OrdersEntity> findOrdersValidateByIdOrderAndByIdUserAndByUsername(EntityManager em, int id, String username) {
         try {
 
             return em.createNamedQuery("Orders.findOrdersValidateByIdOrderAndByIdUserAndByUsername",

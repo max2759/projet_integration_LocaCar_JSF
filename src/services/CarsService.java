@@ -1,11 +1,11 @@
 package services;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
 import entities.AdsEntity;
 import entities.CarsEntity;
 import util.JPAutil;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * Méthode pour lister toutes les annonces
@@ -60,25 +60,28 @@ public class CarsService {
 
     /**
      * Ajouter voiture à la db
+     *
      * @param em
      * @param carsEntity
      */
-    public void addCars(EntityManager em, CarsEntity carsEntity){
+    public void addCars(EntityManager em, CarsEntity carsEntity) {
         em.persist(carsEntity);
     }
 
     /**
      * Mets à jour l'entité dans la db
+     *
      * @param em
      * @param carsEntity
      */
-    public void updateCar(EntityManager em, CarsEntity carsEntity){
+    public void updateCar(EntityManager em, CarsEntity carsEntity) {
         em.merge(carsEntity);
     }
 
 
     /**
      * Lister toutes les voitures
+     *
      * @return carsEntities
      */
     public List<CarsEntity> displayCars() {
