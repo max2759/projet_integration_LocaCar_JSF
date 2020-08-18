@@ -11,10 +11,12 @@ import util.JPAutil;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +64,8 @@ public class AdsForm {
         // Les champs du form
         String color = getValeurChamp(request,FIELD_COLOR_CAR );
         String releaseYears = getValeurChamp(request, FIELD_RELEASEYEAR_CAR);
-        Date releaseYear = new SimpleDateFormat("yyyy-MM-dd").parse(releaseYears);
+        SimpleDateFormat rYear = new SimpleDateFormat("yyyy-MM-dd");
+        Date releaseYear = rYear.parse(releaseYears);
         int kilometer = Integer.parseInt(getValeurChamp(request, FIELD_KM_CAR));
         int horsePower = Integer.parseInt(getValeurChamp(request, FIELD_HP_CAR));
         String fuel = getValeurChamp(request, FIELD_FUEL_CAR);
@@ -116,7 +119,6 @@ public class AdsForm {
             carTypesEntity = carTypesService.consult(em, carTypes);
             modelsEntity = modelsService.consultModel(em, models);
             brandsEntity = brandsService.consultBrands(em, brands);
-
 
             carsEntity.setActive(true);
             carsEntity.setColor(color);

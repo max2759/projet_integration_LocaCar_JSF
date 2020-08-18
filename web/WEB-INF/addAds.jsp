@@ -14,9 +14,7 @@
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control" required>
                 <option value="VENTE">Vente</option>
-                <option value="LOCATIONLD">Location longue durée</option>
-                <option value="LOCATIONCD">Location courte durée</option>
-                <option value="LEASING">Leasing</option>
+                <option value="LOCATIONCD">Location</option>
             </select>
         </div>
         <div class="form-group">
@@ -89,9 +87,9 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <input type="file" name="adsPicture" id="adsPicture">
-        </div>
+        </div>-->
 
         <input name="idUser" id="idUser" type="hidden" value="${sessionScope.User}"/>
 
