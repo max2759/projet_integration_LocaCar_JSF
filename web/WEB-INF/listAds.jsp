@@ -13,7 +13,7 @@
         <th>Date de début</th>
         <th>Date de fin</th>
         <th>Type d'annonce</th>
-        <th>Voir l'annonce</th>
+        <th>Modifier l'annonce</th>
         <th>Supprimer</th>
     </tr>
     </thead>
@@ -35,12 +35,20 @@
                 <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateEnd}"/></td>
                 <td> ${listAds.adsByIdAds.typesAds} </td>
                 <td>
+                    <form action="modifier-annonce" method="post">
+                        <input type="hidden" id="idAds" name="idAds" value="${listAds.adsByIdAds.id}">
+                        <input type="hidden" id="idCars" name="idCars" value="${listAds.adsByIdAds.carsByIdCars.id}">
+                        <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
+                    </form>
+                </td>
+                <!--<td>
                     <form action="annonce" method="post">
                         <input type="hidden" id="idAds" name="idAds" value="${listAds.adsByIdAds.id}">
                         <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
                         <button type="submit" class="btn btn-info"><i class="fa fa-eye"></i></button>
                     </form>
 
+                <td>-->
                 <td>
                     <form action="supprimer-annonce" method="post">
                         <input type="hidden" id="adsDelete" name="adsDelete" value="${listAds.adsByIdAds.id}">

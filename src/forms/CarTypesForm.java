@@ -110,8 +110,6 @@ public class CarTypesForm {
             em.close();
         }
 
-
-
         return carTypes;
 
     }
