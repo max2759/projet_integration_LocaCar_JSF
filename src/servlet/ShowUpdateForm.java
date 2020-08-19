@@ -2,6 +2,7 @@ package servlet;
 
 import entities.*;
 import enumeration.EnumFuel;
+import enumeration.EnumTypesAds;
 import forms.AdsForm;
 import services.*;
 import util.JPAutil;
@@ -14,43 +15,40 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
-@WebServlet("/ajouter-annonce")
-public class AddAds extends HttpServlet {
+@WebServlet("/modifier-annonce")
+public class ShowUpdateForm extends HttpServlet {
 
-    public static final String VUE = "/WEB-INF/addAds.jsp";
-    public static final String REDIRECT_URL = "annonces";
+    public static final String VUE = "/WEB-INF/UpdateAds.jsp";
     public static final String URL_REDIRECT = "connexion";
 
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-        AdsForm adsForm = new AdsForm();
-
-        try {
-            adsForm.addAds(request);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        response.sendRedirect(REDIRECT_URL);
-
-    }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         // récupération de la session
         HttpSession session = request.getSession();
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+
+        String idAds = request.getParameter("idAds");
+        int idAd = Integer.parseInt(idAds);
+
 
         if (usersEntity != null) {
+
             // liste d'objet
             List<CarTypesEntity> carTypesEntities;
             List<ModelsEntity> modelsEntities;
             List<BrandsEntity> brandsEntities;
+
+            AdsService adsService = new AdsService();
+            AdsEntity adsEntity = new AdsEntity();
+            CarsEntity carsEntity = new CarsEntity();
+            CarsService carsService = new CarsService();
+
+            adsEntity = adsService.consulter(em, idAd);
 
             // Les services
             CarTypesService carTypesService = new CarTypesService();
@@ -64,15 +62,25 @@ public class AddAds extends HttpServlet {
             brandsEntities = brandsService.displayBrands();
 
 
+
             request.setAttribute("category", carTypesEntities);
             request.setAttribute("models", modelsEntities);
             request.setAttribute("brands", brandsEntities);
+            request.setAttribute("ads", adsEntity);
             request.setAttribute("enumFuel", EnumFuel.values() );
 
 
+
+
             this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-        }else{
+        } else {
             response.sendRedirect(URL_REDIRECT);
         }
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
     }
 }

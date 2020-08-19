@@ -38,6 +38,8 @@ public class AdsForm {
     private static final String FIELD_FUEL_CAR = "fuel";
     private static final String FIELD_DELETE_ADS = "adsDelete";
     private static final String FIELD_IDUSERS_ADS = "idUser";
+    public static final String FIELD_IDADS = "idAds";
+    public static final String FIELD_IDCARS_ADS = "idCars";
 
     private String result;
     private Map<String, String> errors = new HashMap<String, String>();
@@ -84,7 +86,7 @@ public class AdsForm {
         LocalDateTime dateEnd = ldt.plusMonths(1);
         Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
         int idUser = Integer.parseInt(getValeurChamp(request, FIELD_IDUSERS_ADS));
-        int idAds;
+
 
 
         // Les entités
@@ -210,13 +212,13 @@ public class AdsForm {
         }
         return ads;
     }
+
     /**
      * Méthode de vérification de l'existence de l'ads
      *
      * @param request
      * @return
      */
-
     public AdsEntity checkAds(HttpServletRequest request) {
 
         AdsEntity ads = null;
@@ -268,13 +270,16 @@ public class AdsForm {
         return ads;
     }
 
+    /**
+     * Faits un soft delete, passe l'id de l'ads et de car à 0
+     * @param request
+     */
     public void removeAds(HttpServletRequest request){
 
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
         //Champs
         int idDelCar = Integer.parseInt(getValeurChamp(request, FIELD_DELETE_ADS));
-        int idCar = 0;
 
 
         //Entité
@@ -306,7 +311,127 @@ public class AdsForm {
         }
     }
 
-    /*
+    public AdsEntity findAdsByIdAds(HttpServletRequest request){
+
+        // EM
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        //Champ
+
+        int idAds = Integer.parseInt(request.getParameter(FIELD_IDADS));
+
+        // Entités et services
+        AdsEntity adsEntity = null;
+        AdsService adsService = null;
+
+        // Transaction
+        EntityTransaction tx = null;
+        try{
+            tx = em.getTransaction();
+            adsEntity = adsService.consulter(em, idAds);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
+        return adsEntity;
+    }
+
+    /*public void updateAds(HttpServletRequest request) throws ParseException {
+
+        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
+        // Les champs du form
+        String color = getValeurChamp(request,FIELD_COLOR_CAR );
+        String releaseYears = getValeurChamp(request, FIELD_RELEASEYEAR_CAR);
+        SimpleDateFormat rYear = new SimpleDateFormat("yyyy-MM-dd");
+        Date releaseYear = rYear.parse(releaseYears);
+        int kilometer = Integer.parseInt(getValeurChamp(request, FIELD_KM_CAR));
+        int horsePower = Integer.parseInt(getValeurChamp(request, FIELD_HP_CAR));
+        String fuel = getValeurChamp(request, FIELD_FUEL_CAR);
+        EnumFuel enumfuel = EnumFuel.valueOf(fuel);
+        int models = Integer.parseInt(getValeurChamp(request, FIELD_MODELS_CAR));
+        int brands = Integer.parseInt(getValeurChamp(request, FIELD_BRANDS_CAR));
+        int carTypes = Integer.parseInt(getValeurChamp(request, FIELD_CARTYPES_CAR));
+        String labelAd = getValeurChamp(request, FIELD_LABEL_ADS);
+        Double priceAd = Double.parseDouble(getValeurChamp(request, FIELD_PRICE_ADS));
+        String typeAds = getValeurChamp(request, FIELD_TYPEADS_ADS);
+        EnumTypesAds enumTypesAds = EnumTypesAds.valueOf(typeAds);
+        Date todayDate = new Date();
+        LocalDateTime ldt = LocalDateTime.ofInstant(todayDate.toInstant(), ZoneId.systemDefault());
+        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        LocalDateTime dateEnd = ldt.plusMonths(1);
+        Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
+
+        // Les entités
+
+        AdsEntity adsEntity = new AdsEntity();
+        CarsEntity carsEntity = new CarsEntity();
+        CarTypesEntity carTypesEntity = new CarTypesEntity();
+        ModelsEntity modelsEntity = new ModelsEntity();
+        BrandsEntity brandsEntity = new BrandsEntity();
+        UsersEntity usersEntity = new UsersEntity();
+
+        // Les services
+
+        AdsService adsService = new AdsService();
+        CarsService carsService = new CarsService();
+        CarTypesService carTypesService = new CarTypesService();
+        ModelsService modelsService = new ModelsService();
+        BrandsService brandsService = new BrandsService();
+        UsersService usersService = new UsersService();
+
+        // Transaction
+
+        EntityTransaction tx = null;
+
+        try{
+
+            tx= em.getTransaction();
+            tx.begin();
+
+
+            //Modification dans table cars
+            carsEntity = carsService.consulter(em, idCar);
+            carTypesEntity = carTypesService.consult(em, carTypes);
+            modelsEntity = modelsService.consultModel(em, models);
+            brandsEntity = brandsService.consultBrands(em, brands);
+
+            carsEntity.setActive(true);
+            carsEntity.setColor(color);
+            carsEntity.setHorsePower(horsePower);
+            carsEntity.setReleaseYear(releaseYear);
+            carsEntity.setKilometer(kilometer);
+            carsEntity.setEnumFuel(enumfuel);
+            carsEntity.setCarTypesByIdCarTypes(carTypesEntity);
+            carsEntity.setModelsByIdModels(modelsEntity);
+            modelsEntity.setBrandsByIdBrands(brandsEntity);
+
+            carsService.updateCar(em, carsEntity);
+
+            // Modification dans ads
+
+            adsEntity = adsService.consulter(em, idAds);
+
+            adsEntity.setActive(true);
+            adsEntity.setLabel(labelAd);
+            adsEntity.setPrice(priceAd);
+            adsEntity.setTypesAds(enumTypesAds);
+            adsEntity.setDateStart(out);
+            adsEntity.setDateEnd(endOut);
+
+            adsService.updateAds(em, adsEntity);
+
+            tx.commit();
+        }catch(Exception ex){
+            if (tx != null && tx.isActive()) tx.rollback();
+        }
+
+    }*/
+
+    /**
      * Ajoute un message correspondant au champ spécifié à la map des errors.
      */
     private void setError(String field, String message) {

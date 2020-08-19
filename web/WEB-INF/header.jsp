@@ -26,7 +26,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="<c:url value="/index.jsp"/>"><img
+    <a class="navbar-brand" href="<c:url value="/"/>"><img
             src="<c:url value="/resources/img/logoLocacar.png"/>" alt="locacar"/></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

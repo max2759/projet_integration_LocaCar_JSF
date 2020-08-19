@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import entities.AdsEntity;
+import servlet.Ads;
 import util.JPAutil;
 
 /**
@@ -25,6 +26,14 @@ public class AdsService {
         return ads;
     }
 
+    public AdsEntity findAdsById(EntityManager em, int id) {
+        try {
+            return em.createNamedQuery("findAdsByIdAds", AdsEntity.class).setParameter("idAds", id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     /**
      * méthode Consulter d'une entité à  partir de la bd
@@ -39,19 +48,21 @@ public class AdsService {
 
     /**
      * Ajouter une annonce dans la DB
-      * @param em
+     *
+     * @param em
      * @param adsEntity
      */
-    public void addAds(EntityManager em, AdsEntity adsEntity){
+    public void addAds(EntityManager em, AdsEntity adsEntity) {
         em.persist(adsEntity);
     }
 
     /**
      * Mets à jour l'entité dans la db
+     *
      * @param em
      * @param adsEntity
      */
-    public void updateAds(EntityManager em, AdsEntity adsEntity){
+    public void updateAds(EntityManager em, AdsEntity adsEntity) {
         em.merge(adsEntity);
     }
 
