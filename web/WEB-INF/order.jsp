@@ -13,9 +13,11 @@
 <p class='font-weight-bold'><c:out value="Numéro de commande : ${ordersEntity.id}"/></p>
 <p><c:out value="Numéro de client : ${ordersEntity.usersByIdUsers.id}"/></p>
 <p><c:out value="Nom d'utilisateur du client : ${ordersEntity.usersByIdUsers.username}"/></p>
-<p class='font-weight-bold'><c:out value="Nom du client : ${ordersEntity.usersByIdUsers.username}"/></p class='font-weight-bold'>
+<p class='font-weight-bold'><c:out
+        value="Nom du client : ${ordersEntity.usersByIdUsers.username}"/></p class='font-weight-bold'>
 <p class='font-weight-bold'><c:out value="Prénom du client: ${ordersEntity.usersByIdUsers.username}"/></p>
-<p class='font-weight-bold'><c:out value="Date de commande : "/><fmt:formatDate pattern="dd-MM-yyyy" value="${ordersEntity.orderDate}"/></p>
+<p class='font-weight-bold'><c:out value="Date de commande : "/><fmt:formatDate pattern="dd-MM-yyyy"
+                                                                                value="${ordersEntity.orderDate}"/></p>
 
 <c:choose>
     <c:when test="${ordersEntity.orderStatut eq 'VALIDATED'}"><p class='font-weight-bold'>Staut : Validé</p></c:when>
@@ -59,14 +61,17 @@
             <td> ${entry.carsByIdCars.carTypesByIdCarTypes.label} </td>
             <td class='font-weight-bold'><fmt:formatDate pattern="dd-MM-yyyy" value="${entry.dateStart}"/></td>
             <td class='font-weight-bold'><fmt:formatDate pattern="dd-MM-yyyy" value="${entry.dateEnd}"/></td>
-            <td class='font-weight-bold'><fmt:formatNumber type="number" maxFractionDigits="2" value="${entry.finalPrice}"/>€</td>
+            <td class='font-weight-bold'><fmt:formatNumber type="number" maxFractionDigits="2"
+                                                           value="${entry.finalPrice}"/>€
+            </td>
             <c:set var="totalPrice" value="${totalPrice + entry.finalPrice}"/>
         </tr>
     </c:forEach>
     </tbody>
 </table>
 
-<p class='font-weight-bold'><c:out value="Total : "/><fmt:formatNumber type="number" maxFractionDigits="2" value="${totalPrice}"/>€</td></p>
+<p class='font-weight-bold'><c:out value="Total : "/><fmt:formatNumber type="number" maxFractionDigits="2"
+                                                                       value="${totalPrice}"/>€</td></p>
 
 
 <c:if test="${ordersEntity.orderStatut eq 'VALIDATED'}">

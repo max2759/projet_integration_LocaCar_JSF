@@ -15,20 +15,21 @@ public class Deconnexion extends HttpServlet {
     public static final String URL_REDIRECTION2 = "connexion";
     //public static final String VUE = "/connexion";                    // Cas d'un forward
 
-    public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Récupération et destruction de la session en cours */
         HttpSession session = request.getSession();
         session.invalidate();
 
-        response.sendRedirect( URL_REDIRECTION );                    // Cas d'une redirection
+        response.sendRedirect(URL_REDIRECTION);                    // Cas d'une redirection
         //this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );        // Cas d'un forward
     }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /* Récupération et destruction de la session en cours */
         HttpSession session = request.getSession();
         session.invalidate();
 
-        response.sendRedirect( URL_REDIRECTION2 );                    // Cas d'une redirection
+        response.sendRedirect(URL_REDIRECTION2);                    // Cas d'une redirection
         //this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );        // Cas d'un forward
     }
 }

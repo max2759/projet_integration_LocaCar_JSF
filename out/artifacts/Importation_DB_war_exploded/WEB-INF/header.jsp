@@ -24,97 +24,97 @@
     <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
+<header id="header" class="">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="<c:url value="/"/>"><img
-            src="<c:url value="/resources/img/logoLocacar.png"/>" alt="locacar"/></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Annonces
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <c:if test="${not empty sessionScope.UserEntity}">
-                    <a class="dropdown-item" href="<c:url value="/annonces"/>">Mes annonces</a>
-                        <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Annonces
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <c:if test="${not empty sessionScope.UserEntity}">
+                            <a class="dropdown-item" href="<c:url value="/annonces"/>">Mes annonces</a>
+                            <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
+                        </c:if>
+                        <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les
+                            test)</a>
+                        <a class="dropdown-item" href="<c:url value="/adsLocation"/>">Location (temporaire pour les
+                            test)</a>
+                    </div>
+                </li>
+                <c:if test="${not empty sessionScope.UserEntity}">
+                    <c:if test="${sessionScope.UserEntity.rolesByIdRoles.label eq 'Admin'}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Catégorie
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
+                                <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter
+                                    catégorie</a>
+                            </div>
+                        </li>
                     </c:if>
-                    <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les
-                        test)</a>
-                    <a class="dropdown-item" href="<c:url value="/adsLocation"/>">Location (temporaire pour les
-                        test)</a>
-                </div>
-            </li>
-            <c:if test="${not empty sessionScope.UserEntity}">
-                <c:if test="${sessionScope.UserEntity.rolesByIdRoles.label eq 'Admin'}">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Catégorie
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
-                            <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
-                        </div>
-                    </li>
                 </c:if>
-            </c:if>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Panier
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/basket"/>">Voir le panier</a>
-                </div>
-            </li>
-            <c:if test="${not empty sessionScope.UserEntity}">
-                <c:if test="${sessionScope.UserEntity.rolesByIdRoles.label eq 'Admin'}">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="Gerer" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            Gerer
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="<c:url value="/listOrders"/>">Liste des commande</a>
-                        </div>
-                    </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Panier
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<c:url value="/basket"/>">Voir le panier</a>
+                    </div>
+                </li>
+                <c:if test="${not empty sessionScope.UserEntity}">
+                    <c:if test="${sessionScope.UserEntity.rolesByIdRoles.label eq 'Admin'}">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="Gerer" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Gerer
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="<c:url value="/listOrders"/>">Liste des commande</a>
+                            </div>
+                        </li>
+                    </c:if>
                 </c:if>
-            </c:if>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="connexion" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Connexion
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/connexion"/>">Se connecter</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="connexion" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Connexion
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<c:url value="/connexion"/>">Se connecter</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="user-group">
+                <div class="user-conn">
+                    <c:if test="${not empty sessionScope.User}">
+                        <i class="fa fa-user"> <c:out value="${sessionScope.UserEntity.username}"/> </i>
+                    </c:if>
+
                 </div>
-            </li>
-        </ul>
-        <div class="user-group">
-            <div class="user-conn">
-                <c:if test="${not empty sessionScope.User}">
-                    <i class="fa fa-user"> <c:out value="${sessionScope.UserEntity.username}"/> </i>
-                </c:if>
+                <div class="form-logout">
+                    <form method="post" action="deconnexion">
+                        <button type="submit" name="Deconnexion" class="btn-logout">
+                            <i class="fa fa-sign-out"></i>
+                        </button>
+                    </form>
+                </div>
 
             </div>
-            <div class="form-logout">
-                <form method="post" action="deconnexion">
-                    <button type="submit" name="Deconnexion" class="btn-logout">
-                        <i class="fa fa-sign-out"></i>
-                    </button>
-                </form>
-            </div>
-
         </div>
-    </div>
-</nav>
+    </nav>
+
+</header>
 <div class="container-fluid shadow-sm p-3 mb-5 bg-white border rounded">
     <section>
         <article>

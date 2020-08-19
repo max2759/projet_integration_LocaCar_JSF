@@ -18,6 +18,11 @@ public class ContractsException {
         }
     }
 
+    /**
+     * Vérification si l'entité est vide
+     * @param contract
+     * @throws Exception
+     */
     public void validationEntities(List<ContractsEntity> contract) throws Exception {
         if (contract == null || contract.isEmpty()) {
             throw new Exception("Aucun contrat");

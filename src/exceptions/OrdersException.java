@@ -20,6 +20,11 @@ public class OrdersException {
         }
     }
 
+    /**
+     * Vérification si l'entité est vide
+     * @param orders
+     * @throws Exception
+     */
     public void validationEntities(List<OrdersEntity> orders) throws Exception {
         if (orders == null || orders.isEmpty()) {
             throw new Exception("Aucune commande");

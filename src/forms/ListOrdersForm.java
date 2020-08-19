@@ -44,14 +44,12 @@ public class ListOrdersForm {
         int idSearch = 0;
 
         // On vérifie que l'entrée n'est pas vide
-        if (username.length() == 0)
-        {
+        if (username.length() == 0) {
             setError(FIELD_ID_SEARCH, "Votre recherche est vide");
         }
 
         // On vérifie que l'entrée est un entier pour chercher aussi dans les id
-        else if (username.matches("\\d*"))
-        {
+        else if (username.matches("\\d*")) {
             idSearch = Integer.parseInt(request.getParameter(FIELD_ID_SEARCH));
         }
 
@@ -94,7 +92,7 @@ public class ListOrdersForm {
         }
 
         // S'il y a une erreur, on retourne un null
-        else{
+        else {
             return null;
         }
     }

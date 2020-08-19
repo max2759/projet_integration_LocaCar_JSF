@@ -24,7 +24,7 @@
         </div>
         <div class="form-check">
             <input class="form-check-input" type="radio" name="User" value="3" id="User2">
-            <label for="User2"  class="form-check-label">
+            <label for="User2" class="form-check-label">
                 User 2
             </label>
         </div>

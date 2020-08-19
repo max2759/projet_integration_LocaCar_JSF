@@ -1,17 +1,18 @@
 package forms;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
 import entities.*;
 import enumeration.EnumOrderStatut;
 import enumeration.EnumTypesAds;
 import exceptions.CarsException;
 import exceptions.OrdersException;
-import services.*;
+import services.CarsService;
+import services.ContractsService;
+import services.OrdersService;
+import services.UsersService;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.criteria.Order;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
@@ -294,7 +295,7 @@ public class OrdersForm {
         }
     }
 
-    public OrdersEntity findOrderValidatedById(int idOrder){
+    public OrdersEntity findOrderValidatedById(int idOrder) {
         OrdersEntity ordersEntity = null;
         OrdersService ordersService = new OrdersService();
 
@@ -330,6 +331,7 @@ public class OrdersForm {
         return ordersEntity;
 
     }
+
     /**
      * Méthode pour annuler une commande
      *

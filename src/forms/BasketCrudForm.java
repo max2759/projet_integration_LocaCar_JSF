@@ -25,7 +25,7 @@ public class BasketCrudForm {
 
     public AdsForm addBasket(HttpServletRequest request, Date dateStart, Date dateEnd) throws ParseException {
         EnumOrderStatut enumOrderStatut = EnumOrderStatut.values()[0];
-        String idAds = request.getParameter("idAds");
+
         int idContractType = 0;
         // Recherche de l'ads
         adsForm = new AdsForm();
@@ -34,17 +34,17 @@ public class BasketCrudForm {
 
         // Si aucune voiture n'est trouvé on renvoit une erreur.
         if (adsForm.getErrors().isEmpty()) {
-//            HttpSession session = request.getSession();
+
             if (this.basketForm == null) {
                 basketForm = new BasketForm();
             }
-        if (ads.getTypesAds() == EnumTypesAds.VENTE)
-        {
-            idContractType = 1;
-        }
-        else if (ads.getTypesAds() == EnumTypesAds.LOCATIONCD) {
-            idContractType = 2;
-        }
+
+            // On check si l'annonce est une vente ou une location
+            if (ads.getTypesAds() == EnumTypesAds.VENTE) {
+                idContractType = 1;
+            } else if (ads.getTypesAds() == EnumTypesAds.LOCATIONCD) {
+                idContractType = 2;
+            }
             adsForm = null;
             basketForm.add(ads, request, enumOrderStatut, idContractType, dateStart, dateEnd);
         }
@@ -75,7 +75,12 @@ public class BasketCrudForm {
         return adsForm;
     }
 
-    public List<ContractsEntity> listContracts(HttpServletRequest request, int idUser) {
+    /**
+     * Méthode pour avoir la list des contracts
+     * @param idUser
+     * @return
+     */
+    public List<ContractsEntity> listContracts(int idUser) {
         if (this.basketForm == null) {
             basketForm = new BasketForm();
         }
