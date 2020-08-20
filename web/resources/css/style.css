@@ -28,3 +28,7 @@ tr.hide{
     text-align: center;
 }
 
+.return-button {
+    display: flex;
+    margin-bottom: 15px;
+}

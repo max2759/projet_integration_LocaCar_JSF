@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp"/>
 <h2>Annonce</h2>
-<table class='table table-hover'>
+<table class='table table-hover table-responsive'>
     <thead>
     <tr>
         <th>Titre de l'annonce</th>
@@ -10,6 +10,9 @@
         <th>Types de voiture</th>
         <th>Couleur</th>
         <th>Prix</th>
+        <th>Année de fabrication</th>
+        <th>Kilométrage</th>
+        <th>Chevaux</th>
         <th>Date de début</th>
         <th>Date de fin</th>
         <th>Type d'annonce</th>
@@ -29,8 +32,11 @@
                 <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
                 <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.label}</td>
                 <td>${listAds.adsByIdAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
-                <td> ${listAds.adsByIdAds.carsByIdCars.color}</td>
+                <td>${listAds.adsByIdAds.carsByIdCars.color}</td>
                 <td><fmt:formatNumber value="${listAds.adsByIdAds.price}" type="currency"/></td>
+                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.carsByIdCars.releaseYear}"/></td>
+                <td>${listAds.adsByIdAds.carsByIdCars.kilometer} Km</td>
+                <td><fmt:formatNumber type="number" value="${listAds.adsByIdAds.carsByIdCars.horsePower}" maxFractionDigits="3"/> CV</td>
                 <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateStart}"/></td>
                 <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateEnd}"/></td>
                 <td> ${listAds.adsByIdAds.typesAds} </td>

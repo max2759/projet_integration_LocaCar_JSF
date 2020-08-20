@@ -2,7 +2,13 @@
 <jsp:include page="header.jsp"/>
 
 <div class="container-fluid">
-    <table class='table table-hover'>
+    <div class="return-button">
+        <a href="<c:url value="/accueil"/>">
+            <button type="button" class="btn btn-warning"><i class="fa fa-chevron-left"></i> Retour
+            </button>
+        </a>
+    </div>
+    <table class='table table-hover table-responsive'>
         <thead>
         <tr>
             <th>Titre de l'annonce</th>
@@ -26,7 +32,7 @@
             <td>${ads.carsByIdCars.carTypesByIdCarTypes.label}</td>
             <td> ${ads.carsByIdCars.color}</td>
             <td><fmt:formatNumber value="${ads.price}" type="currency"/></td>
-            <td><fmt:formatDate pattern="dd-MM-YYYY" value="${ads.carsByIdCars.releaseYear}"/></td>
+            <td><fmt:formatDate pattern="dd-MM-yyyy" value="${ads.carsByIdCars.releaseYear}"/></td>
             <td>${ads.carsByIdCars.kilometer} KM</td>
             <td><fmt:formatNumber type="number" value="${ads.carsByIdCars.horsePower}" maxFractionDigits="3"/> CV</td>
             <td>${ads.carsByIdCars.enumFuel}</td>

@@ -2,6 +2,14 @@
 <jsp:include page="header.jsp"/>
 
 <div class="container-fluid">
+
+    <div class="return-button">
+        <a href="<c:url value="/annonces"/>">
+            <button type="button" class="btn btn-warning"><i class="fa fa-chevron-left"></i> Retour
+            </button>
+        </a>
+    </div>
+
     <h1>Modifier l'annonce</h1>
 
 
