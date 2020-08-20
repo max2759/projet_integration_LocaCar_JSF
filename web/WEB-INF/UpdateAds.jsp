@@ -2,6 +2,14 @@
 <jsp:include page="header.jsp"/>
 
 <div class="container-fluid">
+
+    <div class="return-button">
+        <a href="<c:url value="/annonces"/>">
+            <button type="button" class="btn btn-warning"><i class="fa fa-chevron-left"></i> Retour
+            </button>
+        </a>
+    </div>
+
     <h1>Modifier l'annonce</h1>
 
 
@@ -16,12 +24,13 @@
         <div class="form-group">
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control" required>
-                <option value="VENTE">Vente</option>
-                <option value="LOCATIONCD">Location</option>
+                <c:forEach var="enumTypesAds" items="${enumTypesAds}">
+                    <option value="${enumTypesAds}" ${enumTypesAds == ads.typesAds ? 'selected="selected"' : ''}>${enumTypesAds}</option>
+                </c:forEach>
             </select>
         </div>
         <div class="form-group">
-            <label>Prix</label>
+            <label>Prix fixe ou prix par jour</label>
             <input type="number" class="form-control" min="100" step="any" name="adPrice" id="adPrice"
                    value="${ads.price}"
                    placeholder="1000€"
@@ -89,22 +98,11 @@
                 <c:forEach var="enumFuel" items="${enumFuel}">
                     <option value="${enumFuel}" ${enumFuel == ads.carsByIdCars.enumFuel ? 'selected="selected"' : ''}>${enumFuel}</option>
                 </c:forEach>
-                <!--<option value="ESSENCE">Essence</option>
-                <option value="DIESEL">Diesel</option>
-                <option value="HYBRID">Hybrid</option>
-                <option value="PIHYBRID-in">Plug-in hybrid</option>
-                <option value="GAZ">Gaz</option>
-                <option value="ELECTRIQUE">Électrique</option>-->
             </select>
         </div>
 
-        <!--<div class="form-group">
-            <input type="file" name="adsPicture" id="adsPicture">
-        </div>-->
-
-        <input type="hidden" name="idAdsToUpdate" id="idAdsToUpdate" value="${ads.id}">
+        <input type="hidden" name="idAdToUpdate" id="idAdToUpdate" value="${ads.id}">
         <input type="hidden" name="idCarToUpdate" id="idCarToUpdate" value="${ads.carsByIdCars.id}">
-
 
         <button type="submit" class="btn btn-primary">Ajouter</button>
 

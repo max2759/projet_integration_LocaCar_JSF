@@ -78,7 +78,6 @@ public class ListOrdersForm {
                 ordersException.validationEntities(ordersEntity);
             } catch (Exception e) {
                 setError(FIELD_ID_SEARCH, e.getMessage());
-
             }
 
 

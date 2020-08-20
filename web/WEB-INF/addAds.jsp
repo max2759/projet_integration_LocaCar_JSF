@@ -13,12 +13,13 @@
         <div class="form-group">
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control" required>
-                <option value="VENTE">Vente</option>
-                <option value="LOCATIONCD">Location</option>
+                <c:forEach var="enumTypesAds" items="${enumTypesAds}">
+                    <option value="${enumTypesAds}">${enumTypesAds}</option>
+                </c:forEach>
             </select>
         </div>
         <div class="form-group">
-            <label>Prix</label>
+            <label>Prix fixe ou prix par jour</label>
             <input type="number" class="form-control" min="100" step="any" name="adPrice" id="adPrice"
                    placeholder="1000€"
                    required="required">
@@ -54,9 +55,7 @@
                     <option value="${categoryType.id}">${categoryType.label}</option>
                 </c:forEach>
             </select>
-
         </div>
-
 
         <div class="form-group">
             <label>Marques</label>

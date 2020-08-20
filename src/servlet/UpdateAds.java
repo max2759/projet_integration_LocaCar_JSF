@@ -17,6 +17,15 @@ public class UpdateAds extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        AdsForm adsForm = new AdsForm();
+
+        try {
+            adsForm.updateAds(request);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        response.sendRedirect(VUE);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

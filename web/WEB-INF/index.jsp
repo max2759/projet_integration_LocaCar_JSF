@@ -3,28 +3,45 @@
 
 <h1>Accueil</h1>
 
-<p>test</p>
-
-<c:forEach var="listAds" items="${adsEntities}">
-    <tr class="${listAds.adsByIdAds.active ? 'show' : 'hide'}">
-        <td>${listAds.label}</td>
-        <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
-        <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.label}</td>
-        <td>${listAds.adsByIdAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
-        <td> ${listAds.adsByIdAds.carsByIdCars.color}</td>
-        <td><fmt:formatNumber value="${listAds.adsByIdAds.price}" type="currency"/></td>
-        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateStart}"/></td>
-        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateEnd}"/></td>
-        <td> ${listAds.adsByIdAds.typesAds} </td>
-        <td>
-            <form action="annonce" method="post">
-                <input type="hidden" id="idAds" name="idAds" value="${listAds.adsByIdAds.id}">
-                <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
-                <button type="submit" class="btn btn-info"><i class="fa fa-eye"></i></button>
-            </form>
+<table class='table table-hover'>
+    <thead>
+    <tr>
+        <th>Titre de l'annonce</th>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>Types de voiture</th>
+        <th>Couleur</th>
+        <th>Prix</th>
+        <th>Type d'annonce</th>
+        <th>Voir annonce en détail</th>
     </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="listAds" items="${adsEntities}">
+        <tr class="${listAds.active ? 'show' : 'hide'}">
+            <td>${listAds.label}</td>
+            <td>${listAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
+            <td>${listAds.carsByIdCars.modelsByIdModels.label}</td>
+            <td>${listAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
+            <td> ${listAds.carsByIdCars.color}</td>
+            <td><fmt:formatNumber value="${listAds.price}" type="currency"/></td>
+            <td> ${listAds.typesAds}</td>
+            <td>
+                <form action="details" method="post">
+                    <input type="hidden" id="idAdsToShow" name="idAdsToShow" value="${listAds.id}">
+                    <input type="hidden" id="idCarsToShow" name="idCarsToShow" value="${listAds.carsByIdCars.id}">
+                    <button type="submit" class="btn btn-outline-info"><i class="far fa-eye"></i></button>
+                </form>
+            </td>
+        </tr>
+    </c:forEach>
 
-</c:forEach>
+    </tbody>
+</table>
+
+<jsp:include page="footer.jsp"/>
+
+
 
 
 
