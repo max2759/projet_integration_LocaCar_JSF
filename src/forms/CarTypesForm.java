@@ -18,6 +18,8 @@ public class CarTypesForm {
     private static final String IDUPDATECATEGORY_FIELD = "idCategory";
     private static final String DELETE_FIELD = "categoryDelete";
 
+    EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
     CarTypesEntity carTypes = new CarTypesEntity();
 
     private String resultat;
@@ -34,8 +36,6 @@ public class CarTypesForm {
     public void deleteCategory(HttpServletRequest request){
 
         int idDeleteCat = Integer.parseInt(getValeurChamp(request, DELETE_FIELD));
-
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
         CarTypesEntity carTypesEntity;
         CarTypesService carTypesService = new CarTypesService();
@@ -59,9 +59,6 @@ public class CarTypesForm {
     public CarTypesEntity addCategory(HttpServletRequest request) {
 
         String category = getValeurChamp(request, CATEGORY_FIELD);
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
-
         CarTypesException ctE = new CarTypesException();
         CarTypesService carTypesService = new CarTypesService();
 
@@ -71,17 +68,30 @@ public class CarTypesForm {
         } catch (Exception e) {
             setErreur(CATEGORY_FIELD, e.getMessage());
         }
-        carTypes.setLabel(category);
 
         if (erreurs.isEmpty()) {
-            resultat = "Catégorie ajoutée";
+            EntityTransaction tx = null;
+            try {
+                tx = em.getTransaction();
+                tx.begin();
+                carTypes.setLabel(category);
+                carTypesService.addCategory(em, carTypes);
+                tx.commit();
+            } catch (Exception ex) {
+                if (tx != null && tx.isActive()) {
+                    tx.rollback();
+                }
+            } finally {
+                em.close();
+                resultat = "Catégorie ajoutée";
+            }
         } else {
             resultat = "Echec d'ajout dans catégorie";
         }
         return carTypes;
     }
 
-    /**
+     /**
      * Modification de la catégorie
      * @param request
      * @return
@@ -91,9 +101,7 @@ public class CarTypesForm {
         String updateCat = getValeurChamp(request, UPDATECATEGORY_FIELD);
         int idUpdateCat = Integer.parseInt(request.getParameter(IDUPDATECATEGORY_FIELD));
 
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
-        CarTypesEntity carTypesEntity = new CarTypesEntity();
+        CarTypesEntity carTypesEntity;
         CarTypesService carTypesService = new CarTypesService();
 
         EntityTransaction tx = null;
@@ -113,9 +121,6 @@ public class CarTypesForm {
         return carTypes;
 
     }
-
-
-
 
     /**
      * Ajout message d'erreur

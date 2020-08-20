@@ -88,8 +88,6 @@ public class AdsForm {
         Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
         int idUser = Integer.parseInt(getValeurChamp(request, FIELD_IDUSERS_ADS));
 
-
-
         // Les entités
 
         AdsEntity adsEntity = new AdsEntity();
@@ -327,6 +325,11 @@ public class AdsForm {
 
     }
 
+    /**
+     * Permet de mettre à jour l'annonce et la voiture en fonction de l'ID
+     * @param request
+     * @throws ParseException
+     */
     public void updateAds(HttpServletRequest request) throws ParseException {
 
         // Les champs du form
@@ -347,11 +350,7 @@ public class AdsForm {
         EnumTypesAds enumTypesAds = EnumTypesAds.valueOf(typeAds);
         int idAd = Integer.parseInt(getValeurChamp(request, FIELD_IDADS));
         int idCar = Integer.parseInt(getValeurChamp(request, FIELD_IDCARS_ADS));
-        /*Date todayDate = new Date();
-        LocalDateTime ldt = LocalDateTime.ofInstant(todayDate.toInstant(), ZoneId.systemDefault());
-        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
-        LocalDateTime dateEnd = ldt.plusMonths(1);
-        Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());*/
+
 
         // Les entités
         AdsEntity adsEntity = new AdsEntity();
@@ -395,15 +394,14 @@ public class AdsForm {
 
             // Modification dans ads
 
+            // On récupère l'annonce grâce à l'ID
             adsEntity = adsService.consulter(em, idAd);
-
 
             adsEntity.setLabel(labelAd);
             adsEntity.setPrice(priceAd);
             adsEntity.setTypesAds(enumTypesAds);
-            /*adsEntity.setDateStart(out);
-            adsEntity.setDateEnd(endOut);*/
 
+            // Update de l'annonce
             adsService.updateAds(em, adsEntity);
 
             tx.commit();

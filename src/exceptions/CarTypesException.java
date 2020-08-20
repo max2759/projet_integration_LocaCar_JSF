@@ -13,7 +13,7 @@ public class CarTypesException {
                     throw new Exception("Uniquement des lettres ! ");
                 }
             }else{
-                throw new Exception("Merci de remplir le formulaire !");
+                throw new Exception("Merci de remplir le champ !");
             }
         }
 

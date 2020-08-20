@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
+@WebServlet("/accueil")
 public class AllAds extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/index.jsp";

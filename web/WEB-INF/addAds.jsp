@@ -19,7 +19,7 @@
             </select>
         </div>
         <div class="form-group">
-            <label>Prix</label>
+            <label>Prix fixe ou prix par jour</label>
             <input type="number" class="form-control" min="100" step="any" name="adPrice" id="adPrice"
                    placeholder="1000€"
                    required="required">
