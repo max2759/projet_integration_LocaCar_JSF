@@ -23,8 +23,6 @@ import java.util.Map;
 public class ContractsForm {
 
     private static final String FIELD_ID_CONTRACT = "idContract";
-    private static final String FIELD_ID_ORDERS = "idOrders";
-    private static final String FIELD_ID_USERS = "idUsers";
 
     private String result;
     private Map<String, String> errors = new HashMap<String, String>();
