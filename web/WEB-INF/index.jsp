@@ -27,9 +27,9 @@
             <td><fmt:formatNumber value="${listAds.price}" type="currency"/></td>
             <td> ${listAds.typesAds}</td>
             <td>
-                <form action="#" method="post">
-                    <input type="hidden" id="idAds" name="idAds" value="${listAds.id}">
-                    <input type="hidden" id="idCars" name="idCars" value="${listAds.carsByIdCars.id}">
+                <form action="details" method="post">
+                    <input type="hidden" id="idAdsToShow" name="idAdsToShow" value="${listAds.id}">
+                    <input type="hidden" id="idCarsToShow" name="idCarsToShow" value="${listAds.carsByIdCars.id}">
                     <button type="submit" class="btn btn-outline-info"><i class="far fa-eye"></i></button>
                 </form>
             </td>
