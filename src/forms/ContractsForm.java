@@ -41,7 +41,7 @@ public class ContractsForm {
      * Vérification de la commande
      *
      * @param request
-     * @return
+     * @return ContractsEntity
      */
     public ContractsEntity checkContract(HttpServletRequest request) {
 
