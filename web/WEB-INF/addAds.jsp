@@ -13,8 +13,9 @@
         <div class="form-group">
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control" required>
-                <option value="VENTE">Vente</option>
-                <option value="LOCATIONCD">Location</option>
+                <c:forEach var="enumTypesAds" items="${enumTypesAds}">
+                    <option value="${enumTypesAds}">${enumTypesAds}</option>
+                </c:forEach>
             </select>
         </div>
         <div class="form-group">

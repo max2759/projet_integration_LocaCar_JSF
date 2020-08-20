@@ -2,11 +2,10 @@ package servlet;
 
 import entities.*;
 import enumeration.EnumFuel;
+import enumeration.EnumTypesAds;
 import forms.AdsForm;
 import services.*;
-import util.JPAutil;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -56,7 +55,6 @@ public class AddAds extends HttpServlet {
             CarTypesService carTypesService = new CarTypesService();
             ModelsService modelsService = new ModelsService();
             BrandsService brandsService = new BrandsService();
-            EnumFuel enumFuel = null;
 
             //Appel des méthodes qui retourne une liste d'objet
             carTypesEntities = carTypesService.displayCategory();
@@ -68,6 +66,7 @@ public class AddAds extends HttpServlet {
             request.setAttribute("models", modelsEntities);
             request.setAttribute("brands", brandsEntities);
             request.setAttribute("enumFuel", EnumFuel.values() );
+            request.setAttribute("enumTypesAds", EnumTypesAds.values());
 
 
             this.getServletContext().getRequestDispatcher(VUE).forward(request, response);

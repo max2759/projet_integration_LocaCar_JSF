@@ -16,8 +16,9 @@
         <div class="form-group">
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control" required>
-                <option value="VENTE">Vente</option>
-                <option value="LOCATIONCD">Location</option>
+                <c:forEach var="enumTypesAds" items="${enumTypesAds}">
+                    <option value="${enumTypesAds}" ${enumTypesAds == ads.typesAds ? 'selected="selected"' : ''}>${enumTypesAds}</option>
+                </c:forEach>
             </select>
         </div>
         <div class="form-group">
@@ -89,22 +90,11 @@
                 <c:forEach var="enumFuel" items="${enumFuel}">
                     <option value="${enumFuel}" ${enumFuel == ads.carsByIdCars.enumFuel ? 'selected="selected"' : ''}>${enumFuel}</option>
                 </c:forEach>
-                <!--<option value="ESSENCE">Essence</option>
-                <option value="DIESEL">Diesel</option>
-                <option value="HYBRID">Hybrid</option>
-                <option value="PIHYBRID-in">Plug-in hybrid</option>
-                <option value="GAZ">Gaz</option>
-                <option value="ELECTRIQUE">Électrique</option>-->
             </select>
         </div>
 
-        <!--<div class="form-group">
-            <input type="file" name="adsPicture" id="adsPicture">
-        </div>-->
-
-        <input type="hidden" name="idAdsToUpdate" id="idAdsToUpdate" value="${ads.id}">
+        <input type="hidden" name="idAdToUpdate" id="idAdToUpdate" value="${ads.id}">
         <input type="hidden" name="idCarToUpdate" id="idCarToUpdate" value="${ads.carsByIdCars.id}">
-
 
         <button type="submit" class="btn btn-primary">Ajouter</button>
 

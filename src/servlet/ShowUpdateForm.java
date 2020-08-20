@@ -7,7 +7,6 @@ import forms.AdsForm;
 import services.*;
 import util.JPAutil;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,16 +24,14 @@ public class ShowUpdateForm extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         // récupération de la session
         HttpSession session = request.getSession();
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
 
         String idAds = request.getParameter("idAds");
         int idAd = Integer.parseInt(idAds);
-
 
         if (usersEntity != null) {
 
@@ -43,34 +40,26 @@ public class ShowUpdateForm extends HttpServlet {
             List<ModelsEntity> modelsEntities;
             List<BrandsEntity> brandsEntities;
 
-            AdsService adsService = new AdsService();
-            AdsEntity adsEntity = new AdsEntity();
-            CarsEntity carsEntity = new CarsEntity();
-            CarsService carsService = new CarsService();
-
-            adsEntity = adsService.consulter(em, idAd);
+            // Form pour les annonces
+            AdsForm adsForm = new AdsForm();
 
             // Les services
             CarTypesService carTypesService = new CarTypesService();
             ModelsService modelsService = new ModelsService();
             BrandsService brandsService = new BrandsService();
-            EnumFuel enumFuel = null;
 
             //Appel des méthodes qui retourne une liste d'objet
             carTypesEntities = carTypesService.displayCategory();
             modelsEntities = modelsService.displayModels();
             brandsEntities = brandsService.displayBrands();
-
-
+            AdsEntity adsEntity = adsForm.showAd(idAd);
 
             request.setAttribute("category", carTypesEntities);
             request.setAttribute("models", modelsEntities);
             request.setAttribute("brands", brandsEntities);
             request.setAttribute("ads", adsEntity);
-            request.setAttribute("enumFuel", EnumFuel.values() );
-
-
-
+            request.setAttribute("enumFuel", EnumFuel.values());
+            request.setAttribute("enumTypesAds", EnumTypesAds.values());
 
             this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
         } else {
@@ -79,8 +68,6 @@ public class ShowUpdateForm extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 
     }
 }

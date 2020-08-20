@@ -38,8 +38,11 @@ public class AdsForm {
     private static final String FIELD_FUEL_CAR = "fuel";
     private static final String FIELD_DELETE_ADS = "adsDelete";
     private static final String FIELD_IDUSERS_ADS = "idUser";
-    public static final String FIELD_IDADS = "idAds";
-    public static final String FIELD_IDCARS_ADS = "idCars";
+    public static final String FIELD_IDADS = "idAdToUpdate";
+    public static final String FIELD_IDCARS_ADS = "idCarToUpdate";
+
+    EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+
 
     private String result;
     private Map<String, String> errors = new HashMap<String, String>();
@@ -60,8 +63,6 @@ public class AdsForm {
      * @throws ParseException
      */
     public void addAds(HttpServletRequest request) throws ParseException {
-
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
         // Les champs du form
         String color = getValeurChamp(request,FIELD_COLOR_CAR );
@@ -93,11 +94,11 @@ public class AdsForm {
 
         AdsEntity adsEntity = new AdsEntity();
         CarsEntity carsEntity = new CarsEntity();
-        CarTypesEntity carTypesEntity = new CarTypesEntity();
-        ModelsEntity modelsEntity = new ModelsEntity();
-        BrandsEntity brandsEntity = new BrandsEntity();
+        CarTypesEntity carTypesEntity;
+        ModelsEntity modelsEntity;
+        BrandsEntity brandsEntity;
         UsersAdsEntity usersAdsEntity = new UsersAdsEntity();
-        UsersEntity usersEntity = new UsersEntity();
+        UsersEntity usersEntity;
 
         // Les services
 
@@ -276,29 +277,28 @@ public class AdsForm {
      */
     public void removeAds(HttpServletRequest request){
 
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
-
         //Champs
         int idDelCar = Integer.parseInt(getValeurChamp(request, FIELD_DELETE_ADS));
 
-
         //Entité
-        AdsEntity adsEntity = new AdsEntity();
-        CarsEntity carsEntity =new CarsEntity();
+        AdsEntity adsEntity;
+        CarsEntity carsEntity;
 
         //Services
         AdsService adsService = new AdsService();
         CarsService carsService = new CarsService();
 
         // Transaction
-
         EntityTransaction tx = null;
+
         try{
             tx= em.getTransaction();
             tx.begin();
+            // On récupère l'annonce par l'ID et la voiture lié à l'annonce
             adsEntity = adsService.consulter(em, idDelCar);
             carsEntity = adsEntity.getCarsByIdCars();
 
+            //On passe les champs IsActive à 0
             adsEntity.setActive(false);
             carsEntity.setActive(false);
 
@@ -311,37 +311,23 @@ public class AdsForm {
         }
     }
 
-    public AdsEntity findAdsByIdAds(HttpServletRequest request){
+    /**
+     * Afficher une annonce en fonction de l'id passé
+     * @param id
+     * @return
+     */
+    public AdsEntity showAd(int id){
 
-        // EM
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+        AdsService adsService = new AdsService();
+        AdsEntity adsEntity;
 
-        //Champ
-
-        int idAds = Integer.parseInt(request.getParameter(FIELD_IDADS));
-
-        // Entités et services
-        AdsEntity adsEntity = null;
-        AdsService adsService = null;
-
-        // Transaction
-        EntityTransaction tx = null;
-        try{
-            tx = em.getTransaction();
-            adsEntity = adsService.consulter(em, idAds);
-            tx.commit();
-        } catch (Exception ex) {
-            if (tx != null && tx.isActive()) tx.rollback();
-        } finally {
-            em.close();
-        }
+        adsEntity = adsService.consulter(em, id);
 
         return adsEntity;
+
     }
 
-    /*public void updateAds(HttpServletRequest request) throws ParseException {
-
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
+    public void updateAds(HttpServletRequest request) throws ParseException {
 
         // Les champs du form
         String color = getValeurChamp(request,FIELD_COLOR_CAR );
@@ -359,29 +345,27 @@ public class AdsForm {
         Double priceAd = Double.parseDouble(getValeurChamp(request, FIELD_PRICE_ADS));
         String typeAds = getValeurChamp(request, FIELD_TYPEADS_ADS);
         EnumTypesAds enumTypesAds = EnumTypesAds.valueOf(typeAds);
-        Date todayDate = new Date();
+        int idAd = Integer.parseInt(getValeurChamp(request, FIELD_IDADS));
+        int idCar = Integer.parseInt(getValeurChamp(request, FIELD_IDCARS_ADS));
+        /*Date todayDate = new Date();
         LocalDateTime ldt = LocalDateTime.ofInstant(todayDate.toInstant(), ZoneId.systemDefault());
         Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
         LocalDateTime dateEnd = ldt.plusMonths(1);
-        Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
+        Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());*/
 
         // Les entités
-
         AdsEntity adsEntity = new AdsEntity();
         CarsEntity carsEntity = new CarsEntity();
         CarTypesEntity carTypesEntity = new CarTypesEntity();
         ModelsEntity modelsEntity = new ModelsEntity();
         BrandsEntity brandsEntity = new BrandsEntity();
-        UsersEntity usersEntity = new UsersEntity();
 
         // Les services
-
         AdsService adsService = new AdsService();
         CarsService carsService = new CarsService();
         CarTypesService carTypesService = new CarTypesService();
         ModelsService modelsService = new ModelsService();
         BrandsService brandsService = new BrandsService();
-        UsersService usersService = new UsersService();
 
         // Transaction
 
@@ -392,14 +376,12 @@ public class AdsForm {
             tx= em.getTransaction();
             tx.begin();
 
-
             //Modification dans table cars
             carsEntity = carsService.consulter(em, idCar);
             carTypesEntity = carTypesService.consult(em, carTypes);
             modelsEntity = modelsService.consultModel(em, models);
             brandsEntity = brandsService.consultBrands(em, brands);
 
-            carsEntity.setActive(true);
             carsEntity.setColor(color);
             carsEntity.setHorsePower(horsePower);
             carsEntity.setReleaseYear(releaseYear);
@@ -413,14 +395,14 @@ public class AdsForm {
 
             // Modification dans ads
 
-            adsEntity = adsService.consulter(em, idAds);
+            adsEntity = adsService.consulter(em, idAd);
 
-            adsEntity.setActive(true);
+
             adsEntity.setLabel(labelAd);
             adsEntity.setPrice(priceAd);
             adsEntity.setTypesAds(enumTypesAds);
-            adsEntity.setDateStart(out);
-            adsEntity.setDateEnd(endOut);
+            /*adsEntity.setDateStart(out);
+            adsEntity.setDateEnd(endOut);*/
 
             adsService.updateAds(em, adsEntity);
 
@@ -429,7 +411,7 @@ public class AdsForm {
             if (tx != null && tx.isActive()) tx.rollback();
         }
 
-    }*/
+    }
 
     /**
      * Ajoute un message correspondant au champ spécifié à la map des errors.
