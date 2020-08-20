@@ -54,9 +54,7 @@
                     <option value="${categoryType.id}">${categoryType.label}</option>
                 </c:forEach>
             </select>
-
         </div>
-
 
         <div class="form-group">
             <label>Marques</label>

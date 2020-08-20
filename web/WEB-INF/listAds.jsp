@@ -41,14 +41,6 @@
                         <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
                     </form>
                 </td>
-                <!--<td>
-                    <form action="annonce" method="post">
-                        <input type="hidden" id="idAds" name="idAds" value="${listAds.adsByIdAds.id}">
-                        <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
-                        <button type="submit" class="btn btn-info"><i class="fa fa-eye"></i></button>
-                    </form>
-
-                <td>-->
                 <td>
                     <form action="supprimer-annonce" method="post">
                         <input type="hidden" id="adsDelete" name="adsDelete" value="${listAds.adsByIdAds.id}">
