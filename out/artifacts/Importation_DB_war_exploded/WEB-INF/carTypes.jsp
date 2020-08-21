@@ -18,7 +18,6 @@
                 <td>
                     <form action="modification-categorie" method="post">
                         <input type="number" hidden id="idCategory" name="idCategory" value="${DisplayAllCategory.id}">
-                        <input type="text" class="form-control col-md-7" id="updateCat" name="updateCat" placeholder="Modifier la catégorie">
                         <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
                     </form>
                 </td>

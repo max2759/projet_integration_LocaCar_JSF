@@ -57,6 +57,11 @@ public class CarTypesForm {
 
     }
 
+    /**
+     * Ajout d'une catégorie dans la DB
+     * @param request
+     * @return carTypes
+     */
     public CarTypesEntity addCategory(HttpServletRequest request) {
 
         String category = getValeurChamp(request, CATEGORY_FIELD);

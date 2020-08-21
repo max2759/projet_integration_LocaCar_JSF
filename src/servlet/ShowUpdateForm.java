@@ -30,9 +30,11 @@ public class ShowUpdateForm extends HttpServlet {
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
 
+        // On récupère l'id de l'annonce
         String idAds = request.getParameter("idAds");
         int idAd = Integer.parseInt(idAds);
 
+        // On vérifie que l'utilisateur est bien connecté
         if (usersEntity != null) {
 
             // liste d'objet

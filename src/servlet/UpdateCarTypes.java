@@ -15,6 +15,7 @@ public class UpdateCarTypes extends HttpServlet {
     public static final String VUE = "categories";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         CarTypesForm carTypesForm = new CarTypesForm();
 
         carTypesForm.updateCategory(request);

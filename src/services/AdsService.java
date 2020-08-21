@@ -26,18 +26,8 @@ public class AdsService {
         return ads;
     }
 
-    public AdsEntity findAdsById(EntityManager em, int id) {
-        try {
-            return em.createNamedQuery("findAdsByIdAds", AdsEntity.class).setParameter("idAds", id)
-                    .getSingleResult();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     /**
-     * méthode Consulter d'une entité à  partir de la bd
-     *
+     * méthode qui retourne une annonce en fonction de l'id passé
      * @param em
      * @param id
      * @return
@@ -58,7 +48,6 @@ public class AdsService {
 
     /**
      * Mets à jour l'entité dans la db
-     *
      * @param em
      * @param adsEntity
      */

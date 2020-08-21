@@ -23,8 +23,10 @@ public class AllAds extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // Appel à la classe service ads
         AdsService adsService = new AdsService();
 
+        // On stocke dans une liste les annonces
         adsEntities = adsService.listerTous();
 
         request.setAttribute("adsEntities", adsEntities);

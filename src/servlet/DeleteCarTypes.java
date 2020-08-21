@@ -18,7 +18,6 @@ public class DeleteCarTypes extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
         CarTypesForm carTypesForm = new CarTypesForm();
 
         carTypesForm.deleteCategory(request);

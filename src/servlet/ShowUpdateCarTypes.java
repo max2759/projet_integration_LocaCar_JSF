@@ -32,16 +32,19 @@ public class ShowUpdateCarTypes extends HttpServlet {
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
 
+        // On récupère l'id de la catégorie qu'on parse en INT
         String idCarTypes = request.getParameter("idCategory");
         int idCategory = Integer.parseInt(idCarTypes);
 
-
+        // On regarde si l'utilisateur est connecté
         if (usersEntity != null) {
 
+            // appel de carTypesForm
             CarTypesForm carTypesForm = new CarTypesForm();
 
             CarTypesEntity carTypesEntity;
 
+            // Appel méthode showCarTypesById qui retourne une catégorie en fonction de son id
             carTypesEntity = carTypesForm.showCarTypesById(idCategory);
 
             request.setAttribute("category", carTypesEntity);

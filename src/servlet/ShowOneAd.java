@@ -25,6 +25,7 @@ public class ShowOneAd extends HttpServlet {
     public static final String VUE = "/WEB-INF/adDetails.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // récupère l'id de l'annonce à afficher
         String idAds = request.getParameter("idAdsToShow");
         int idAd = Integer.parseInt(idAds);
 

@@ -103,8 +103,8 @@ public class CarsForm {
     public AdsEntity searchAdsByIdCar(int idCar) {
 
         AdsEntity ads = new AdsEntity();
-        // Recherche de la voiture
 
+        // Recherche de la voiture
         EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
         CarsService carsService = new CarsService();

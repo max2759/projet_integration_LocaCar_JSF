@@ -26,13 +26,18 @@ public class Ads extends HttpServlet {
     public List<UsersAdsEntity> usersAdsEntities;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //Récupération de la session
         HttpSession session = request.getSession();
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
 
+        // On regarde si l'utilisateur est bien connecté pour afficher
         if (usersEntity != null){
+            // Appel de la classe usersAdsService
             UsersAdsService usersAdsService = new UsersAdsService();
 
+            // On stocke dans une liste les annonces en fonction de l'utilisateur
             usersAdsEntities= usersAdsService.listAllUserAds();
 
             request.setAttribute("usersAdsEntities", usersAdsEntities);

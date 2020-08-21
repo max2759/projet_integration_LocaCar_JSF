@@ -25,9 +25,10 @@ public class AddAds extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        //Appel du form qui traite les champs du formulaire
         AdsForm adsForm = new AdsForm();
 
+        //Ajout dans annonce les champs du formulaire
         try {
             adsForm.addAds(request);
         } catch (ParseException e) {

@@ -19,9 +19,6 @@ public class CarTypes extends HttpServlet {
     public static final String VUE = "/WEB-INF/carTypes.jsp";
     public static final String URL_REDIRECT = "connexion";
 
-
-
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -33,14 +30,17 @@ public class CarTypes extends HttpServlet {
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
 
+        // On regarde si l'utilisateur est bien connecté et qu'il est admin pour afficher
         if ( usersEntity != null){
             if (!usersEntity.getRolesByIdRoles().getLabel().equals("Admin")){
                 response.sendRedirect(URL_REDIRECT);
             }else {
 
+                // Appel de la classe service des catégories
                 CarTypesService carTypesService = new CarTypesService();
 
-                List<CarTypesEntity> carTypesEntities = null;
+                // On mets les catégories dans une collection de type list
+                List<CarTypesEntity> carTypesEntities;
 
                 carTypesEntities = carTypesService.displayCategory();
 

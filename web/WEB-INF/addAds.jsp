@@ -83,15 +83,13 @@
             </select>
         </div>
 
-        <!--<div class="form-group">
-            <input type="file" name="adsPicture" id="adsPicture">
-        </div>-->
-
         <input name="idUser" id="idUser" type="hidden" value="${sessionScope.User}"/>
 
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-warning">Ajouter</button>
     </form>
 </div>
 
 </body>
 </html>
+
+<jsp:include page="footer.jsp"/>
