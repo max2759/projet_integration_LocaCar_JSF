@@ -13,7 +13,7 @@
     <h1>Modifier l'annonce</h1>
 
 
-    <form method="post" action="update">
+    <form method="post" action="update" enctype="multipart/form-data">
         <div class="form-group">
             <label>Titre de l'annonce</label>
             <input type="text" class="form-control" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
@@ -101,6 +101,11 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label>Photo</label>
+            <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+        </div>
+        
         <input type="hidden" name="idAdToUpdate" id="idAdToUpdate" value="${ads.id}">
         <input type="hidden" name="idCarToUpdate" id="idCarToUpdate" value="${ads.carsByIdCars.id}">
 

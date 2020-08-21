@@ -19,4 +19,5 @@
             <span class="${empty carTypesForm.erreurs ? 'success' : 'alert alert-danger'}">${carTypesForm.resultat}</span>
         </div>
     </form>
+
 <jsp:include page="footer.jsp"/>

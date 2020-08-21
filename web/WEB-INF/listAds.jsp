@@ -4,6 +4,7 @@
 <table class='table table-hover table-responsive'>
     <thead>
     <tr>
+        <th>Image</th>
         <th>Titre de l'annonce</th>
         <th>Marque</th>
         <th>Modèle</th>
@@ -28,6 +29,7 @@
         <c:choose>
         <c:when test="${sessionScope.UserEntity.id == listAds.usersByIdUsers.id}">
             <tr>
+                <td><img src="${listAds.adsByIdAds.carsByIdCars.picture}" height="30" width="25"></td>
                 <td>${listAds.adsByIdAds.label}</td>
                 <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
                 <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.label}</td>

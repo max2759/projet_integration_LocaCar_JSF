@@ -7,6 +7,7 @@ import forms.AdsForm;
 import services.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,11 @@ import java.text.ParseException;
 import java.util.List;
 
 @WebServlet("/ajouter-annonce")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 10,  // 10 KB
+        maxFileSize = 1024 * 300,       // 300 KB
+        maxRequestSize = 1024 * 1024    // 1 MB
+)
 public class AddAds extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/addAds.jsp";

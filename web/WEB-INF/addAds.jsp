@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Ajouter une annonce</h1>
 
-    <form method="post" action="ajouter-annonce">
+    <form method="post" action="ajouter-annonce" enctype="multipart/form-data">
         <div class="form-group">
             <label>Titre de l'annonce</label>
             <input type="text" class="form-control" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
@@ -82,6 +82,12 @@
                 </c:forEach>
             </select>
         </div>
+
+        <div class="form-group">
+            <label>Photo</label>
+            <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
+        </div>
+
 
         <input name="idUser" id="idUser" type="hidden" value="${sessionScope.User}"/>
 
