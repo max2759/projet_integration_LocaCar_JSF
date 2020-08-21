@@ -27,7 +27,7 @@
     <c:forEach var="listAds" items="${usersAdsEntities}">
         <c:choose>
         <c:when test="${sessionScope.UserEntity.id == listAds.usersByIdUsers.id}">
-            <tr class="${listAds.adsByIdAds.active ? 'show' : 'hide'}">
+            <tr>
                 <td>${listAds.adsByIdAds.label}</td>
                 <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
                 <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.label}</td>

@@ -20,7 +20,7 @@ public class CarTypes extends HttpServlet {
     public static final String URL_REDIRECT = "connexion";
 
 
-    CarTypesService carTypesService = new CarTypesService();
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -37,6 +37,8 @@ public class CarTypes extends HttpServlet {
             if (!usersEntity.getRolesByIdRoles().getLabel().equals("Admin")){
                 response.sendRedirect(URL_REDIRECT);
             }else {
+
+                CarTypesService carTypesService = new CarTypesService();
 
                 List<CarTypesEntity> carTypesEntities = null;
 
