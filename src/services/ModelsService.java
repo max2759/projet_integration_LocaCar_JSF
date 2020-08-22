@@ -1,5 +1,6 @@
 package services;
 
+import entities.BrandsEntity;
 import entities.ModelsEntity;
 import util.JPAutil;
 
@@ -31,5 +32,14 @@ public class ModelsService {
      */
     public ModelsEntity consultModel(EntityManager em, int id) {
         return em.find(ModelsEntity.class, id);
+    }
+
+    /**
+     * Ajouter un modèle dans la base de donnée
+     * @param em
+     * @param modelsEntity
+     */
+    public void addModels(EntityManager em, ModelsEntity modelsEntity){
+        em.persist(modelsEntity);
     }
 }

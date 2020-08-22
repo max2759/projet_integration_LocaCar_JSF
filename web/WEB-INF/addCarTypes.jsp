@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp"/>
 
+<div class="container-fluid">
     <h1>Ajouter une catégorie</h1>
 
     <form method="post" action="ajouter-categorie">
@@ -19,5 +20,5 @@
             <span class="${empty carTypesForm.erreurs ? 'success' : 'alert alert-danger'}">${carTypesForm.resultat}</span>
         </div>
     </form>
-
+</div>
 <jsp:include page="footer.jsp"/>
