@@ -58,21 +58,20 @@
         </div>
 
         <div class="form-group">
-            <label>Marques</label>
-            <select id="brands" name="brands" class="form-control">
-                <c:forEach var="brands" items="${brands}">
-                    <option value="${brands.id}">${brands.label}</option>
-                </c:forEach>
-            </select>
-        </div>
-        <div class="form-group">
             <label>Modèle</label>
             <select id="models" name="models" class="form-control">
+                <c:forEach var="brands" items="${brands}">
+                    <optgroup label="${brands.label}">
                 <c:forEach var="models" items="${models}">
-                    <option value="${models.id}">${models.label}</option>
+                    <c:if test="${brands.id == models.brandsByIdBrands.id}">
+                        <option value="${models.id}">${models.label}</option>
+                    </c:if>
+                </c:forEach>
+                    </optgroup>
                 </c:forEach>
             </select>
         </div>
+
 
         <div class="form-group">
             <label>Carburant</label>

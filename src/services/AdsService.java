@@ -22,7 +22,7 @@ public class AdsService {
     public List<AdsEntity> listerTous() {
         List<AdsEntity> ads =
                 em.createQuery(
-                        "select a from AdsEntity a").getResultList();
+                        "select a from AdsEntity a order by a.dateStart desc ").getResultList();
         return ads;
     }
 

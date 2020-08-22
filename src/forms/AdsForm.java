@@ -84,7 +84,6 @@ public class AdsForm {
         String fuel = getValeurChamp(request, FIELD_FUEL_CAR);
         EnumFuel enumfuel = EnumFuel.valueOf(fuel);
         int models = Integer.parseInt(getValeurChamp(request, FIELD_MODELS_CAR));
-        int brands = Integer.parseInt(getValeurChamp(request, FIELD_BRANDS_CAR));
         int carTypes = Integer.parseInt(getValeurChamp(request, FIELD_CARTYPES_CAR));
         String labelAd = getValeurChamp(request, FIELD_LABEL_ADS);
         Double priceAd = Double.parseDouble(getValeurChamp(request, FIELD_PRICE_ADS));
@@ -106,7 +105,6 @@ public class AdsForm {
         CarsEntity carsEntity = new CarsEntity();
         CarTypesEntity carTypesEntity;
         ModelsEntity modelsEntity;
-        BrandsEntity brandsEntity;
         UsersAdsEntity usersAdsEntity = new UsersAdsEntity();
         UsersEntity usersEntity;
 
@@ -116,7 +114,6 @@ public class AdsForm {
         CarsService carsService = new CarsService();
         CarTypesService carTypesService = new CarTypesService();
         ModelsService modelsService = new ModelsService();
-        BrandsService brandsService = new BrandsService();
         UsersAdsService usersAdsService = new UsersAdsService();
         UsersService usersService = new UsersService();
 
@@ -131,7 +128,6 @@ public class AdsForm {
             //Ajout dans table cars
             carTypesEntity = carTypesService.consult(em, carTypes);
             modelsEntity = modelsService.consultModel(em, models);
-            brandsEntity = brandsService.consultBrands(em, brands);
 
             carsEntity.setActive(true);
             carsEntity.setColor(color);
@@ -141,7 +137,6 @@ public class AdsForm {
             carsEntity.setEnumFuel(enumfuel);
             carsEntity.setCarTypesByIdCarTypes(carTypesEntity);
             carsEntity.setModelsByIdModels(modelsEntity);
-            modelsEntity.setBrandsByIdBrands(brandsEntity);
 
             // Ajout d'image
             InputStream fileInputStream = filePart.getInputStream();
@@ -413,7 +408,6 @@ public class AdsForm {
         String fuel = getValeurChamp(request, FIELD_FUEL_CAR);
         EnumFuel enumfuel = EnumFuel.valueOf(fuel);
         int models = Integer.parseInt(getValeurChamp(request, FIELD_MODELS_CAR));
-        int brands = Integer.parseInt(getValeurChamp(request, FIELD_BRANDS_CAR));
         int carTypes = Integer.parseInt(getValeurChamp(request, FIELD_CARTYPES_CAR));
         String labelAd = getValeurChamp(request, FIELD_LABEL_ADS);
         Double priceAd = Double.parseDouble(getValeurChamp(request, FIELD_PRICE_ADS));
@@ -429,14 +423,12 @@ public class AdsForm {
         CarsEntity carsEntity = new CarsEntity();
         CarTypesEntity carTypesEntity = new CarTypesEntity();
         ModelsEntity modelsEntity = new ModelsEntity();
-        BrandsEntity brandsEntity = new BrandsEntity();
 
         // Les services
         AdsService adsService = new AdsService();
         CarsService carsService = new CarsService();
         CarTypesService carTypesService = new CarTypesService();
         ModelsService modelsService = new ModelsService();
-        BrandsService brandsService = new BrandsService();
 
         // Transaction
 
@@ -451,7 +443,6 @@ public class AdsForm {
             carsEntity = carsService.consulter(em, idCar);
             carTypesEntity = carTypesService.consult(em, carTypes);
             modelsEntity = modelsService.consultModel(em, models);
-            brandsEntity = brandsService.consultBrands(em, brands);
 
             carsEntity.setColor(color);
             carsEntity.setHorsePower(horsePower);
@@ -460,7 +451,6 @@ public class AdsForm {
             carsEntity.setEnumFuel(enumfuel);
             carsEntity.setCarTypesByIdCarTypes(carTypesEntity);
             carsEntity.setModelsByIdModels(modelsEntity);
-            modelsEntity.setBrandsByIdBrands(brandsEntity);
 
             /*File upload = new File("/web/resources/img");*/
 

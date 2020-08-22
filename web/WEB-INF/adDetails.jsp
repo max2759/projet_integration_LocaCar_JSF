@@ -46,7 +46,7 @@
             <input name="idAds" id="${ads.id}" type="hidden" value="${ads.id}"/>
             <input name="locationDays" id="1" type="hidden" value="1"/>
             <br \><br \>
-            <input name="send" id="boutonSubmit" type="submit" value="Ajouter au panier" class="btn btn-info"/>
+            <input name="send" id="boutonSubmit" type="submit" value="Ajouter au panier" class="btn btn-warning"/>
         </form>
     </c:if>
 </div>

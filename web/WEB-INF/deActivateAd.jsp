@@ -66,6 +66,7 @@
                 </tr>
             </c:when>
         </c:choose>
+
     </c:forEach>
     </tbody>
 </table>

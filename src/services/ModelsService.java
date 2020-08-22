@@ -17,7 +17,7 @@ public class ModelsService {
     public List<ModelsEntity> displayModels() {
         List<ModelsEntity> modelsEntities =
                 em.createQuery(
-                        "select m from ModelsEntity m").getResultList();
+                        "select m from ModelsEntity m order by m.brandsByIdBrands.id").getResultList();
 
         return modelsEntities;
     }
