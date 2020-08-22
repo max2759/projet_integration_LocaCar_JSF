@@ -45,6 +45,9 @@ public class AdsForm {
     private static final String FIELD_IDUSERS_ADS = "idUser";
     public static final String FIELD_IDADS = "idAdToUpdate";
     public static final String FIELD_IDCARS_ADS = "idCarToUpdate";
+    public static final String FIELD_IDADS_TO_ACTIVATE = "idAdsToActivate";
+    public static final String FIELD_IDCARS_TO_ACTIVATE = "idCarsToActivate";
+
     private static final String SAVE_DIR = "web\\resources\\img";
 
     EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
@@ -286,6 +289,52 @@ public class AdsForm {
             result = "Échec";
         }
         return ads;
+    }
+
+    public void reActivateAds(HttpServletRequest request){
+
+        //Champs
+        int idAdsToActivate = Integer.parseInt(getValeurChamp(request, FIELD_IDADS_TO_ACTIVATE));
+        int idCarsToActivate = Integer.parseInt(getValeurChamp(request, FIELD_IDCARS_TO_ACTIVATE));
+        Date todayDate = new Date();
+        LocalDateTime ldt = LocalDateTime.ofInstant(todayDate.toInstant(), ZoneId.systemDefault());
+        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        LocalDateTime dateEnd = ldt.plusMonths(1);
+        Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
+
+        //Entité
+        AdsEntity adsEntity;
+        CarsEntity carsEntity;
+
+        //Services
+        AdsService adsService = new AdsService();
+        CarsService carsService = new CarsService();
+
+        // Transaction
+        EntityTransaction tx = null;
+
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            // On récupère l'annonce par l'ID et la voiture lié à l'annonce
+            adsEntity = adsService.consulter(em, idAdsToActivate);
+            carsEntity = adsEntity.getCarsByIdCars();
+
+            //On passe les champs IsActive à 1
+            adsEntity.setActive(true);
+            carsEntity.setActive(true);
+            // On remet la date d'aujourd'hui et ajoute 1 mois à l'annonce
+            adsEntity.setDateStart(out);
+            adsEntity.setDateEnd(endOut);
+
+            adsService.updateAds(em, adsEntity);
+            carsService.updateCar(em, carsEntity);
+            tx.commit();
+
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        }
+
     }
 
     /**
