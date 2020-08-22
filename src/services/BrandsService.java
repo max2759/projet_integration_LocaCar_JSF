@@ -43,4 +43,13 @@ public class BrandsService {
     public void addBrands(EntityManager em, BrandsEntity brandsEntity){
         em.persist(brandsEntity);
     }
+
+    /**
+     * Mise à jour de l'entité Brands
+     * @param em
+     * @param brandsEntity
+     */
+    public void updateBrands(EntityManager em, BrandsEntity brandsEntity){
+        em.merge(brandsEntity);
+    }
 }

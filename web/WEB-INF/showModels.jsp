@@ -16,8 +16,9 @@
             <td><c:out value="${models.label} "/></td>
             <td><c:out value="${models.brandsByIdBrands.label}"/></td>
             <td>
-                <form action="modification-categorie" method="post">
-                    <input type="number" hidden id="idCategory" name="idCategory" value="${DisplayAllCategory.id}">
+                <form action="modeles" method="post">
+                    <input type="text" id="modelLabelToUpdate" name="modelLabelToUpdate" class="form-group" required>
+                    <input type="hidden" id="idModelsToUpdate" name="idModelsToUpdate" value="${models.id}">
                     <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
                 </form>
             </td>

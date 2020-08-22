@@ -1,7 +1,9 @@
 package forms;
 
 import entities.BrandsEntity;
+import entities.ModelsEntity;
 import services.BrandsService;
+import services.ModelsService;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -21,6 +23,9 @@ public class BrandsForm {
 
     // Les champs
     private static final String BRANDS_FIELD = "constructeur";
+    private static final String BRANDS_FIELD_TO_UPDATE = "brandsLabel";
+    private static final String BRANDS_FIELD_ID_TO_UPDATE = "idBrands";
+
 
 
     private String resultat;
@@ -59,6 +64,29 @@ public class BrandsForm {
         }
 
         return brandsEntity;
+    }
+
+    public void updateBrands(HttpServletRequest request){
+        String label = getValeurChamp(request, BRANDS_FIELD_TO_UPDATE);
+        int brandsId = Integer.parseInt(getValeurChamp(request, BRANDS_FIELD_ID_TO_UPDATE));
+
+        BrandsEntity brandsEntity;
+        BrandsService brandsService = new BrandsService();
+
+        EntityTransaction tx = null;
+        try{
+            tx = em.getTransaction();
+            tx.begin();
+            brandsEntity = brandsService.consultBrands(em, brandsId);
+            brandsEntity.setLabel(label);
+            brandsService.updateBrands(em, brandsEntity);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
     }
 
     /**

@@ -1,6 +1,7 @@
 package services;
 
 import entities.BrandsEntity;
+import entities.CarTypesEntity;
 import entities.ModelsEntity;
 import util.JPAutil;
 
@@ -41,5 +42,14 @@ public class ModelsService {
      */
     public void addModels(EntityManager em, ModelsEntity modelsEntity){
         em.persist(modelsEntity);
+    }
+
+    /**
+     * Mise à jour de l'entité modèle
+     * @param em
+     * @param modelsEntity
+     */
+    public void updateModels(EntityManager em, ModelsEntity modelsEntity) {
+        em.merge(modelsEntity);
     }
 }

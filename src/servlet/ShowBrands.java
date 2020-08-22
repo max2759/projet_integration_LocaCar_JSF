@@ -3,6 +3,7 @@ package servlet;
 import entities.BrandsEntity;
 import entities.CarTypesEntity;
 import entities.UsersEntity;
+import forms.BrandsForm;
 import services.BrandsService;
 import services.CarTypesService;
 
@@ -20,8 +21,16 @@ public class ShowBrands extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/showBrands.jsp";
     public static final String URL_REDIRECT = "connexion";
+    public static final String URL_REDIRECT_AFTER_UPDATE = "constructeurs";
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        BrandsForm brandsForm = new BrandsForm();
+
+        brandsForm.updateBrands(request);
+
+        response.sendRedirect(URL_REDIRECT_AFTER_UPDATE);
 
     }
 

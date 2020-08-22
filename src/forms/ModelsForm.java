@@ -1,8 +1,10 @@
 package forms;
 
 import entities.BrandsEntity;
+import entities.CarTypesEntity;
 import entities.ModelsEntity;
 import services.BrandsService;
+import services.CarTypesService;
 import services.ModelsService;
 import util.JPAutil;
 
@@ -26,6 +28,9 @@ public class ModelsForm {
     // Les champs
     private static final String BRANDS_MODELS_FIELD = "brandsModels";
     private static final String MODELS_FIELD = "modelsAdd";
+    private static final String MODELS_FIELD_TO_UPDATE = "modelLabelToUpdate";
+    private static final String MODELS_FIELD_ID_TO_UPDATE = "idModelsToUpdate";
+
 
 
     private String resultat;
@@ -39,6 +44,11 @@ public class ModelsForm {
         return erreurs;
     }
 
+    /**
+     * Ajout d'un modèle de véhicule dans l'entité modèle
+     * @param request
+     * @return
+     */
     public ModelsEntity addModels(HttpServletRequest request){
         String models = getValeurChamp(request, MODELS_FIELD);
         int brandsId = Integer.parseInt(getValeurChamp(request, BRANDS_MODELS_FIELD));
@@ -67,6 +77,33 @@ public class ModelsForm {
         }
 
         return modelsEntity;
+    }
+
+    /**
+     * Modification du modèle de véhicule
+     * @param request
+     */
+    public void updateModel(HttpServletRequest request){
+        String label = getValeurChamp(request, MODELS_FIELD_TO_UPDATE);
+        int idUpdateModel = Integer.parseInt(getValeurChamp(request, MODELS_FIELD_ID_TO_UPDATE ));
+
+        ModelsEntity modelsEntity;
+        ModelsService modelsService = new ModelsService();
+
+        EntityTransaction tx = null;
+        try{
+            tx = em.getTransaction();
+            tx.begin();
+            modelsEntity = modelsService.consultModel(em, idUpdateModel);
+            modelsEntity.setLabel(label);
+            modelsService.updateModels(em, modelsEntity);
+            tx.commit();
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        } finally {
+            em.close();
+        }
+
     }
 
     /**

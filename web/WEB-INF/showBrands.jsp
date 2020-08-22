@@ -14,8 +14,9 @@
         <tr>
             <td><c:out value="${brands.label} "/></td>
             <td>
-                <form action="modification-categorie" method="post">
-                    <input type="number" hidden id="idCategory" name="idCategory" value="${DisplayAllCategory.id}">
+                <form action="constructeurs" method="post">
+                    <input type="text" id="brandsLabel" name="brandsLabel" required>
+                    <input type="hidden" id="idBrands" name="idBrands" value="${brands.id}">
                     <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
                 </form>
             </td>
