@@ -64,7 +64,11 @@ public class CarTypesService {
     }
 
    public CarTypesEntity checkCarTypesEntity(EntityManager em, String label){
-        return em.createNamedQuery("car_types.checkLabel", CarTypesEntity.class).setParameter("label", label).getSingleResult();
+        try{
+            return em.createNamedQuery("car_types.checkLabel", CarTypesEntity.class).setParameter("label", label).getSingleResult();
+        }catch (Exception ex) {
+            return null;
+        }
    }
 
 

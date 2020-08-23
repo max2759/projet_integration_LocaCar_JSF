@@ -141,12 +141,12 @@ public class AdsForm {
             carsEntity.setModelsByIdModels(modelsEntity);
 
             // Ajout d'image
-            InputStream fileInputStream = filePart.getInputStream();
+            /*InputStream fileInputStream = filePart.getInputStream();
 
-            File fileToSave = new File("web/resources/img/" + filePart.getSubmittedFileName());
+            /*File fileToSave = new File("web/resources/img/" + filePart.getSubmittedFileName());
 
             String fileName = filePart.getName();
-            /*Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);*/
+            Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);*/
 
             carsService.addCars(em, carsEntity);
 
@@ -417,7 +417,7 @@ public class AdsForm {
         EnumTypesAds enumTypesAds = EnumTypesAds.valueOf(typeAds);
         int idAd = Integer.parseInt(getValeurChamp(request, FIELD_IDADS));
         int idCar = Integer.parseInt(getValeurChamp(request, FIELD_IDCARS_ADS));
-        Part filePart = request.getPart("fileToUpload");
+        /*Part filePart = request.getPart("fileToUpload");*/
 
 
         // Les entités
@@ -457,11 +457,11 @@ public class AdsForm {
             /*File upload = new File("/web/resources/img");*/
 
             // récupère le nom du fichier envoyer
-            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            /*String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
             InputStream is = filePart.getInputStream();
             /*String path = request.getServletContext().getRealPath("web\\upload" + File.separator + fileName);*/
-            /*String path = "C:\\Users\\maxim\\IdeaProjects\\Importation_DB3\\web\\upload\\";*/
+            /*String path = "C:\\Users\\maxim\\IdeaProjects\\Importation_DB3\\web\\upload\\";
             String path = "\\Importation_DB3\\web\\upload\\";
 
             BufferedInputStream entree = null;
@@ -484,7 +484,7 @@ public class AdsForm {
                     entree.close();
                 } catch ( IOException ignore ) {
                 }
-            }
+            }*/
 
 
             /*String path = request.getServletContext().getRealPath("/" + "upload" + File.separator + fileName);*/
@@ -522,7 +522,7 @@ public class AdsForm {
             filePart.write(savePath + File.separator + fileName);*/
 
 
-            carsEntity.setPicture(fileName);
+            /*carsEntity.setPicture(fileName);*/
 
             carsService.updateCar(em, carsEntity);
 

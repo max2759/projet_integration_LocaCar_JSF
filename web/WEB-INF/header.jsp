@@ -35,19 +35,20 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Annonces
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <c:if test="${not empty sessionScope.UserEntity}">
+            <c:if test="${not empty sessionScope.UserEntity}">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Annonces
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<c:url value="/annonces"/>">Mes annonces</a>
                         <a class="dropdown-item" href="<c:url value="/annonces-inactive"/>">Annonces inactives</a>
                         <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
-                    </c:if>
-                </div>
-            </li>
+                    </div>
+                </li>
+            </c:if>
             <c:if test="${not empty sessionScope.UserEntity}">
                 <c:if test="${sessionScope.UserEntity.rolesByIdRoles.label eq 'Admin'}">
                     <li class="nav-item dropdown">
@@ -59,7 +60,8 @@
                             <a class="dropdown-item" href="<c:url value="/categories"/>">Voir les catégories</a>
                             <a class="dropdown-item" href="<c:url value="/ajouter-categorie"/>">Ajouter catégorie</a>
                             <a class="dropdown-item" href="<c:url value="/constructeurs"/>">Voir les constructeurs</a>
-                            <a class="dropdown-item" href="<c:url value="/ajouter-constructeur"/>">Ajouter constructeur</a>
+                            <a class="dropdown-item" href="<c:url value="/ajouter-constructeur"/>">Ajouter
+                                constructeur</a>
                             <a class="dropdown-item" href="<c:url value="/modeles"/>">Voir les modèles</a>
                             <a class="dropdown-item" href="<c:url value="/ajouter-modeles"/>">Ajouter modèle</a>
                             <a class="dropdown-item" href="<c:url value="/listOrders"/>">Liste des commande</a>
@@ -67,15 +69,18 @@
                     </li>
                 </c:if>
             </c:if>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Panier
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="<c:url value="/basket"/>">Voir le panier</a>
-                </div>
-            </li>
+            <c:if test="${not empty sessionScope.UserEntity}">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Panier
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<c:url value="/basket"/>">Voir le panier</a>
+                    </div>
+                </li>
+            </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="connexion" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">

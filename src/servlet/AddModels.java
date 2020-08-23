@@ -19,6 +19,10 @@ public class AddModels extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/addModels.jsp";
     public static final String URL_REDIRECT = "connexion";
+    public static final String VUE2 = "ajouter-modeles";
+
+
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,7 +30,7 @@ public class AddModels extends HttpServlet {
 
         modelsForm.addModels(request);
 
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
+        response.sendRedirect(VUE2);
 
     }
 
@@ -41,10 +45,12 @@ public class AddModels extends HttpServlet {
             if (!usersEntity.getRolesByIdRoles().getLabel().equals("Admin")) {
                 response.sendRedirect(URL_REDIRECT);
             } else {
+
                 // Liste d'objet
                 List<BrandsEntity> brandsEntities;
                 // Services
                 BrandsService brandsService = new BrandsService();
+
                 //Appel des méthodes qui retourne une liste d'objet
                 brandsEntities = brandsService.displayBrands();
 

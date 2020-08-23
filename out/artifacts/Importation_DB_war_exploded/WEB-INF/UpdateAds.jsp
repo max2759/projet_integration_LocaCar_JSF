@@ -99,10 +99,10 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <!--<div class="form-group">
             <label>Photo</label>
             <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
-        </div>
+        </div>-->
         
         <input type="hidden" name="idAdToUpdate" id="idAdToUpdate" value="${ads.id}">
         <input type="hidden" name="idCarToUpdate" id="idCarToUpdate" value="${ads.carsByIdCars.id}">
