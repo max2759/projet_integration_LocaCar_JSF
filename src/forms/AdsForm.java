@@ -5,12 +5,12 @@ import entities.*;
 import enumeration.EnumFuel;
 import enumeration.EnumTypesAds;
 import exceptions.AdsException;
-import jdk.internal.util.xml.impl.Input;
 import services.*;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
@@ -47,6 +47,8 @@ public class AdsForm {
     public static final String FIELD_IDCARS_ADS = "idCarToUpdate";
     public static final String FIELD_IDADS_TO_ACTIVATE = "idAdsToActivate";
     public static final String FIELD_IDCARS_TO_ACTIVATE = "idCarsToActivate";
+    private static final int TAILLE_TAMPON = 10240;
+
 
     private static final String SAVE_DIR = "web\\resources\\img";
 
@@ -457,9 +459,37 @@ public class AdsForm {
             // récupère le nom du fichier envoyer
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 
-            String path = request.getServletContext().getRealPath("/" + "resources/img" + File.separator + fileName);
+            InputStream is = filePart.getInputStream();
+            /*String path = request.getServletContext().getRealPath("web\\upload" + File.separator + fileName);*/
+            /*String path = "C:\\Users\\maxim\\IdeaProjects\\Importation_DB3\\web\\upload\\";*/
+            String path = "\\Importation_DB3\\web\\upload\\";
 
-            /*String path = "C:\\Users\\maxim\\IdeaProjects\\Importation_DB3\\web\\resources\\img";*/
+            BufferedInputStream entree = null;
+            BufferedOutputStream sortie = null;
+
+            try{
+                entree = new BufferedInputStream(is, TAILLE_TAMPON);
+                sortie = new BufferedOutputStream(new FileOutputStream(new File(path + fileName)), TAILLE_TAMPON);
+                byte[] tampon = new byte[TAILLE_TAMPON];
+                int longueur = 0;
+                while((longueur = entree.read(tampon))>0){
+                    sortie.write(tampon, 0, longueur);
+                }
+             }finally {
+                try {
+                    sortie.close();
+                } catch ( IOException ignore ) {
+                }
+                try {
+                    entree.close();
+                } catch ( IOException ignore ) {
+                }
+            }
+
+
+            /*String path = request.getServletContext().getRealPath("/" + "upload" + File.separator + fileName);*/
+
+            /*String path = request.getServletContext()
 
 
             InputStream is = filePart.getInputStream();
@@ -474,7 +504,7 @@ public class AdsForm {
 
             } catch (Exception e){
                 e.printStackTrace();
-            }
+            }*/
 
             /*File file = new File(upload, fileName);
 

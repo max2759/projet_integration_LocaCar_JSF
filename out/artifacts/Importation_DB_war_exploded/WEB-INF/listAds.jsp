@@ -28,8 +28,8 @@
         <c:choose>
             <c:when test="${sessionScope.UserEntity.id == listAds.usersByIdUsers.id}">
                 <tr class="${listAds.adsByIdAds.active ? 'show' : 'hide'}">
-                    <td><img src="<c:url value="/resources/img/${listAds.adsByIdAds.carsByIdCars.picture}"/>"
-                             height="30" width="25"></td>
+                    <td><img src="<c:url value="/upload/${listAds.adsByIdAds.carsByIdCars.picture}"/>"
+                             height="auto" width="150"></td>
                     <td>${listAds.adsByIdAds.label}</td>
                     <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
                     <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.label}</td>
