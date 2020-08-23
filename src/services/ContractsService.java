@@ -1,9 +1,9 @@
 package services;
 
-import entities.*;
+import entities.ContractsEntity;
+import entities.UsersEntity;
 
 import javax.persistence.EntityManager;
-import java.util.Date;
 import java.util.List;
 
 public class ContractsService {
@@ -77,6 +77,7 @@ public class ContractsService {
 
     /**
      * recherche de contrat par id commande et par id voiture
+     *
      * @param em
      * @param idOrder
      * @param idCar
@@ -97,6 +98,7 @@ public class ContractsService {
 
     /**
      * Lister tous les contrats d'un utilisateurs
+     *
      * @param em
      * @param idUser
      * @return
@@ -105,23 +107,23 @@ public class ContractsService {
 
         UsersService usersService = new UsersService();
         UsersEntity usersEntity = usersService.consult(em, idUser);
-        List<ContractsEntity> contractsEntities = em.createNamedQuery("Contracts.findAllContractsByIdUser",
+
+        return em.createNamedQuery("Contracts.findAllContractsByIdUser",
                 ContractsEntity.class)
                 .setParameter("user", usersEntity)
                 .getResultList();
-
-        return contractsEntities;
 
     }
 
     /**
      * Vérification de réservation de date pour un véhicule
+     *
      * @param em
      * @param idCar
      * @param dateStart
      * @param dateEnd
      * @return
-     */
+     *//*
     public List<ContractsEntity> findContractsByIdCarAndReservationDate(EntityManager em, int idCar, Date dateStart, Date dateEnd) {
 
         List<ContractsEntity> contractsEntities = em.createNamedQuery("Contracts.findContractsByIdCarAndReservationDate",
@@ -134,8 +136,7 @@ public class ContractsService {
         return contractsEntities;
 
     }
-
-
+*/
 
 }
 

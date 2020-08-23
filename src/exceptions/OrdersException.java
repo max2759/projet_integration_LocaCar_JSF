@@ -10,6 +10,7 @@ public class OrdersException {
 
     /**
      * Vérification de l'existence de l'entité
+     *
      * @param orders
      * @throws Exception
      */
@@ -22,6 +23,7 @@ public class OrdersException {
 
     /**
      * Vérification si l'entité est vide
+     *
      * @param orders
      * @throws Exception
      */

@@ -46,10 +46,6 @@
                         <a class="dropdown-item" href="<c:url value="/annonces-inactive"/>">Annonces inactives</a>
                         <a class="dropdown-item" href="<c:url value="/ajouter-annonce"/>">Ajouter annonce</a>
                     </c:if>
-                    <a class="dropdown-item" href="<c:url value="/adsMercedesC"/>">Mercedes (temporaire pour les
-                        test)</a>
-                    <a class="dropdown-item" href="<c:url value="/adsLocation"/>">Location (temporaire pour les
-                        test)</a>
                 </div>
             </li>
             <c:if test="${not empty sessionScope.UserEntity}">

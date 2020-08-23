@@ -8,6 +8,7 @@ public class ContractsException {
 
     /**
      * Vérification de l'existence de l'entité
+     *
      * @param contract
      * @throws Exception
      */
@@ -20,6 +21,7 @@ public class ContractsException {
 
     /**
      * Vérification si l'entité est vide
+     *
      * @param contract
      * @throws Exception
      */

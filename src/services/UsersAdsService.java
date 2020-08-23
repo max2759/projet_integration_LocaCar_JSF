@@ -1,6 +1,5 @@
 package services;
 
-import entities.AdsEntity;
 import entities.UsersAdsEntity;
 import util.JPAutil;
 

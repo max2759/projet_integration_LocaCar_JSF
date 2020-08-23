@@ -13,7 +13,7 @@ public class RolesEntity {
     private Collection<UsersEntity> usersById;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", nullable = false)
     public int getId() {
         return id;
