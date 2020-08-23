@@ -62,6 +62,7 @@
                             <a class="dropdown-item" href="<c:url value="/ajouter-constructeur"/>">Ajouter constructeur</a>
                             <a class="dropdown-item" href="<c:url value="/modeles"/>">Voir les modèles</a>
                             <a class="dropdown-item" href="<c:url value="/ajouter-modeles"/>">Ajouter modèle</a>
+                            <a class="dropdown-item" href="<c:url value="/listOrders"/>">Liste des commande</a>
                         </div>
                     </li>
                 </c:if>
@@ -75,19 +76,6 @@
                     <a class="dropdown-item" href="<c:url value="/basket"/>">Voir le panier</a>
                 </div>
             </li>
-            <c:if test="${not empty sessionScope.UserEntity}">
-                <c:if test="${sessionScope.UserEntity.rolesByIdRoles.label eq 'Admin'}">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="Gerer" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            Gerer
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="<c:url value="/listOrders"/>">Liste des commande</a>
-                        </div>
-                    </li>
-                </c:if>
-            </c:if>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="connexion" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
