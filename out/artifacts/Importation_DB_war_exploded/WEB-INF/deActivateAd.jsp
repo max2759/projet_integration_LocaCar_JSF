@@ -19,6 +19,7 @@
         <th>Type d'annonce</th>
         <th>Réactiver l'annonce</th>
         <th>Modifier l'annonce</th>
+        <th>Supprimer</th>
     </tr>
     </thead>
 
@@ -50,7 +51,7 @@
                         </c:when>
                     </c:choose>
                     <td>
-                        <form action="" method="post">
+                        <form action="annonces-inactive" method="post">
                             <input type="hidden" id="idAdsToActivate" name="idAdsToActivate" value="${listAds.adsByIdAds.id}">
                             <input type="hidden" id="idCarsToActivate" name="idCarsToActivate" value="${listAds.adsByIdAds.carsByIdCars.id}">
                             <button type="submit" class="btn btn-outline-info"><i class="fa fa-repeat"></i></button>
