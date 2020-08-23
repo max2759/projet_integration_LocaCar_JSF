@@ -19,7 +19,6 @@
         <th>Type d'annonce</th>
         <th>Réactiver l'annonce</th>
         <th>Modifier l'annonce</th>
-        <th>Supprimer</th>
     </tr>
     </thead>
 
