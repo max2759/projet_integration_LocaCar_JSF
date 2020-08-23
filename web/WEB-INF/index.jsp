@@ -18,7 +18,7 @@
     </thead>
     <tbody>
     <c:forEach var="listAds" items="${adsEntities}">
-        <tr class="${listAds.active ? 'show' : 'hide'}">
+        <tr class="${listAds.carsByIdCars.active && listAds.active ? 'show' : 'hide'}">
             <td>${listAds.label}</td>
             <td>${listAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
             <td>${listAds.carsByIdCars.modelsByIdModels.label}</td>
