@@ -7,14 +7,23 @@
     <form method="post" action="ajouter-annonce" enctype="multipart/form-data">
         <div class="form-group">
             <label>Titre de l'annonce</label>
-            <input type="text" class="form-control col-sm-4" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
+            <input type="text" class="form-control col-sm-4" id="labelAd" name="labelAd"
+                   placeholder="Titre de l'annonce"
                    required>
         </div>
         <div class="form-group">
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control col-sm-3" required>
                 <c:forEach var="enumTypesAds" items="${enumTypesAds}">
-                    <option value="${enumTypesAds}">${enumTypesAds}</option>
+
+                    <c:choose>
+                        <c:when test="${enumTypesAds eq 'LOCATIONCD'}">
+                            <option value="${enumTypesAds}">Location</option>
+                        </c:when>
+                        <c:when test="${enumTypesAds eq 'VENTE'}">
+                            <option value="${enumTypesAds}">Vente</option>
+                        </c:when>
+                    </c:choose>
                 </c:forEach>
             </select>
         </div>
@@ -61,11 +70,11 @@
             <select id="models" name="models" class="form-control col-sm-2">
                 <c:forEach var="brands" items="${brands}">
                     <optgroup label="${brands.label}">
-                <c:forEach var="models" items="${models}">
-                    <c:if test="${brands.id == models.brandsByIdBrands.id}">
-                        <option value="${models.id}">${models.label}</option>
-                    </c:if>
-                </c:forEach>
+                        <c:forEach var="models" items="${models}">
+                            <c:if test="${brands.id == models.brandsByIdBrands.id}">
+                                <option value="${models.id}">${models.label}</option>
+                            </c:if>
+                        </c:forEach>
                     </optgroup>
                 </c:forEach>
             </select>
