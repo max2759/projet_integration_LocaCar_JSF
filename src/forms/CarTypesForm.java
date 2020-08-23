@@ -3,6 +3,7 @@ package forms;
 import entities.CarTypesEntity;
 import exceptions.CarTypesException;
 import services.CarTypesService;
+import services.CarsService;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ public class CarTypesForm {
 
     private static final String CATEGORY_FIELD = "category";
     private static final String UPDATECATEGORY_FIELD = "updateCat";
-    private static final String IDUPDATECATEGORY_FIELD = "idCategory";
+    private static final String ID_UPDATECATEGORY_FIELD = "idCategoryToUpdate";
     private static final String DELETE_FIELD = "categoryDelete";
 
     EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
@@ -56,6 +57,11 @@ public class CarTypesForm {
 
     }
 
+    /**
+     * Ajout d'une catégorie dans la DB
+     * @param request
+     * @return carTypes
+     */
     public CarTypesEntity addCategory(HttpServletRequest request) {
 
         String category = getValeurChamp(request, CATEGORY_FIELD);
@@ -96,10 +102,10 @@ public class CarTypesForm {
      * @param request
      * @return
      */
-    public CarTypesEntity updateCategory(HttpServletRequest request) {
+    public void updateCategory(HttpServletRequest request) {
 
         String updateCat = getValeurChamp(request, UPDATECATEGORY_FIELD);
-        int idUpdateCat = Integer.parseInt(request.getParameter(IDUPDATECATEGORY_FIELD));
+        int idUpdateCat = Integer.parseInt(getValeurChamp(request, ID_UPDATECATEGORY_FIELD ));
 
         CarTypesEntity carTypesEntity;
         CarTypesService carTypesService = new CarTypesService();
@@ -118,8 +124,21 @@ public class CarTypesForm {
             em.close();
         }
 
-        return carTypes;
+    }
 
+    /**
+     * Afficher un objet carTypes par id
+     * @param id
+     * @return
+     */
+    public CarTypesEntity showCarTypesById(int id){
+        CarTypesService carTypesService = new CarTypesService();
+
+        CarTypesEntity carTypesEntity;
+
+        carTypesEntity = carTypesService.consult(em, id);
+
+        return carTypesEntity;
     }
 
     /**

@@ -1,7 +1,10 @@
 package servlet;
 
+import entities.BrandsEntity;
 import entities.CarTypesEntity;
 import entities.UsersEntity;
+import forms.BrandsForm;
+import services.BrandsService;
 import services.CarTypesService;
 
 import javax.servlet.ServletException;
@@ -13,13 +16,21 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/categories")
-public class CarTypes extends HttpServlet {
+@WebServlet("/constructeurs")
+public class ShowBrands extends HttpServlet {
 
-    public static final String VUE = "/WEB-INF/carTypes.jsp";
+    public static final String VUE = "/WEB-INF/showBrands.jsp";
     public static final String URL_REDIRECT = "connexion";
+    public static final String URL_REDIRECT_AFTER_UPDATE = "constructeurs";
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        BrandsForm brandsForm = new BrandsForm();
+
+        brandsForm.updateBrands(request);
+
+        response.sendRedirect(URL_REDIRECT_AFTER_UPDATE);
 
     }
 
@@ -36,15 +47,16 @@ public class CarTypes extends HttpServlet {
                 response.sendRedirect(URL_REDIRECT);
             }else {
 
-                // Appel de la classe service des catégories
-                CarTypesService carTypesService = new CarTypesService();
+                // Appel de la classe service de brands
+                BrandsService brandsService = new BrandsService();
 
-                // On mets les catégories dans une collection de type list
-                List<CarTypesEntity> carTypesEntities;
 
-                carTypesEntities = carTypesService.displayCategory();
+                // On mets les constructeurs dans une collection de type list
+                List<BrandsEntity> brandsEntities;
 
-                request.setAttribute("category", carTypesEntities);
+                brandsEntities = brandsService.displayBrands();
+
+                request.setAttribute("brands", brandsEntities);
 
 
                 this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
@@ -52,7 +64,5 @@ public class CarTypes extends HttpServlet {
         }else{
             response.sendRedirect(URL_REDIRECT);
         }
-
-
     }
 }

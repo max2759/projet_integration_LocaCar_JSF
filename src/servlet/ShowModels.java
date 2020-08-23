@@ -1,8 +1,11 @@
 package servlet;
 
-import entities.CarTypesEntity;
+import entities.BrandsEntity;
+import entities.ModelsEntity;
 import entities.UsersEntity;
-import services.CarTypesService;
+import forms.ModelsForm;
+import services.BrandsService;
+import services.ModelsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,19 +16,25 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/categories")
-public class CarTypes extends HttpServlet {
+@WebServlet("/modeles")
+public class ShowModels extends HttpServlet {
 
-    public static final String VUE = "/WEB-INF/carTypes.jsp";
+    public static final String VUE = "/WEB-INF/showModels.jsp";
     public static final String URL_REDIRECT = "connexion";
+    public static final String URL_REDIRECT_AFTER_UPDATE = "modeles";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        ModelsForm modelsForm = new ModelsForm();
+
+        modelsForm.updateModel(request);
+
+        response.sendRedirect(URL_REDIRECT_AFTER_UPDATE);
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        // récupération de la session
+// récupération de la session
         HttpSession session = request.getSession();
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
@@ -36,23 +45,20 @@ public class CarTypes extends HttpServlet {
                 response.sendRedirect(URL_REDIRECT);
             }else {
 
-                // Appel de la classe service des catégories
-                CarTypesService carTypesService = new CarTypesService();
+                // Appel de la classe service de Models
+                ModelsService modelsService = new ModelsService();
 
-                // On mets les catégories dans une collection de type list
-                List<CarTypesEntity> carTypesEntities;
+                // On mets les constructeurs dans une collection de type list
+                List<ModelsEntity> modelsEntities;
 
-                carTypesEntities = carTypesService.displayCategory();
+                modelsEntities = modelsService.displayModels();
 
-                request.setAttribute("category", carTypesEntities);
-
+                request.setAttribute("models", modelsEntities);
 
                 this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
             }
         }else{
             response.sendRedirect(URL_REDIRECT);
         }
-
-
     }
 }

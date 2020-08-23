@@ -3,6 +3,7 @@ package servlet;
 import forms.AdsForm;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,11 @@ import java.io.IOException;
 import java.text.ParseException;
 
 @WebServlet("/update")
+@MultipartConfig(
+        fileSizeThreshold=1024*1024*2, // 2MB
+        maxFileSize=1024*1024*10,      // 10MB
+        maxRequestSize=1024*1024*50   // 50MB
+)
 public class UpdateAds extends HttpServlet {
 
     public static final String VUE = "annonces";

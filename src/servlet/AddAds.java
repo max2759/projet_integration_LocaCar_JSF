@@ -7,6 +7,7 @@ import forms.AdsForm;
 import services.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 @WebServlet("/ajouter-annonce")
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 10,  // 10 KB
+        maxFileSize = 1024 * 300,       // 300 KB
+        maxRequestSize = 1024 * 1024    // 1 MB
+)
 public class AddAds extends HttpServlet {
 
     public static final String VUE = "/WEB-INF/addAds.jsp";
@@ -25,9 +33,10 @@ public class AddAds extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        //Appel du form qui traite les champs du formulaire
         AdsForm adsForm = new AdsForm();
 
+        //Ajout dans annonce les champs du formulaire
         try {
             adsForm.addAds(request);
         } catch (ParseException e) {

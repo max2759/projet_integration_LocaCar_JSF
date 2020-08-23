@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 
-@WebServlet("/modification-categorie")
+@WebServlet("/validate-edit")
 public class UpdateCarTypes extends HttpServlet {
     public static final String VUE = "categories";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         CarTypesForm carTypesForm = new CarTypesForm();
 
         carTypesForm.updateCategory(request);

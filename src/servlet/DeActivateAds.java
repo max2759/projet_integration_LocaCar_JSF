@@ -1,13 +1,10 @@
 package servlet;
 
-import entities.AdsEntity;
 import entities.UsersAdsEntity;
 import entities.UsersEntity;
-import services.AdsService;
+import forms.AdsForm;
 import services.UsersAdsService;
-import util.JPAutil;
 
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,23 +14,31 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-
-@WebServlet("/annonces")
-
-public class Ads extends HttpServlet {
-    public static final String VUE = "/WEB-INF/listAds.jsp";
+@WebServlet("/annonces-inactive")
+public class DeActivateAds extends HttpServlet {
+    public static final String VUE = "/WEB-INF/deActivateAd.jsp";
+    public static final String REDIRECT_URL = "annonces";
     public static final String URL_REDIRECT = "connexion";
     public List<UsersAdsEntity> usersAdsEntities;
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        AdsForm adsForm = new AdsForm();
+
+        adsForm.reActivateAds(request);
+
+        response.sendRedirect(REDIRECT_URL);
+
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //Récupération de la session
+        // récupération de la session
         HttpSession session = request.getSession();
 
         UsersEntity usersEntity = (UsersEntity) session.getAttribute("UserEntity");
 
-        // On regarde si l'utilisateur est bien connecté pour afficher
-        if (usersEntity != null){
+        if(usersEntity != null) {
             // Appel de la classe usersAdsService
             UsersAdsService usersAdsService = new UsersAdsService();
 
@@ -43,15 +48,9 @@ public class Ads extends HttpServlet {
             request.setAttribute("usersAdsEntities", usersAdsEntities);
 
             this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
-
         }else{
             response.sendRedirect(URL_REDIRECT);
         }
 
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 }

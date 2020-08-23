@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 public class ContractTypesService {
 
     /**
-     * Méthode de recherche de l'entité
+     * Retourne une catégorie en fonction de l'id passé
      * @param em
      * @param id
      * @return

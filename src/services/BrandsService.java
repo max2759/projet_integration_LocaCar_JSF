@@ -1,6 +1,7 @@
 package services;
 
 import entities.BrandsEntity;
+import entities.CarTypesEntity;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
@@ -32,5 +33,23 @@ public class BrandsService {
      */
     public BrandsEntity consultBrands(EntityManager em, int id) {
         return em.find(BrandsEntity.class, id);
+    }
+
+    /**
+     * Ajouter un constructeur dans la base de donnée
+     * @param em
+     * @param brandsEntity
+     */
+    public void addBrands(EntityManager em, BrandsEntity brandsEntity){
+        em.persist(brandsEntity);
+    }
+
+    /**
+     * Mise à jour de l'entité Brands
+     * @param em
+     * @param brandsEntity
+     */
+    public void updateBrands(EntityManager em, BrandsEntity brandsEntity){
+        em.merge(brandsEntity);
     }
 }

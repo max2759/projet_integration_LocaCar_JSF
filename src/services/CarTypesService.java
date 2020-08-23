@@ -42,16 +42,6 @@ public class CarTypesService {
     }
 
     /**
-     * Recherche la catégorie en fonction de l'id passé
-     * @param em
-     * @param id
-     * @return
-     */
-    public CarTypesEntity findCarTypesById(EntityManager em, int id) {
-        return em.createNamedQuery("car_types.findCarTypesById", CarTypesEntity.class).setParameter("id", id).getSingleResult();
-    }
-
-    /**
      * Modification de la table catégorie en fonction de l'id passé
      *
      * @param carTypesEntity

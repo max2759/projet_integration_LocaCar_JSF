@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 @WebServlet("/accueil")
@@ -23,8 +24,10 @@ public class AllAds extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // Appel à la classe service ads
         AdsService adsService = new AdsService();
 
+        // On stocke dans une liste les annonces
         adsEntities = adsService.listerTous();
 
         request.setAttribute("adsEntities", adsEntities);

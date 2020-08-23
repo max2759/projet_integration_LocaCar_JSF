@@ -5,13 +5,19 @@ import entities.*;
 import enumeration.EnumFuel;
 import enumeration.EnumTypesAds;
 import exceptions.AdsException;
+import jdk.internal.util.xml.impl.Input;
 import services.*;
 import util.JPAutil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
+import javax.servlet.http.Part;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -20,7 +26,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 
 
 public class AdsForm {
@@ -40,6 +45,10 @@ public class AdsForm {
     private static final String FIELD_IDUSERS_ADS = "idUser";
     public static final String FIELD_IDADS = "idAdToUpdate";
     public static final String FIELD_IDCARS_ADS = "idCarToUpdate";
+    public static final String FIELD_IDADS_TO_ACTIVATE = "idAdsToActivate";
+    public static final String FIELD_IDCARS_TO_ACTIVATE = "idCarsToActivate";
+
+    private static final String SAVE_DIR = "web\\resources\\img";
 
     EntityManager em = JPAutil.createEntityManager("projet_bac_info2");
 
@@ -59,13 +68,14 @@ public class AdsForm {
 
     /**
      * Crée une annonce via le formulaire
+     *
      * @param request
      * @throws ParseException
      */
-    public void addAds(HttpServletRequest request) throws ParseException {
+    public void addAds(HttpServletRequest request) throws ParseException, IOException, ServletException {
 
         // Les champs du form
-        String color = getValeurChamp(request,FIELD_COLOR_CAR );
+        String color = getValeurChamp(request, FIELD_COLOR_CAR);
         String releaseYears = getValeurChamp(request, FIELD_RELEASEYEAR_CAR);
         SimpleDateFormat rYear = new SimpleDateFormat("yyyy-MM-dd");
         Date releaseYear = rYear.parse(releaseYears);
@@ -74,7 +84,6 @@ public class AdsForm {
         String fuel = getValeurChamp(request, FIELD_FUEL_CAR);
         EnumFuel enumfuel = EnumFuel.valueOf(fuel);
         int models = Integer.parseInt(getValeurChamp(request, FIELD_MODELS_CAR));
-        int brands = Integer.parseInt(getValeurChamp(request, FIELD_BRANDS_CAR));
         int carTypes = Integer.parseInt(getValeurChamp(request, FIELD_CARTYPES_CAR));
         String labelAd = getValeurChamp(request, FIELD_LABEL_ADS);
         Double priceAd = Double.parseDouble(getValeurChamp(request, FIELD_PRICE_ADS));
@@ -87,6 +96,8 @@ public class AdsForm {
         LocalDateTime dateEnd = ldt.plusMonths(1);
         Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
         int idUser = Integer.parseInt(getValeurChamp(request, FIELD_IDUSERS_ADS));
+        Part filePart = request.getPart("fileToUpload");
+
 
         // Les entités
 
@@ -94,7 +105,6 @@ public class AdsForm {
         CarsEntity carsEntity = new CarsEntity();
         CarTypesEntity carTypesEntity;
         ModelsEntity modelsEntity;
-        BrandsEntity brandsEntity;
         UsersAdsEntity usersAdsEntity = new UsersAdsEntity();
         UsersEntity usersEntity;
 
@@ -104,7 +114,6 @@ public class AdsForm {
         CarsService carsService = new CarsService();
         CarTypesService carTypesService = new CarTypesService();
         ModelsService modelsService = new ModelsService();
-        BrandsService brandsService = new BrandsService();
         UsersAdsService usersAdsService = new UsersAdsService();
         UsersService usersService = new UsersService();
 
@@ -112,14 +121,13 @@ public class AdsForm {
 
         EntityTransaction tx = null;
 
-        try{
-            tx= em.getTransaction();
+        try {
+            tx = em.getTransaction();
             tx.begin();
 
             //Ajout dans table cars
             carTypesEntity = carTypesService.consult(em, carTypes);
             modelsEntity = modelsService.consultModel(em, models);
-            brandsEntity = brandsService.consultBrands(em, brands);
 
             carsEntity.setActive(true);
             carsEntity.setColor(color);
@@ -129,7 +137,15 @@ public class AdsForm {
             carsEntity.setEnumFuel(enumfuel);
             carsEntity.setCarTypesByIdCarTypes(carTypesEntity);
             carsEntity.setModelsByIdModels(modelsEntity);
-            modelsEntity.setBrandsByIdBrands(brandsEntity);
+
+            // Ajout d'image
+            InputStream fileInputStream = filePart.getInputStream();
+
+            File fileToSave = new File("web/resources/img/" + filePart.getSubmittedFileName());
+
+            String fileName = filePart.getName();
+            /*Files.copy(fileInputStream, fileToSave.toPath(), StandardCopyOption.REPLACE_EXISTING);*/
+
             carsService.addCars(em, carsEntity);
 
             idCar = carsEntity.getId();
@@ -156,7 +172,7 @@ public class AdsForm {
 
 
             tx.commit();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             if (tx != null && tx.isActive()) tx.rollback();
         }
 
@@ -165,10 +181,11 @@ public class AdsForm {
 
     /**
      * Methode pour rechercher une annonce à partir de l'id
+     *
      * @param idAds
      * @return
      */
-    public AdsEntity checkAds(int idAds){
+    public AdsEntity checkAds(int idAds) {
         AdsEntity ads = null;
 
         // On vérifie que c'est bien un nbr
@@ -269,11 +286,58 @@ public class AdsForm {
         return ads;
     }
 
+    public void reActivateAds(HttpServletRequest request){
+
+        //Champs
+        int idAdsToActivate = Integer.parseInt(getValeurChamp(request, FIELD_IDADS_TO_ACTIVATE));
+        int idCarsToActivate = Integer.parseInt(getValeurChamp(request, FIELD_IDCARS_TO_ACTIVATE));
+        Date todayDate = new Date();
+        LocalDateTime ldt = LocalDateTime.ofInstant(todayDate.toInstant(), ZoneId.systemDefault());
+        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        LocalDateTime dateEnd = ldt.plusMonths(1);
+        Date endOut = Date.from(dateEnd.atZone(ZoneId.systemDefault()).toInstant());
+
+        //Entité
+        AdsEntity adsEntity;
+        CarsEntity carsEntity;
+
+        //Services
+        AdsService adsService = new AdsService();
+        CarsService carsService = new CarsService();
+
+        // Transaction
+        EntityTransaction tx = null;
+
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+            // On récupère l'annonce par l'ID et la voiture lié à l'annonce
+            adsEntity = adsService.consulter(em, idAdsToActivate);
+            carsEntity = adsEntity.getCarsByIdCars();
+
+            //On passe les champs IsActive à 1
+            adsEntity.setActive(true);
+            carsEntity.setActive(true);
+            // On remet la date d'aujourd'hui et ajoute 1 mois à l'annonce
+            adsEntity.setDateStart(out);
+            adsEntity.setDateEnd(endOut);
+
+            adsService.updateAds(em, adsEntity);
+            carsService.updateCar(em, carsEntity);
+            tx.commit();
+
+        } catch (Exception ex) {
+            if (tx != null && tx.isActive()) tx.rollback();
+        }
+
+    }
+
     /**
      * Faits un soft delete, passe l'id de l'ads et de car à 0
+     *
      * @param request
      */
-    public void removeAds(HttpServletRequest request){
+    public void removeAds(HttpServletRequest request) {
 
         //Champs
         int idDelCar = Integer.parseInt(getValeurChamp(request, FIELD_DELETE_ADS));
@@ -289,8 +353,8 @@ public class AdsForm {
         // Transaction
         EntityTransaction tx = null;
 
-        try{
-            tx= em.getTransaction();
+        try {
+            tx = em.getTransaction();
             tx.begin();
             // On récupère l'annonce par l'ID et la voiture lié à l'annonce
             adsEntity = adsService.consulter(em, idDelCar);
@@ -304,17 +368,18 @@ public class AdsForm {
             carsService.updateCar(em, carsEntity);
             tx.commit();
 
-        }catch(Exception ex){
+        } catch (Exception ex) {
             if (tx != null && tx.isActive()) tx.rollback();
         }
     }
 
     /**
      * Afficher une annonce en fonction de l'id passé
+     *
      * @param id
      * @return
      */
-    public AdsEntity showAd(int id){
+    public AdsEntity showAd(int id) {
 
         AdsService adsService = new AdsService();
         AdsEntity adsEntity;
@@ -327,13 +392,14 @@ public class AdsForm {
 
     /**
      * Permet de mettre à jour l'annonce et la voiture en fonction de l'ID
+     *
      * @param request
      * @throws ParseException
      */
-    public void updateAds(HttpServletRequest request) throws ParseException {
+    public void updateAds(HttpServletRequest request) throws ParseException, IOException, ServletException {
 
         // Les champs du form
-        String color = getValeurChamp(request,FIELD_COLOR_CAR );
+        String color = getValeurChamp(request, FIELD_COLOR_CAR);
         String releaseYears = getValeurChamp(request, FIELD_RELEASEYEAR_CAR);
         SimpleDateFormat rYear = new SimpleDateFormat("yyyy-MM-dd");
         Date releaseYear = rYear.parse(releaseYears);
@@ -342,7 +408,6 @@ public class AdsForm {
         String fuel = getValeurChamp(request, FIELD_FUEL_CAR);
         EnumFuel enumfuel = EnumFuel.valueOf(fuel);
         int models = Integer.parseInt(getValeurChamp(request, FIELD_MODELS_CAR));
-        int brands = Integer.parseInt(getValeurChamp(request, FIELD_BRANDS_CAR));
         int carTypes = Integer.parseInt(getValeurChamp(request, FIELD_CARTYPES_CAR));
         String labelAd = getValeurChamp(request, FIELD_LABEL_ADS);
         Double priceAd = Double.parseDouble(getValeurChamp(request, FIELD_PRICE_ADS));
@@ -350,6 +415,7 @@ public class AdsForm {
         EnumTypesAds enumTypesAds = EnumTypesAds.valueOf(typeAds);
         int idAd = Integer.parseInt(getValeurChamp(request, FIELD_IDADS));
         int idCar = Integer.parseInt(getValeurChamp(request, FIELD_IDCARS_ADS));
+        Part filePart = request.getPart("fileToUpload");
 
 
         // Les entités
@@ -357,29 +423,26 @@ public class AdsForm {
         CarsEntity carsEntity = new CarsEntity();
         CarTypesEntity carTypesEntity = new CarTypesEntity();
         ModelsEntity modelsEntity = new ModelsEntity();
-        BrandsEntity brandsEntity = new BrandsEntity();
 
         // Les services
         AdsService adsService = new AdsService();
         CarsService carsService = new CarsService();
         CarTypesService carTypesService = new CarTypesService();
         ModelsService modelsService = new ModelsService();
-        BrandsService brandsService = new BrandsService();
 
         // Transaction
 
         EntityTransaction tx = null;
 
-        try{
+        try {
 
-            tx= em.getTransaction();
+            tx = em.getTransaction();
             tx.begin();
 
             //Modification dans table cars
             carsEntity = carsService.consulter(em, idCar);
             carTypesEntity = carTypesService.consult(em, carTypes);
             modelsEntity = modelsService.consultModel(em, models);
-            brandsEntity = brandsService.consultBrands(em, brands);
 
             carsEntity.setColor(color);
             carsEntity.setHorsePower(horsePower);
@@ -388,7 +451,48 @@ public class AdsForm {
             carsEntity.setEnumFuel(enumfuel);
             carsEntity.setCarTypesByIdCarTypes(carTypesEntity);
             carsEntity.setModelsByIdModels(modelsEntity);
-            modelsEntity.setBrandsByIdBrands(brandsEntity);
+
+            /*File upload = new File("/web/resources/img");*/
+
+            // récupère le nom du fichier envoyer
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+
+            String path = request.getServletContext().getRealPath("/" + "resources/img" + File.separator + fileName);
+
+            /*String path = "C:\\Users\\maxim\\IdeaProjects\\Importation_DB3\\web\\resources\\img";*/
+
+
+            InputStream is = filePart.getInputStream();
+
+            try{
+                byte[] bytes = new byte[is.available()];
+                is.read();
+                FileOutputStream fOps = new FileOutputStream(path);
+                fOps.write(bytes);
+                fOps.flush();
+                fOps.close();
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
+            /*File file = new File(upload, fileName);
+
+            try (InputStream input = filePart.getInputStream()){
+                Files.copy(input, file.toPath());
+            }*/
+
+            /*String appPath = request.getServletContext().getRealPath("");
+            String savePath = appPath + File.separator + SAVE_DIR;
+            filePart.write(appPath + File.separator + filePart);
+
+
+            // refines the fileName in case it is an absolute path
+            fileName = new File(fileName).getName();
+            filePart.write(savePath + File.separator + fileName);*/
+
+
+            carsEntity.setPicture(fileName);
 
             carsService.updateCar(em, carsEntity);
 
@@ -405,7 +509,7 @@ public class AdsForm {
             adsService.updateAds(em, adsEntity);
 
             tx.commit();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             if (tx != null && tx.isActive()) tx.rollback();
         }
 
