@@ -15,7 +15,7 @@ import java.text.ParseException;
 @MultipartConfig(
         fileSizeThreshold=1024*1024*2, // 2MB
         maxFileSize=1024*1024*10,      // 10MB
-        maxRequestSize=1024*1024*50   // 50MB
+        maxRequestSize=1024*1024*50  // 50MB
 )
 public class UpdateAds extends HttpServlet {
 
@@ -24,6 +24,7 @@ public class UpdateAds extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         AdsForm adsForm = new AdsForm();
+
 
         try {
             adsForm.updateAds(request);
