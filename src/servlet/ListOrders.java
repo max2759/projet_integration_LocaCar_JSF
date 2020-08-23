@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/listOrders")
 public class ListOrders extends HttpServlet {
     public static final String VUE = "/WEB-INF/listOrders.jsp";
-    public static final String FIELD_ID_SEARCH = "idSearch";
+    //    public static final String FIELD_ID_SEARCH = "idSearch";
     public static final String URL_REDIRECT = "connexion";
 
 

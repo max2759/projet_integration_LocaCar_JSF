@@ -77,6 +77,7 @@ public class BasketCrudForm {
 
     /**
      * Méthode pour avoir la list des contracts
+     *
      * @param idUser
      * @return
      */
@@ -84,8 +85,7 @@ public class BasketCrudForm {
         if (this.basketForm == null) {
             basketForm = new BasketForm();
         }
-        List<ContractsEntity> contractsEntities = basketForm.listContracts(idUser);
-        return contractsEntities;
+        return basketForm.listContracts(idUser);
     }
 
 }

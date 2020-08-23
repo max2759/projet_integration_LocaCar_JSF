@@ -197,8 +197,6 @@ public class OrdersForm {
             try {
                 tx = em.getTransaction();
                 tx.begin();
-                ordersEntity.getId();
-
 
                 changeStatutCarAfterValidationOrder(ordersEntity.getId());
 
@@ -372,13 +370,5 @@ public class OrdersForm {
 
     }
 
-    private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
-        String valeur = request.getParameter(nomChamp);
-        if (valeur == null || valeur.trim().length() == 0) {
-            return null;
-        } else {
-            return valeur.trim();
-        }
-    }
 }
 

@@ -17,9 +17,8 @@ public class ValidateOrder extends HttpServlet {
     public static final String FIELD_ID_USER = "idUser";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        this.getServletContext().getRequestDispatcher(URL_REDIRECTION).forward(request, response);
-
+        response.sendRedirect(URL_REDIRECTION);
+       
     }
 
 

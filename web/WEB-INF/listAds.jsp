@@ -26,35 +26,39 @@
 
     <c:forEach var="listAds" items="${usersAdsEntities}">
         <c:choose>
-        <c:when test="${sessionScope.UserEntity.id == listAds.usersByIdUsers.id}">
-            <tr class="${listAds.adsByIdAds.active ? 'show' : 'hide'}">
-                <td>${listAds.adsByIdAds.label}</td>
-                <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
-                <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.label}</td>
-                <td>${listAds.adsByIdAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
-                <td>${listAds.adsByIdAds.carsByIdCars.color}</td>
-                <td><fmt:formatNumber value="${listAds.adsByIdAds.price}" type="currency"/></td>
-                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.carsByIdCars.releaseYear}"/></td>
-                <td>${listAds.adsByIdAds.carsByIdCars.kilometer} Km</td>
-                <td><fmt:formatNumber type="number" value="${listAds.adsByIdAds.carsByIdCars.horsePower}" maxFractionDigits="3"/> CV</td>
-                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateStart}"/></td>
-                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateEnd}"/></td>
-                <td> ${listAds.adsByIdAds.typesAds} </td>
-                <td>
-                    <form action="modifier-annonce" method="post">
-                        <input type="hidden" id="idAds" name="idAds" value="${listAds.adsByIdAds.id}">
-                        <input type="hidden" id="idCars" name="idCars" value="${listAds.adsByIdAds.carsByIdCars.id}">
-                        <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
-                    </form>
-                </td>
-                <td>
-                    <form action="supprimer-annonce" method="post">
-                        <input type="hidden" id="adsDelete" name="adsDelete" value="${listAds.adsByIdAds.id}">
-                        <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
-                    </form>
-                </td>
-            </tr>
-        </c:when>
+            <c:when test="${sessionScope.UserEntity.id == listAds.usersByIdUsers.id}">
+                <tr class="${listAds.adsByIdAds.active ? 'show' : 'hide'}">
+                    <td>${listAds.adsByIdAds.label}</td>
+                    <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.brandsByIdBrands.label}</td>
+                    <td>${listAds.adsByIdAds.carsByIdCars.modelsByIdModels.label}</td>
+                    <td>${listAds.adsByIdAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
+                    <td>${listAds.adsByIdAds.carsByIdCars.color}</td>
+                    <td><fmt:formatNumber value="${listAds.adsByIdAds.price}" type="currency"/></td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy"
+                                        value="${listAds.adsByIdAds.carsByIdCars.releaseYear}"/></td>
+                    <td>${listAds.adsByIdAds.carsByIdCars.kilometer} Km</td>
+                    <td><fmt:formatNumber type="number" value="${listAds.adsByIdAds.carsByIdCars.horsePower}"
+                                          maxFractionDigits="3"/> CV
+                    </td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateStart}"/></td>
+                    <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateEnd}"/></td>
+                    <td> ${listAds.adsByIdAds.typesAds} </td>
+                    <td>
+                        <form action="modifier-annonce" method="post">
+                            <input type="hidden" id="idAds" name="idAds" value="${listAds.adsByIdAds.id}">
+                            <input type="hidden" id="idCars" name="idCars"
+                                   value="${listAds.adsByIdAds.carsByIdCars.id}">
+                            <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="supprimer-annonce" method="post">
+                            <input type="hidden" id="adsDelete" name="adsDelete" value="${listAds.adsByIdAds.id}">
+                            <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            </c:when>
         </c:choose>
     </c:forEach>
     </tbody>

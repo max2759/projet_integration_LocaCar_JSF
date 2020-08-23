@@ -20,10 +20,11 @@ import java.util.List;
 public class BasketForm {
 
     private static final String FIELD_ID_USERS = "idUsers";
-    private static final String FIELD_LOCATION_DAYS= "locationDays";
+    private static final String FIELD_LOCATION_DAYS = "locationDays";
 
     /**
      * Méthode pour lister les contracts par id User
+     *
      * @param idUser
      * @return
      */
@@ -53,8 +54,9 @@ public class BasketForm {
 
     /**
      * Recherche de contract sur base de order et de car
+     *
      * @param ordersEntity OrdersEntity
-     * @param carsEntity carsEntity
+     * @param carsEntity   carsEntity
      * @return void
      */
     public ContractsEntity searchContract(OrdersEntity ordersEntity, CarsEntity carsEntity) {
