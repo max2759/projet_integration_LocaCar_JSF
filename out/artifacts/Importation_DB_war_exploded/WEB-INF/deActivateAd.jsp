@@ -19,7 +19,6 @@
         <th>Type d'annonce</th>
         <th>Réactiver l'annonce</th>
         <th>Modifier l'annonce</th>
-        <th>Supprimer</th>
     </tr>
     </thead>
 
@@ -62,12 +61,6 @@
                             <input type="hidden" id="idAds" name="idAds" value="${listAds.adsByIdAds.id}">
                             <input type="hidden" id="idCars" name="idCars" value="${listAds.adsByIdAds.carsByIdCars.id}">
                             <button type="submit" class="btn btn-outline-info"><i class="far fa-edit"></i></button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="supprimer-annonce" method="post">
-                            <input type="hidden" id="adsDelete" name="adsDelete" value="${listAds.adsByIdAds.id}">
-                            <button type="submit" class="btn btn-outline-danger"><i class="fa fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

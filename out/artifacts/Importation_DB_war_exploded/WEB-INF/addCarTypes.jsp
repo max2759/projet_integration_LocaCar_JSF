@@ -9,7 +9,7 @@
             <label>Catégorie</label>
             <input type="text" class="form-control" id="category" name="category" placeholder="Ajouter une catégorie" required>
         </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-warning">Ajouter</button>
         <div class="msg_info_field">
             <c:set var="testErr" value="${carTypesForm.erreurs['category']}"/>
             <c:if test="${testErr!=null}">

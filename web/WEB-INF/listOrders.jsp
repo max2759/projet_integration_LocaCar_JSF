@@ -11,7 +11,7 @@
         <label>Entrez un numéro de commande, un numéro ou un nom de client : &nbsp;</label>
         <input class="form-control" name="idSearch" id="idSearch" type="text" value="">
     </div>
-    <input class="btn btn-primary mb-2" name="send" id="search" type="submit" value="Rechercher"/>
+    <input class="btn btn-warning mb-2" name="send" id="search" type="submit" value="Rechercher"/>
 </form>
 </p>
 <table class='table table-hover'>

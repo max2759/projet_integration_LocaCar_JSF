@@ -34,6 +34,7 @@ public class CarTypesForm {
         return erreurs;
     }
 
+/*
     public void deleteCategory(HttpServletRequest request){
 
         int idDeleteCat = Integer.parseInt(getValeurChamp(request, DELETE_FIELD));
@@ -56,6 +57,7 @@ public class CarTypesForm {
 
 
     }
+*/
 
     /**
      * Ajout d'une catégorie dans la DB
