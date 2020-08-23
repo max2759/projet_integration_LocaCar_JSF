@@ -16,7 +16,8 @@
     <form method="post" action="update" enctype="multipart/form-data">
         <div class="form-group">
             <label>Titre de l'annonce</label>
-            <input type="text" class="form-control col-sm-4" id="labelAd" name="labelAd" placeholder="Titre de l'annonce"
+            <input type="text" class="form-control col-sm-4" id="labelAd" name="labelAd"
+                   placeholder="Titre de l'annonce"
                    value="${ads.label}"
                    required>
 
@@ -25,7 +26,19 @@
             <label>Type d'annonce</label>
             <select id="adType" name="adType" class="form-control col-sm-3" required>
                 <c:forEach var="enumTypesAds" items="${enumTypesAds}">
-                    <option value="${enumTypesAds}" ${enumTypesAds == ads.typesAds ? 'selected="selected"' : ''}>${enumTypesAds}</option>
+                    <c:choose>
+                        <c:when test="${enumTypesAds eq 'LOCATIONCD'}">
+                            <option value="${enumTypesAds}" ${enumTypesAds == ads.typesAds ? 'selected="selected"' : ''}>
+                                Location
+                            </option>
+                        </c:when>
+                        <c:when test="${enumTypesAds eq 'VENTE'}">
+                            <option value="${enumTypesAds}" ${enumTypesAds == ads.typesAds ? 'selected="selected"' : ''}>
+                                Vente
+                            </option>
+                        </c:when>
+                    </c:choose>
+
                 </c:forEach>
             </select>
         </div>
@@ -51,14 +64,16 @@
         </div>
         <div class="form-group">
             <label>Kilométrage</label>
-            <input type="number" class="form-control col-sm-4" value="${ads.carsByIdCars.kilometer}" step="any" id="kilometer"
+            <input type="number" class="form-control col-sm-4" value="${ads.carsByIdCars.kilometer}" step="any"
+                   id="kilometer"
                    name="kilometer"
                    placeholder="230000km"
                    required>
         </div>
         <div class="form-group">
             <label>Chevaux</label>
-            <input type="number" class="form-control col-sm-4" value="${ads.carsByIdCars.horsePower}" min="10" step="any"
+            <input type="number" class="form-control col-sm-4" value="${ads.carsByIdCars.horsePower}" min="10"
+                   step="any"
                    id="horsePower" name="horsePower"
                    placeholder="150 CV"
                    required>
@@ -103,11 +118,11 @@
             <label>Photo</label>
             <input type="file" name="fileToUpload" id="fileToUpload" class="form-control">
         </div>-->
-        
+
         <input type="hidden" name="idAdToUpdate" id="idAdToUpdate" value="${ads.id}">
         <input type="hidden" name="idCarToUpdate" id="idCarToUpdate" value="${ads.carsByIdCars.id}">
 
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-warning">Ajouter</button>
 
     </form>
 

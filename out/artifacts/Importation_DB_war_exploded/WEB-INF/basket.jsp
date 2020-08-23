@@ -52,7 +52,7 @@
                                value="${entry.carsByIdCars.id}"/>
                         <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
                         <input name="send" id="boutonSubmit" type="submit" value="supprimer du panier"
-                               class="btn btn-info"/>
+                               class="btn btn-danger"/>
                     </form>
                 </td>
             </tr>
@@ -68,7 +68,7 @@
         <div class="form-group">
             <input name="idUser" id="${sessionScope.User}" type="hidden" value="${sessionScope.User}"/>
             <input name="send" id="boutonSubmit2" type="submit" value="Valider"
-                   class="btn btn-primary btn-lg"/>
+                   class="btn btn-warning btn-lg"/>
         </div>
     </form>
 </c:if>

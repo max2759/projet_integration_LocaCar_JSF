@@ -36,9 +36,14 @@
             <td>${ads.carsByIdCars.kilometer} KM</td>
             <td><fmt:formatNumber type="number" value="${ads.carsByIdCars.horsePower}" maxFractionDigits="3"/> CV</td>
             <td>${ads.carsByIdCars.enumFuel}</td>
-            <td>${ads.typesAds}
-                <c:if test="${ads.typesAds == 'LOCATIONCD'}"><br \>Du 25/08/2020 au 30/08/2020</c:if>
-            </td>
+            <c:choose>
+                <c:when test="${ads.typesAds eq 'VENTE'}">
+                    <td>Vente</td>
+                </c:when>
+                <c:when test="${ads.typesAds eq 'LOCATIONCD'}">
+                    <td>Location <p>Du 25/08/2020 au 30/08/2020</p></td>
+                </c:when>
+            </c:choose>
         </tr>
         </tbody>
     </table>

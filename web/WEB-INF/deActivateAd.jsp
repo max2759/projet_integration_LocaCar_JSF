@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp"/>
-<h2>Annonce</h2>
+<h2>Mes annonces expirées</h2>
 <table class='table table-hover table-responsive'>
     <thead>
     <tr>
@@ -42,7 +42,14 @@
                     <td><fmt:formatNumber type="number" value="${listAds.adsByIdAds.carsByIdCars.horsePower}" maxFractionDigits="3"/> CV</td>
                     <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateStart}"/></td>
                     <td><fmt:formatDate pattern="dd-MM-yyyy" value="${listAds.adsByIdAds.dateEnd}"/></td>
-                    <td> ${listAds.adsByIdAds.typesAds} </td>
+                    <c:choose>
+                        <c:when test="${listAds.adsByIdAds.typesAds eq 'VENTE'}">
+                            <td>Vente</td>
+                        </c:when>
+                        <c:when test="${listAds.adsByIdAds.typesAds eq 'LOCATIONCD'}">
+                            <td>Location</td>
+                        </c:when>
+                    </c:choose>
                     <td>
                         <form action="" method="post">
                             <input type="hidden" id="idAdsToActivate" name="idAdsToActivate" value="${listAds.adsByIdAds.id}">

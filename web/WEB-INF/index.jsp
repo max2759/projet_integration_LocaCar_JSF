@@ -25,7 +25,14 @@
             <td>${listAds.carsByIdCars.carTypesByIdCarTypes.label}</td>
             <td> ${listAds.carsByIdCars.color}</td>
             <td><fmt:formatNumber value="${listAds.price}" type="currency"/></td>
-            <td> ${listAds.typesAds}</td>
+            <c:choose>
+                <c:when test="${listAds.typesAds eq 'VENTE'}">
+                    <td>Vente</td>
+                </c:when>
+                <c:when test="${listAds.typesAds eq 'LOCATIONCD'}">
+                    <td>Location</td>
+                </c:when>
+            </c:choose>
             <td>
                 <form action="details" method="post">
                     <input type="hidden" id="idAdsToShow" name="idAdsToShow" value="${listAds.id}">

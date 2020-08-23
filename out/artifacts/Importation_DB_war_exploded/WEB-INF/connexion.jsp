@@ -30,7 +30,7 @@
         </div>
     </fieldset>
 
-    <button type="submit" class="btn btn-primary">Se connecter</button>
+    <button type="submit" class="btn btn-warning">Se connecter</button>
 
 </form>
 <jsp:include page="footer.jsp"/>
